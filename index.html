@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -114,7 +115,7 @@ body{
 
 label{
     display:block;
-    margin-bottom:7px;
+    margin-bottom:8px;
     color:#ccc;
     font-size:14px;
 }
@@ -136,6 +137,39 @@ input:focus{
     border-color:#d4af37;
 }
 
+/* TIMES */
+
+.times{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.time{
+    background:#202020;
+    border:1px solid #333;
+    color:#fff;
+    padding:13px 5px;
+    border-radius:10px;
+    text-align:center;
+    cursor:pointer;
+    transition:.2s;
+    user-select:none;
+}
+
+.time:hover{
+    border-color:#d4af37;
+}
+
+.time.selected{
+    background:#d4af37;
+    color:#000;
+    border-color:#d4af37;
+    font-weight:700;
+    box-shadow:0 0 15px rgba(212,175,55,.3);
+}
+
 /* BUTTON */
 
 .submit{
@@ -149,6 +183,7 @@ input:focus{
     font-size:16px;
     font-weight:800;
     cursor:pointer;
+    transition:.2s;
 }
 
 .submit:hover{
@@ -169,12 +204,15 @@ input:focus{
 
 .success h2{
     color:#d4af37;
+    margin-top:0;
 }
 
 .success p{
     color:#ccc;
     line-height:2;
 }
+
+/* FOOTER */
 
 .footer{
     text-align:center;
@@ -186,26 +224,29 @@ input:focus{
 </style>
 </head>
 
+
 <body>
 
 <div class="container">
 
     <!-- HEADER -->
+
     <div class="header">
 
-        <!-- اگر لوگو داری اسم فایل لوگو را اینجا بگذار -->
-        <img class="logo"
-        src="logo.png"
-        alt="ESI BARBER">
+        <img
+            class="logo"
+            src="logo.png"
+            alt="ESI BARBER">
 
         <h1>ESI BARBER</h1>
 
-        <p>رزرو نوبت آرایشگاه</p>
+        <p>رزرو نوبت آنلاین</p>
 
     </div>
 
 
     <!-- SERVICE -->
+
     <div class="card">
 
         <div class="title">
@@ -214,14 +255,33 @@ input:focus{
 
         <div class="services">
 
-            <div class="service" onclick="selectService(this,'اصلاح')">
-                <span class="service-name">اصلاح</span>
-                <span class="service-price">—</span>
+            <div
+                class="service"
+                onclick="selectService(this,'اصلاح')">
+
+                <span class="service-name">
+                    ✂️ اصلاح
+                </span>
+
+                <span class="service-price">
+                    —
+                </span>
+
             </div>
 
-            <div class="service" onclick="selectService(this,'اصلاح VIP')">
-                <span class="service-name">اصلاح VIP</span>
-                <span class="service-price">—</span>
+
+            <div
+                class="service"
+                onclick="selectService(this,'اصلاح VIP')">
+
+                <span class="service-name">
+                    👑 اصلاح VIP
+                </span>
+
+                <span class="service-price">
+                    —
+                </span>
+
             </div>
 
         </div>
@@ -229,57 +289,93 @@ input:focus{
     </div>
 
 
-    <!-- INFORMATION -->
+    <!-- DATE & TIME -->
+
+    <div class="card">
+
+        <div class="title">
+            📅 انتخاب تاریخ و ساعت
+        </div>
+
+
+        <label>
+            تاریخ نوبت
+        </label>
+
+        <input
+            type="date"
+            id="date">
+
+
+        <label>
+            ساعت نوبت
+        </label>
+
+        <div
+            class="times"
+            id="times">
+        </div>
+
+        <!-- ساعت انتخاب شده -->
+
+        <input
+            type="hidden"
+            id="time">
+
+    </div>
+
+
+    <!-- CUSTOMER -->
+
     <div class="card">
 
         <div class="title">
             👤 اطلاعات شما
         </div>
 
-        <label>نام و نام خانوادگی</label>
+
+        <label>
+            نام و نام خانوادگی
+        </label>
 
         <input
-        type="text"
-        id="name"
-        placeholder="مثلاً علی رضایی">
+            type="text"
+            id="name"
+            placeholder="مثلاً علی رضایی">
 
 
-        <label>شماره تماس</label>
-
-        <input
-        type="tel"
-        id="phone"
-        placeholder="09xxxxxxxxx">
-
-
-        <label>تاریخ نوبت</label>
+        <label>
+            شماره تماس
+        </label>
 
         <input
-        type="date"
-        id="date">
-
-
-        <label>ساعت نوبت</label>
-
-        <input
-        type="time"
-        id="time">
+            type="tel"
+            id="phone"
+            placeholder="09xxxxxxxxx">
 
     </div>
 
 
     <!-- SUBMIT -->
 
-    <button class="submit" onclick="bookAppointment()">
+    <button
+        class="submit"
+        onclick="bookAppointment()">
+
         ثبت نوبت
+
     </button>
 
 
     <!-- SUCCESS -->
 
-    <div class="success" id="success">
+    <div
+        class="success"
+        id="success">
 
-        <h2>✅ نوبت شما ثبت شد</h2>
+        <h2>
+            ✅ نوبت شما ثبت شد
+        </h2>
 
         <p id="result"></p>
 
@@ -295,50 +391,69 @@ input:focus{
 
 <script>
 
+/* =========================
+   SERVICE
+========================= */
+
 let selectedService = "";
 
-
-/* انتخاب خدمات */
 
 function selectService(element, service){
 
     document
     .querySelectorAll(".service")
-    .forEach(item=>{
+    .forEach(function(item){
+
         item.classList.remove("selected");
+
     });
+
 
     element.classList.add("selected");
 
     selectedService = service;
+
 }
 
 
-/* ثبت نوبت */
+/* =========================
+   CREATE TIME SLOTS
+========================= */
 
-function bookAppointment(){
-
-    const name =
-    document.getElementById("name").value.trim();
-
-    const phone =
-    document.getElementById("phone").value.trim();
-
-    const date =
-    document.getElementById("date").value;
-
-    const time =
-    document.getElementById("time").value;
+const timesContainer =
+    document.getElementById("times");
 
 
-    if(!selectedService){
+for(let hour = 9; hour <= 21; hour++){
 
-        alert("لطفاً یک خدمت انتخاب کنید");
+    for(let minute of [0,30]){
 
-        return;
-    }
+        /*
+        ساعت 21:30 ساخته نمی‌شود
+        چون پایان کار ساعت 21 است
+        */
+
+        if(hour === 21 && minute === 30){
+            continue;
+        }
 
 
-    if(!name){
+        const time =
+            String(hour).padStart(2,"0")
+            + ":"
+            + String(minute).padStart(2,"0");
 
-        alert("لطفاً نام
+
+        const button =
+            document.createElement("div");
+
+
+        button.className = "time";
+
+
+        button.textContent = time;
+
+
+        button.onclick = function(){
+
+           
