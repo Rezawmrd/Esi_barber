@@ -1607,14 +1607,51 @@ data
 
 };
 
-window.loadAppointments = async () => {
-
 window.isTimeBooked = async (date,time) => {
 
 const snapshot =
 await getDocs(
 collection(db,"appointments")
 );
+
+let booked = false;
+
+snapshot.forEach((doc)=>{
+
+const item = doc.data();
+
+if(
+item.date === date &&
+item.time === time
+){
+booked = true;
+}
+
+});
+
+return booked;
+
+};
+
+
+window.loadAppointments = async () => {
+
+const snapshot =
+await getDocs(
+collection(db,"appointments")
+);
+
+const data = [];
+
+snapshot.forEach((doc)=>{
+
+data.push(doc.data());
+
+});
+
+return data;
+
+};
 
 let booked = false;
 
