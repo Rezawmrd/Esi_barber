@@ -801,8 +801,68 @@ element.classList.add("selected");
 
 selectedService = service;
 
+selectedTime = "";
+
+document.getElementById("time").value = "";
+
+const timesContainer = document.querySelector(".times");
+
+
+if(service === "اصلاح"){
+
+timesContainer.innerHTML = `
+
+<div class="time" onclick="selectTime(this,'09:00')">09:00</div>
+<div class="time" onclick="selectTime(this,'09:30')">09:30</div>
+<div class="time" onclick="selectTime(this,'10:00')">10:00</div>
+<div class="time" onclick="selectTime(this,'10:30')">10:30</div>
+<div class="time" onclick="selectTime(this,'11:00')">11:00</div>
+<div class="time" onclick="selectTime(this,'11:30')">11:30</div>
+<div class="time" onclick="selectTime(this,'12:00')">12:00</div>
+<div class="time" onclick="selectTime(this,'12:30')">12:30</div>
+<div class="time" onclick="selectTime(this,'13:00')">13:00</div>
+<div class="time" onclick="selectTime(this,'13:30')">13:30</div>
+<div class="time" onclick="selectTime(this,'14:00')">14:00</div>
+<div class="time" onclick="selectTime(this,'14:30')">14:30</div>
+<div class="time" onclick="selectTime(this,'15:00')">15:00</div>
+<div class="time" onclick="selectTime(this,'15:30')">15:30</div>
+<div class="time" onclick="selectTime(this,'16:00')">16:00</div>
+<div class="time" onclick="selectTime(this,'16:30')">16:30</div>
+<div class="time" onclick="selectTime(this,'17:00')">17:00</div>
+<div class="time" onclick="selectTime(this,'17:30')">17:30</div>
+<div class="time" onclick="selectTime(this,'18:00')">18:00</div>
+<div class="time" onclick="selectTime(this,'18:30')">18:30</div>
+<div class="time" onclick="selectTime(this,'19:00')">19:00</div>
+<div class="time" onclick="selectTime(this,'19:30')">19:30</div>
+<div class="time" onclick="selectTime(this,'20:00')">20:00</div>
+<div class="time" onclick="selectTime(this,'20:30')">20:30</div>
+<div class="time" onclick="selectTime(this,'21:00')">21:00</div>
+
+`;
+
+}else if(service === "اصلاح VIP"){
+
+timesContainer.innerHTML = `
+
+<div class="time" onclick="selectTime(this,'09:00')">09:00</div>
+<div class="time" onclick="selectTime(this,'10:00')">10:00</div>
+<div class="time" onclick="selectTime(this,'11:00')">11:00</div>
+<div class="time" onclick="selectTime(this,'12:00')">12:00</div>
+<div class="time" onclick="selectTime(this,'13:00')">13:00</div>
+<div class="time" onclick="selectTime(this,'14:00')">14:00</div>
+<div class="time" onclick="selectTime(this,'15:00')">15:00</div>
+<div class="time" onclick="selectTime(this,'16:00')">16:00</div>
+<div class="time" onclick="selectTime(this,'17:00')">17:00</div>
+<div class="time" onclick="selectTime(this,'18:00')">18:00</div>
+<div class="time" onclick="selectTime(this,'19:00')">19:00</div>
+<div class="time" onclick="selectTime(this,'20:00')">20:00</div>
+<div class="time" onclick="selectTime(this,'21:00')">21:00</div>
+
+`;
+
 }
 
+    }
 
 /* =========================
    TIME
