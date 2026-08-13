@@ -1417,45 +1417,55 @@ daysContainer.appendChild(div);
    SELECT DATE
 ========================= */
 
-function selectDate(year,month,day){
+function selectDate(year, month, day){
 
-selectedDate={
-    year:year,
-    month:month,
-    day:day
-};
+    selectedDate = {
+        year: year,
+        month: month,
+        day: day
+    };
 
+    const text =
+        persianNumber(day)
+        +
+        " "
+        +
+        months[month - 1]
+        +
+        " "
+        +
+        persianNumber(year);
 
-const text=
-persianNumber(day)
-+
-" "
-+
-months[month-1]
-+
-" "
-+
-persianNumber(year);
+    document
+        .getElementById("selectedDateText")
+        .textContent = text;
 
+    const button =
+        document.getElementById("dateButton");
 
-document
-.getElementById("selectedDateText")
-.textContent=text;
+    button.textContent = text;
 
+    button.classList.add("selected");
 
-const button=
-document.getElementById("dateButton");
+    document
+        .getElementById("calendar")
+        .classList.remove("show");
 
-button.textContent=text;
+    /*
+    =========================
+    بروزرسانی ساعت‌های رزروشده
+    =========================
+    */
 
-button.classList.add("selected");
+    if(selectedService){
 
+        setTimeout(() => {
+            refreshBookedTimes();
+        }, 100);
 
-document
-.getElementById("calendar")
-.classList.remove("show");
+    }
 
-}
+    }
 
 
 /* =========================
