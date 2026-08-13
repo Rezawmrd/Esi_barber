@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ESI BARBER | نوبت دهی</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:'Vazirmatn',sans-serif;
+    background:#0b0b0b;
+    color:#fff;
+}
+
+.container{
+    max-width:500px;
+    margin:auto;
+    padding:25px 18px 40px;
+}
+
+/* HEADER */
+
+.header{
+    text-align:center;
+    padding:35px 10px 25px;
+}
+
+.logo{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    border:2px solid #d4af37;
+    object-fit:cover;
+    margin-bottom:15px;
+}
+
+.header h1{
+    margin:0;
+    color:#d4af37;
+    font-size:28px;
+    letter-spacing:2px;
+}
+
+.header p{
+    color:#999;
+    margin-top:8px;
+}
+
+/* CARD */
+
+.card{
+    background:#151515;
+    border:1px solid #292929;
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:15px;
+}
+
+.title{
+    color:#d4af37;
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+/* SERVICES */
+
+.services{
+    display:grid;
+    gap:10px;
+}
+
+.service{
+    background:#202020;
+    border:1px solid #333;
+    border-radius:12px;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.service:hover{
+    border-color:#d4af37;
+}
+
+.service.selected{
+    border-color:#d4af37;
+    background:#24200f;
+    box-shadow:0 0 12px rgba(212,175,55,.15);
+}
+
+.service-name{
+    font-weight:500;
+}
+
+.service-price{
+    color:#d4af37;
+    font-weight:700;
+}
+
+/* INPUT */
+
+label{
+    display:block;
+    margin-bottom:7px;
+    color:#ccc;
+    font-size:14px;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    margin-bottom:15px;
+    border-radius:10px;
+    border:1px solid #333;
+    background:#101010;
+    color:white;
+    font-family:inherit;
+    font-size:15px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#d4af37;
+}
+
+/* BUTTON */
+
+.submit{
+    width:100%;
+    padding:15px;
+    border:0;
+    border-radius:12px;
+    background:#d4af37;
+    color:#000;
+    font-family:inherit;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.submit:hover{
+    box-shadow:0 0 20px rgba(212,175,55,.35);
+}
+
+/* SUCCESS */
+
+.success{
+    display:none;
+    text-align:center;
+    background:#151515;
+    border:1px solid #d4af37;
+    border-radius:16px;
+    padding:25px;
+    margin-top:20px;
+}
+
+.success h2{
+    color:#d4af37;
+}
+
+.success p{
+    color:#ccc;
+    line-height:2;
+}
+
+.footer{
+    text-align:center;
+    color:#666;
+    font-size:12px;
+    margin-top:25px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+
+        <!-- اگر لوگو داری اسم فایل لوگو را اینجا بگذار -->
+        <img class="logo"
+        src="logo.png"
+        alt="ESI BARBER">
+
+        <h1>ESI BARBER</h1>
+
+        <p>رزرو نوبت آرایشگاه</p>
+
+    </div>
+
+
+    <!-- SERVICE -->
+    <div class="card">
+
+        <div class="title">
+            💈 انتخاب خدمات
+        </div>
+
+        <div class="services">
+
+            <div class="service" onclick="selectService(this,'اصلاح')">
+                <span class="service-name">اصلاح</span>
+                <span class="service-price">—</span>
+            </div>
+
+            <div class="service" onclick="selectService(this,'اصلاح VIP')">
+                <span class="service-name">اصلاح VIP</span>
+                <span class="service-price">—</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- INFORMATION -->
+    <div class="card">
+
+        <div class="title">
+            👤 اطلاعات شما
+        </div>
+
+        <label>نام و نام خانوادگی</label>
+
+        <input
+        type="text"
+        id="name"
+        placeholder="مثلاً علی رضایی">
+
+
+        <label>شماره تماس</label>
+
+        <input
+        type="tel"
+        id="phone"
+        placeholder="09xxxxxxxxx">
+
+
+        <label>تاریخ نوبت</label>
+
+        <input
+        type="date"
+        id="date">
+
+
+        <label>ساعت نوبت</label>
+
+        <input
+        type="time"
+        id="time">
+
+    </div>
+
+
+    <!-- SUBMIT -->
+
+    <button class="submit" onclick="bookAppointment()">
+        ثبت نوبت
+    </button>
+
+
+    <!-- SUCCESS -->
+
+    <div class="success" id="success">
+
+        <h2>✅ نوبت شما ثبت شد</h2>
+
+        <p id="result"></p>
+
+    </div>
+
+
+    <div class="footer">
+        ESI BARBER
+    </div>
+
+</div>
+
+
+<script>
+
+let selectedService = "";
+
+
+/* انتخاب خدمات */
+
+function selectService(element, service){
+
+    document
+    .querySelectorAll(".service")
+    .forEach(item=>{
+        item.classList.remove("selected");
+    });
+
+    element.classList.add("selected");
+
+    selectedService = service;
+}
+
+
+/* ثبت نوبت */
+
+function bookAppointment(){
+
+    const name =
+    document.getElementById("name").value.trim();
+
+    const phone =
+    document.getElementById("phone").value.trim();
+
+    const date =
+    document.getElementById("date").value;
+
+    const time =
+    document.getElementById("time").value;
+
+
+    if(!selectedService){
+
+        alert("لطفاً یک خدمت انتخاب کنید");
+
+        return;
+    }
+
+
+    if(!name){
+
+        alert("لطفاً نام
