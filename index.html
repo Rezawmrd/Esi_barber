@@ -1422,8 +1422,7 @@ renderCalendar();
    BOOK
 ========================= */
 
-function bookAppointment(){
-
+async function bookAppointment(){
 const name=
 document
 .getElementById("name")
@@ -1556,6 +1555,21 @@ selectedTime
 
 "لطفاً در زمان تعیین‌شده در آرایشگاه حضور داشته باشید.";
 
+    await saveAppointment({
+
+service: selectedService,
+
+name: name,
+
+phone: phone,
+
+date: dateText,
+
+time: selectedTime,
+
+createdAt: new Date().toISOString()
+
+});
 
 /* SHOW */
 
@@ -1573,6 +1587,30 @@ behavior:"smooth"
 }
 
 </script>
+
+    <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCqk2vmTUl1iHG2y9tMB2dv_DMEl99zvtU",
+  authDomain: "esibarber-3642b.firebaseapp.com",
+  projectId: "esibarber-3642b",
+  storageBucket: "esibarber-3642b.firebasestorage.app",
+  messagingSenderId: "519319650838",
+  appId: "1:519319650838:web:29cf5bced898093db6eb37",
+  measurementId: "G-TLGZCLZJRL"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.saveAppointment = async (data) => {
+  await addDoc(collection(db, "appointments"), data);
+};
+
+    </script>
 
 </body>
 
