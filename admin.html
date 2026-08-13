@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>ESI BARBER | پنل مدیریت</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+
+    margin:0;
+
+    font-family:'Vazirmatn',sans-serif;
+
+    background:#090909;
+
+    color:#fff;
+}
+
+.container{
+
+    max-width:650px;
+
+    margin:auto;
+
+    padding:20px 15px 50px;
+}
+
+
+/* HEADER */
+
+.header{
+
+    text-align:center;
+
+    padding:25px 10px;
+}
+
+.logo{
+
+    width:80px;
+    height:80px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid #d4af37;
+
+    margin-bottom:12px;
+}
+
+.header h1{
+
+    margin:0;
+
+    color:#d4af37;
+
+    font-size:26px;
+
+    letter-spacing:2px;
+}
+
+.header p{
+
+    color:#777;
+
+    margin-top:8px;
+}
+
+
+/* CARD */
+
+.card{
+
+    background:#151515;
+
+    border:1px solid #292929;
+
+    border-radius:16px;
+
+    padding:18px;
+
+    margin-bottom:15px;
+}
+
+.title{
+
+    color:#d4af37;
+
+    font-size:18px;
+
+    font-weight:800;
+
+    margin-bottom:15px;
+}
+
+
+/* LOGIN */
+
+#loginPage{
+
+    max-width:400px;
+
+    margin:auto;
+
+    padding:40px 20px;
+}
+
+.login-box{
+
+    background:#151515;
+
+    border:1px solid #292929;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    text-align:center;
+}
+
+.login-box h2{
+
+    color:#d4af37;
+
+    margin-top:0;
+}
+
+input{
+
+    width:100%;
+
+    padding:14px;
+
+    margin-bottom:12px;
+
+    background:#0e0e0e;
+
+    border:1px solid #333;
+
+    border-radius:10px;
+
+    color:white;
+
+    font-family:inherit;
+
+    font-size:15px;
+
+    outline:none;
+}
+
+input:focus{
+
+    border-color:#d4af37;
+}
+
+button{
+
+    font-family:inherit;
+}
+
+
+/* BUTTON */
+
+.gold-btn{
+
+    width:100%;
+
+    padding:13px;
+
+    border:0;
+
+    border-radius:10px;
+
+    background:#d4af37;
+
+    color:#000;
+
+    font-weight:800;
+
+    font-size:15px;
+
+    cursor:pointer;
+}
+
+.gold-btn:hover{
+
+    box-shadow:0 0 18px rgba(212,175,55,.3);
+}
+
+
+/* DATE */
+
+.date-box{
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:center;
+}
+
+.date-box input{
+
+    margin:0;
+
+    text-align:center;
+}
+
+.small-btn{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:10px;
+
+    border:1px solid #444;
+
+    background:#202020;
+
+    color:#d4af37;
+
+    font-size:20px;
+
+    cursor:pointer;
+}
+
+
+/* STATS */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:10px;
+
+    margin-bottom:15px;
+}
+
+.stat{
+
+    background:#202020;
+
+    border:1px solid #333;
+
+    border-radius:12px;
+
+    padding:15px 5px;
+
+    text-align:center;
+}
+
+.stat-number{
+
+    color:#d4af37;
+
+    font-size:24px;
+
+    font-weight:800;
+}
+
+.stat-label{
+
+    color:#888;
+
+    font-size:12px;
+
+    margin-top:5px;
+}
+
+
+/* APPOINTMENT */
+
+.appointment{
+
+    background:#1b1b1b;
+
+    border:1px solid #333;
+
+    border-radius:14px;
+
+    padding:15px;
+
+    margin-bottom:10px;
+
+    position:relative;
+}
+
+.appointment.vip{
+
+    border-color:#d4af37;
+
+    background:#211e13;
+}
+
+.appointment-time{
+
+    font-size:24px;
+
+    font-weight:800;
+
+    color:#d4af37;
+
+    margin-bottom:8px;
+}
+
+.service-name{
+
+    display:inline-block;
+
+    padding:5px 9px;
+
+    border-radius:7px;
+
+    background:#292929;
+
+    color:#ccc;
+
+    font-size:12px;
+
+    margin-bottom:10px;
+}
+
+.vip .service-name{
+
+    background:#d4af37;
+
+    color:#000;
+
+    font-weight:800;
+}
+
+.customer{
+
+    font-size:15px;
+
+    margin-bottom:5px;
+}
+
+.phone{
+
+    color:#999;
+
+    font-size:13px;
+
+    direction:ltr;
+
+    text-align:right;
+}
+
+.duration{
+
+    color:#777;
+
+    font-size:12px;
+
+    margin-top:8px;
+}
+
+.actions{
+
+    display:flex;
+
+    gap:8px;
+
+    margin-top:12px;
+}
+
+.call-btn{
+
+    flex:1;
+
+    text-decoration:none;
+
+    text-align:center;
+
+    padding:10px;
+
+    border-radius:9px;
+
+    background:#202020;
+
+    border:1px solid #444;
+
+    color:#d4af37;
+
+    font-size:13px;
+}
+
+.delete-btn{
+
+    flex:1;
+
+    padding:10px;
+
+    border-radius:9px;
+
+    background:#301818;
+
+    border:1px solid #522222;
+
+    color:#ff7777;
+
+    cursor:pointer;
+
+    font-family:inherit;
+}
+
+
+/* EMPTY */
+
+.empty{
+
+    text-align:center;
+
+    padding:30px 10px;
+
+    color:#666;
+}
+
+
+/* LOADING */
+
+.loading{
+
+    text-align:center;
+
+    color:#888;
+
+    padding:20px;
+}
+
+
+/* LOGOUT */
+
+.logout{
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    border:1px solid #333;
+
+    background:#171717;
+
+    color:#888;
+
+    cursor:pointer;
+
+    font-family:inherit;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:450px){
+
+    .stats{
+
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .stat-number{
+
+        font-size:20px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<div id="loginPage">
+
+    <div class="header">
+
+        <img
+        class="logo"
+        src="esi_barber_1994_14050522_200959787.jpg">
+
+        <h1>ESI BARBER</h1>
+
+        <p>پنل مدیریت</p>
+
+    </div>
+
+
+    <div class="login-box">
+
+        <h2>🔐 ورود مدیر</h2>
+
+        <p style="color:#777;font-size:13px;">
+            برای مشاهده نوبت‌ها رمز مدیریت را وارد کنید
+        </p>
+
+        <input
+        type="password"
+        id="adminPassword"
+        placeholder="رمز مدیریت">
+
+        <button
+        class="gold-btn"
+        onclick="login()">
+
+        ورود به پنل
+
+        </button>
+
+        <p
+        id="loginError"
+        style="color:#e66;font-size:13px;">
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     ADMIN
+========================= -->
+
+<div
+id="adminPage"
+style="display:none;">
+
+<div class="container">
+
+
+<!-- HEADER -->
+
+<div class="header">
+
+<img
+class="logo"
+src="esi_barber_1994_14050522_200959787.jpg">
+
+<h1>ESI BARBER</h1>
+
+<p>پنل مدیریت نوبت‌ها</p>
+
+</div>
+
+
+
+<!-- DATE -->
+
+<div class="card">
+
+<div class="title">
+📅 انتخاب تاریخ
+</div>
+
+<div class="date-box">
+
+<button
+class="small-btn"
+onclick="changeDate(-1)">
+‹
+</button>
+
+<input
+type="date"
+id="datePicker"
+onchange="loadForSelectedDate()">
+
+<button
+class="small-btn"
+onclick="changeDate(1)">
+›
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat">
+
+<div
+class="stat-number"
+id="totalCount">
+0
+</div>
+
+<div class="stat-label">
+کل نوبت‌ها
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div
+class="stat-number"
+id="normalCount">
+0
+</div>
+
+<div class="stat-label">
+اصلاح
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div
+class="stat-number"
+id="vipCount">
+0
+</div>
+
+<div class="stat-label">
+VIP
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- APPOINTMENTS -->
+
+<div class="card">
+
+<div class="title">
+
+📋 نوبت‌های روز
+
+</div>
+
+<div
+id="appointments">
+
+<div class="loading">
+در حال دریافت نوبت‌ها...
+</div>
+
+</div>
+
+</div>
+
+
+
+<button
+class="gold-btn"
+onclick="loadForSelectedDate()">
+
+🔄 بروزرسانی
+
+</button>
+
+
+<button
+class="logout"
+onclick="logout()">
+
+خروج از پنل
+
+</button>
+
+
+<div
+style="
+text-align:center;
+color:#444;
+font-size:11px;
+margin-top:20px;
+">
+
+ESI BARBER
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<script type="module">
+
+import {
+initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+getFirestore,
+collection,
+getDocs,
+deleteDoc,
+doc
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+
+/* =========================
+   FIREBASE
+========================= */
+
+const firebaseConfig = {
+
+apiKey:
+"AIzaSyCqk2vmTUl1iHG2y9tMB2dv_DMEl99zvtU",
+
+authDomain:
+"esibarber-3642b.firebaseapp.com",
+
+projectId:
+"esibarber-3642b",
+
+storageBucket:
+"esibarber-3642b.firebasestorage.app",
+
+messagingSenderId:
+"519319650838",
+
+appId:
+"1:519319650838:web:29cf5bced898093db6eb37",
+
+measurementId:
+"G-TLGZCLZJRL"
+
+};
+
+
+const app =
+initializeApp(firebaseConfig);
+
+
+const db =
+getFirestore(app);
+
+
+
+/* =========================
+   MONTHS
+========================= */
+
+const months=[
+
+"فروردین",
+"اردیبهشت",
+"خرداد",
+"تیر",
+"مرداد",
+"شهریور",
+"مهر",
+"آبان",
+"آذر",
+"دی",
+"بهمن",
+"اسفند"
+
+];
+
+
+
+/* =========================
+   LOAD
+========================= */
+
+async function getAppointments(){
+
+const snapshot =
+await getDocs(
+collection(db,"appointments")
+);
+
+const data=[];
+
+snapshot.forEach(item=>{
+
+data.push({
+
+id:item.id,
+
+...item.data()
+
+});
+
+});
+
+return data;
+
+}
+
+
+
+/* =========================
+   DATE
+========================= */
+
+function getToday(){
+
+const d=new Date();
+
+const year=d.getFullYear();
+
+const month=
+String(d.getMonth()+1)
+.padStart(2,"0");
+
+const day=
+String(d.getDate())
+.padStart(2,"0");
+
+return `${year}-${month}-${day}`;
+
+}
+
+
+
+/*
+رزروهای سایت اصلی تاریخ شمسی دارند.
+اینجا تاریخ شمسی انتخاب‌شده را
+به فرمت سایت تبدیل می‌کنیم.
+*/
+
+function gregorianToJalali(gy,gm,gd){
+
+let gdm=[
+0,31,59,90,120,151,
+181,212,243,273,304,334
+];
+
+let jy;
+
+if(gy>1600){
+
+jy=979;
+
+gy-=1600;
+
+}else{
+
+jy=0;
+
+gy-=621;
+
+}
+
+let gy2=(gm>2)?gy+1:gy;
+
+let days=
+365*gy
++
+Math.floor((gy2+3)/4)
+-
+Math.floor((gy2+99)/100)
++
+Math.floor((gy2+399)/400)
+-
+80
++
+gd
++
+gdm[gm-1];
+
+jy+=33*Math.floor(days/12053);
+
+days%=12053;
+
+jy+=4*Math.floor(days/1461);
+
+days%=1461;
+
+if(days>365){
+
+jy+=Math.floor((days-1)/365);
+
+days=(days-1)%365;
+
+}
+
+let jm;
+
+let jd;
+
+if(days<186){
+
+jm=1+Math.floor(days/31);
+
+jd=1+(days%31);
+
+}else{
+
+jm=7+Math.floor((days-186)/30);
+
+jd=1+((days-186)%30);
+
+}
+
+return [jy,jm,jd];
+
+}
+
+
+
+function getPersianDate(){
+
+const input=
+document.getElementById("datePicker").value;
+
+const parts=input.split("-");
+
+if(parts.length!==3)return null;
+
+const gy=parseInt(parts[0]);
+
+const gm=parseInt(parts[1]);
+
+const gd=parseInt(parts[2]);
+
+return gregorianToJalali(
+gy,gm,gd
+);
+
+}
+
+
+
+function persianNumber(num){
+
+return String(num).replace(
+/\d/g,
+d=>"۰۱۲۳۴۵۶۷۸۹"[d]
+);
+
+}
+
+
+
+/* =========================
+   LOAD DATE
+========================= */
+
+window.loadForSelectedDate =
+async function(){
+
+const container =
+document.getElementById("appointments");
+
+container.innerHTML=
+`
+<div class="loading">
+در حال دریافت نوبت‌ها...
+</div>
+`;
+
+try{
+
+const selected=
+getPersianDate();
+
+if(!selected){
+
+container.innerHTML=
+`
+<div class="empty">
+تاریخ نامعتبر است
+</div>
+`;
+
+return;
+
+}
+
+const dateText=
+
+persianNumber(selected[2])
++
+" "
++
+months[selected[1]-1]
++
+" "
++
+persianNumber(selected[0]);
+
+
+const all=
+await getAppointments();
+
+
+const list=
+all.filter(item=>
+item.date===dateText
+);
+
+
+/* SORT */
+
+list.sort((a,b)=>
+timeToMinutes(a.time)-
+timeToMinutes(b.time)
+);
+
+
+/* STATS */
+
+document.getElementById("totalCount")
+.textContent=list.length;
+
+document.getElementById("normalCount")
+.textContent=
+list.filter(x=>
+x.service==="اصلاح"
+).length;
+
+document.getElementById("vipCount")
+.textContent=
+list.filter(x=>
+x.service==="اصلاح VIP"
+).length;
+
+
+
+if(list.length===0){
+
+container.innerHTML=
+`
+<div class="empty">
+
+📭
+
+<br><br>
+
+برای این تاریخ نوبتی ثبت نشده
+
+</div>
+`;
+
+return;
+
+}
+
+
+/* RENDER */
+
+container.innerHTML="";
+
+
+list.forEach(item=>{
+
+const vip=
+item.service==="اصلاح VIP";
+
+const duration=
+vip ? 60 : 30;
+
+const end=
+minutesToTime(
+timeToMinutes(item.time)+duration
+);
+
+
+const div=
+document.createElement("div");
+
+
+div.className=
+"appointment"
++
+(vip ? " vip" : "");
+
+
+div.innerHTML=`
+
+<div class="appointment-time">
+
+${item.time}
+
+</div>
+
+<div class="service-name">
+
+${vip ? "👑 اصلاح VIP" : "✂️ اصلاح"}
+
+</div>
+
+<div class="customer">
+
+👤 ${escapeHtml(item.name || "بدون نام")}
+
+</div>
+
+<div class="phone">
+
+📱 ${escapeHtml(item.phone || "-")}
+
+</div>
+
+<div class="duration">
+
+⏱ ${item.time} تا ${end}
+
+</div>
+
+<div class="actions">
+
+<a
+class="call-btn"
+href="tel:${item.phone || ""}">
+
+📞 تماس
+
+</a>
+
+<button
+class="delete-btn"
+onclick="deleteAppointment('${item.id}')">
+
+🗑 حذف رزرو
+
+</button>
+
+</div>
+
+`;
+
+
+container.appendChild(div);
+
+});
+
+
+}catch(error){
+
+console.error(error);
+
+container.innerHTML=
+`
+<div class="empty">
+
+❌ خطا در دریافت اطلاعات
+
+<br>
+
+${escapeHtml(error.message)}
+
+</div>
+`;
+
+}
+
+};
+
+
+
+/* =========================
+   TIME
+========================= */
+
+function timeToMinutes(time){
+
+const [h,m]=
+time.split(":").map(Number);
+
+return h*60+m;
+
+}
+
+
+function minutesToTime(minutes){
+
+let h=
+Math.floor(minutes/60);
+
+let m=
+minutes%60;
+
+return String(h).padStart(2,"0")
++
+":"
++
+String(m).padStart(2,"0");
+
+}
+
+
+
+/* =========================
+   DELETE
+========================= */
+
+window.deleteAppointment =
+async function(id){
+
+if(!confirm(
+"آیا از حذف این رزرو مطمئن هستید؟"
+)){
+
+return;
+
+}
+
+try{
+
+await deleteDoc(
+doc(
+db,
+"appointments",
+id
+)
+);
+
+alert("رزرو حذف شد.");
+
+loadForSelectedDate();
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"خطا در حذف رزرو: "
++
+error.message
+);
+
+}
+
+};
+
+
+
+/* =========================
+   ESCAPE
+========================= */
+
+function escapeHtml(text){
+
+return String(text)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+
+/* =========================
+   DATE BUTTONS
+========================= */
+
+window.changeDate =
+function(direction){
+
+const input=
+document.getElementById("datePicker");
+
+const date=
+new Date(input.value);
+
+date.setDate(
+date.getDate()+direction
+);
+
+input.value=
+date.toISOString()
+.split("T")[0];
+
+loadForSelectedDate();
+
+};
+
+
+
+/* =========================
+   INIT
+========================= */
+
+document
+.getElementById("datePicker")
+.value=getToday();
+
+
+/* =========================
+   LOGIN
+========================= */
+
+window.login=function(){
+
+const password=
+document
+.getElementById("adminPassword")
+.value;
+
+
+/*
+رمز پنل
+*/
+
+if(password==="1994"){
+
+sessionStorage.setItem(
+"esiAdmin",
+"true"
+);
+
+showAdmin();
+
+}else{
+
+document
+.getElementById("loginError")
+.textContent=
+"❌ رمز عبور اشتباه است";
+
+}
+
+};
+
+
+
+function showAdmin(){
+
+document
+.getElementById("loginPage")
+.style.display="none";
+
+document
+.getElementById("adminPage")
+.style.display="block";
+
+loadForSelectedDate();
+
+}
+
+
+
+window.logout=function(){
+
+sessionStorage.removeItem(
+"esiAdmin"
+);
+
+location.reload();
+
+};
+
+
+
+/* بررسی ورود قبلی */
+
+if(
+sessionStorage.getItem("esiAdmin")
+==="true"
+){
+
+showAdmin();
+
+}
+
+</script>
+
+
+</body>
+
+</html>
