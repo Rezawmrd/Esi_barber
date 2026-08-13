@@ -1174,14 +1174,11 @@ calendarDate={
 
 function toggleCalendar(){
 
-const calendar =
-document
-.getElementById("calendar")
-.classList.remove("show");
+    const calendar = document.getElementById("calendar");
 
-refreshBookedTimes();
+    calendar.classList.toggle("show");
 
-}
+                      }
 
 
 /* =========================
