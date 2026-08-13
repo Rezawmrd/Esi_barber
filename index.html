@@ -1531,7 +1531,8 @@ selectedTime
 const alreadyBooked =
 await isTimeBooked(
 dateText,
-selectedTime
+selectedTime,
+selectedService
 );
 
 if(alreadyBooked){
@@ -1607,12 +1608,24 @@ data
 
 };
 
-window.isTimeBooked = async (date,time) => {
+window.isTimeBooked = async (date,time,service) => {
 
 const snapshot =
 await getDocs(
 collection(db,"appointments")
 );
+
+const toMinutes = (t) => {
+const [h,m] = t.split(":").map(Number);
+return h * 60 + m;
+};
+
+const currentStart = toMinutes(time);
+
+let currentEnd =
+service === "اصلاح VIP"
+? currentStart + 60
+: currentStart + 30;
 
 let booked = false;
 
@@ -1620,9 +1633,19 @@ snapshot.forEach((doc)=>{
 
 const item = doc.data();
 
+if(item.date !== date) return;
+
+const bookedStart =
+toMinutes(item.time);
+
+let bookedEnd =
+item.service === "اصلاح VIP"
+? bookedStart + 60
+: bookedStart + 30;
+
 if(
-item.date === date &&
-item.time === time
+currentStart < bookedEnd &&
+currentEnd > bookedStart
 ){
 booked = true;
 }
