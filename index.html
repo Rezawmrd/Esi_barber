@@ -773,16 +773,42 @@ let calendarDate = null;
 /* =========================
    SERVICE
 ========================= */
-
 function selectService(element, service){
 
 document
 .querySelectorAll(".service")
-.forEach(function(item)
-         if(selectedDate){
-   refreshBookedTimes();
+.forEach(function(item){
+item.classList.remove("selected");
+});
+
+element.classList.add("selected");
+
+selectedService = service;
+
+selectedTime = "";
+
+document.getElementById("time").value = "";
+
+const timesContainer = document.querySelector(".times");
+
+if(service === "اصلاح"){
+
+timesContainer.innerHTML = `
+...
+`;
 }
-         {
+else if(service === "اصلاح VIP"){
+
+timesContainer.innerHTML = `
+...
+`;
+}
+
+if(selectedDate){
+refreshBookedTimes();
+}
+
+}
 
 item.classList.remove("selected");
 
