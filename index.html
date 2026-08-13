@@ -393,6 +393,14 @@ input:focus{
     margin-top:25px;
 }
 
+    .time.booked{
+    background:#111;
+    color:#666;
+    border-color:#333;
+    cursor:not-allowed;
+    opacity:.5;
+    }
+    
 </style>
 
 </head>
@@ -770,7 +778,11 @@ function selectService(element, service){
 
 document
 .querySelectorAll(".service")
-.forEach(function(item){
+.forEach(function(item)
+         if(selectedDate){
+   refreshBookedTimes();
+}
+         {
 
 item.classList.remove("selected");
 
@@ -860,6 +872,73 @@ document
 .value = time;
 
 }
+    async function refreshBookedTimes(){
+
+if(!selectedDate) return;
+
+const dateText =
+persianNumber(selectedDate.day)
++
+" "
++
+months[selectedDate.month-1]
++
+" "
++
+persianNumber(selectedDate.year);
+
+const snapshot =
+await loadAppointments();
+
+document.querySelectorAll(".time").forEach(timeBtn=>{
+
+const time =
+timeBtn.textContent.trim();
+
+let booked = false;
+
+snapshot.forEach(item=>{
+
+if(item.date !== dateText) return;
+
+const toMinutes = (t)=>{
+const [h,m] = t.split(":").map(Number);
+return h*60+m;
+};
+
+const currentStart = toMinutes(time);
+const currentEnd = currentStart + 30;
+
+const bookedStart = toMinutes(item.time);
+
+const bookedEnd =
+item.service === "اصلاح VIP"
+? bookedStart + 60
+: bookedStart + 30;
+
+if(
+currentStart < bookedEnd &&
+currentEnd > bookedStart
+){
+booked = true;
+}
+
+});
+
+if(booked){
+
+timeBtn.classList.add("booked");
+timeBtn.onclick = null;
+
+}else{
+
+timeBtn.classList.remove("booked");
+
+}
+
+});
+
+    }
 
 
 /* =========================
@@ -1102,11 +1181,11 @@ calendarDate={
 function toggleCalendar(){
 
 const calendar =
-document.getElementById("calendar");
+document
+.getElementById("calendar")
+.classList.remove("show");
 
-calendar.classList.toggle("show");
-
-renderCalendar();
+refreshBookedTimes();
 
 }
 
