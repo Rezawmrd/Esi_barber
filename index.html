@@ -840,8 +840,9 @@ function selectService(element, service){
     }
 
     if(selectedDate){
+    setTimeout(() => {
         refreshBookedTimes();
-    }
+    }, 100);
 }
 /* =========================
    TIME
@@ -849,22 +850,24 @@ function selectService(element, service){
 
 function selectTime(element, time){
 
-document
-.querySelectorAll(".time")
-.forEach(function(item){
+    if(element.classList.contains("booked")){
+        alert("این ساعت قبلاً رزرو شده است.");
+        return;
+    }
 
-item.classList.remove("selected");
+    document
+    .querySelectorAll(".time")
+    .forEach(function(item){
+        item.classList.remove("selected");
+    });
 
-});
+    element.classList.add("selected");
 
-element.classList.add("selected");
+    selectedTime = time;
 
-selectedTime = time;
-
-document
-.getElementById("time")
-.value = time;
-
+    document
+    .getElementById("time")
+    .value = time;
 }
     async function refreshBookedTimes(){
 
