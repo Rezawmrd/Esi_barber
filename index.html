@@ -868,72 +868,95 @@ document
 }
     async function refreshBookedTimes(){
 
-if(!selectedDate) return;
+    if(!selectedDate) return;
 
-const dateText =
-persianNumber(selectedDate.day)
-+
-" "
-+
-months[selectedDate.month-1]
-+
-" "
-+
-persianNumber(selectedDate.year);
+    const dateText =
+        persianNumber(selectedDate.day)
+        + " "
+        + months[selectedDate.month - 1]
+        + " "
+        + persianNumber(selectedDate.year);
 
-const snapshot =
-await loadAppointments();
+    const snapshot = await loadAppointments();
 
-document.querySelectorAll(".time").forEach(timeBtn=>{
+    document.querySelectorAll(".time").forEach(timeBtn => {
 
-const time =
-timeBtn.textContent.trim();
+        const time = timeBtn.textContent.trim();
 
-let booked = false;
+        const toMinutes = (t) => {
+            const [h, m] = t.split(":").map(Number);
+            return h * 60 + m;
+        };
 
-snapshot.forEach(item=>{
+        const currentStart = toMinutes(time);
 
-if(item.date !== dateText) return;
+        /*
+        مدت زمان سرویس فعلی
+        VIP = 60 دقیقه
+        عادی = 30 دقیقه
+        */
 
-const toMinutes = (t)=>{
-const [h,m] = t.split(":").map(Number);
-return h*60+m;
-};
+        const currentDuration =
+            selectedService === "اصلاح VIP"
+            ? 60
+            : 30;
 
-const currentStart = toMinutes(time);
-const currentEnd = currentStart + 30;
+        const currentEnd =
+            currentStart + currentDuration;
 
-const bookedStart = toMinutes(item.time);
+        let booked = false;
 
-const bookedEnd =
-item.service === "اصلاح VIP"
-? bookedStart + 60
-: bookedStart + 30;
+        snapshot.forEach(item => {
 
-if(
-currentStart < bookedEnd &&
-currentEnd > bookedStart
-){
-booked = true;
-}
+            // فقط رزروهای همین تاریخ
+            if(item.date !== dateText) return;
 
-});
+            const bookedStart =
+                toMinutes(item.time);
 
-if(booked){
+            const bookedDuration =
+                item.service === "اصلاح VIP"
+                ? 60
+                : 30;
 
-timeBtn.classList.add("booked");
-timeBtn.onclick = null;
+            const bookedEnd =
+                bookedStart + bookedDuration;
 
-}else{
+            /*
+            بررسی تداخل زمانی
+            */
 
-timeBtn.classList.remove("booked");
+            if(
+                currentStart < bookedEnd &&
+                currentEnd > bookedStart
+            ){
+                booked = true;
+            }
 
-}
+        });
 
-});
+        if(booked){
+
+            timeBtn.classList.add("booked");
+            timeBtn.classList.remove("selected");
+
+            timeBtn.onclick = null;
+
+        }else{
+
+            timeBtn.classList.remove("booked");
+
+            timeBtn.onclick = function(){
+
+                selectTime(this, time);
+
+            };
+
+        }
+
+    });
 
     }
-
 
 /* =========================
    GREGORIAN → JALALI
