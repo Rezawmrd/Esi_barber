@@ -1176,9 +1176,28 @@ function toggleCalendar(){
 
     const calendar = document.getElementById("calendar");
 
+    if(!calendarDate){
+
+        const today = new Date();
+
+        const gy = today.getFullYear();
+        const gm = today.getMonth() + 1;
+        const gd = today.getDate();
+
+        const jalali = gregorianToJalali(gy, gm, gd);
+
+        calendarDate = {
+            year: jalali[0],
+            month: jalali[1]
+        };
+    }
+
     calendar.classList.toggle("show");
 
-                      }
+    if(calendar.classList.contains("show")){
+        renderCalendar();
+    }
+}
 
 
 /* =========================
