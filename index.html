@@ -28,8 +28,6 @@ body{
     padding:25px 18px 40px;
 }
 
-/* HEADER */
-
 .header{
     text-align:center;
     padding:35px 10px 25px;
@@ -56,8 +54,6 @@ body{
     margin-top:8px;
 }
 
-/* CARD */
-
 .card{
     background:#151515;
     border:1px solid #292929;
@@ -72,8 +68,6 @@ body{
     font-weight:700;
     margin-bottom:15px;
 }
-
-/* SERVICES */
 
 .services{
     display:grid;
@@ -92,26 +86,15 @@ body{
     transition:.25s;
 }
 
-.service:hover{
-    border-color:#d4af37;
-}
-
 .service.selected{
     border-color:#d4af37;
     background:#24200f;
     box-shadow:0 0 12px rgba(212,175,55,.15);
 }
 
-.service-name{
-    font-weight:500;
-}
-
 .service-price{
     color:#d4af37;
-    font-weight:700;
 }
-
-/* INPUT */
 
 label{
     display:block;
@@ -137,29 +120,29 @@ input:focus{
     border-color:#d4af37;
 }
 
-/* TIMES */
+/* ساعت ها */
 
 .times{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:10px;
-    margin-bottom:15px;
+    margin-top:10px;
 }
 
 .time{
     background:#202020;
-    border:1px solid #333;
+    border:1px solid #444;
     color:#fff;
     padding:13px 5px;
     border-radius:10px;
     text-align:center;
     cursor:pointer;
+    font-size:14px;
     transition:.2s;
-    user-select:none;
 }
 
-.time:hover{
-    border-color:#d4af37;
+.time:active{
+    transform:scale(.96);
 }
 
 .time.selected{
@@ -169,8 +152,6 @@ input:focus{
     font-weight:700;
     box-shadow:0 0 15px rgba(212,175,55,.3);
 }
-
-/* BUTTON */
 
 .submit{
     width:100%;
@@ -183,14 +164,7 @@ input:focus{
     font-size:16px;
     font-weight:800;
     cursor:pointer;
-    transition:.2s;
 }
-
-.submit:hover{
-    box-shadow:0 0 20px rgba(212,175,55,.35);
-}
-
-/* SUCCESS */
 
 .success{
     display:none;
@@ -204,15 +178,12 @@ input:focus{
 
 .success h2{
     color:#d4af37;
-    margin-top:0;
 }
 
 .success p{
     color:#ccc;
     line-height:2;
 }
-
-/* FOOTER */
 
 .footer{
     text-align:center;
@@ -224,236 +195,112 @@ input:focus{
 </style>
 </head>
 
-
 <body>
 
 <div class="container">
 
-    <!-- HEADER -->
+<div class="header">
 
-    <div class="header">
+<img class="logo" src="logo.png" alt="ESI BARBER">
 
-        <img
-            class="logo"
-            src="logo.png"
-            alt="ESI BARBER">
+<h1>ESI BARBER</h1>
 
-        <h1>ESI BARBER</h1>
-
-        <p>رزرو نوبت آنلاین</p>
-
-    </div>
-
-
-    <!-- SERVICE -->
-
-    <div class="card">
-
-        <div class="title">
-            💈 انتخاب خدمات
-        </div>
-
-        <div class="services">
-
-            <div
-                class="service"
-                onclick="selectService(this,'اصلاح')">
-
-                <span class="service-name">
-                    ✂️ اصلاح
-                </span>
-
-                <span class="service-price">
-                    —
-                </span>
-
-            </div>
-
-
-            <div
-                class="service"
-                onclick="selectService(this,'اصلاح VIP')">
-
-                <span class="service-name">
-                    👑 اصلاح VIP
-                </span>
-
-                <span class="service-price">
-                    —
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- DATE & TIME -->
-
-    <div class="card">
-
-        <div class="title">
-            📅 انتخاب تاریخ و ساعت
-        </div>
-
-
-        <label>
-            تاریخ نوبت
-        </label>
-
-        <input
-            type="date"
-            id="date">
-
-
-        <label>
-            ساعت نوبت
-        </label>
-
-        <div
-            class="times"
-            id="times">
-        </div>
-
-        <!-- ساعت انتخاب شده -->
-
-        <input
-            type="hidden"
-            id="time">
-
-    </div>
-
-
-    <!-- CUSTOMER -->
-
-    <div class="card">
-
-        <div class="title">
-            👤 اطلاعات شما
-        </div>
-
-
-        <label>
-            نام و نام خانوادگی
-        </label>
-
-        <input
-            type="text"
-            id="name"
-            placeholder="مثلاً علی رضایی">
-
-
-        <label>
-            شماره تماس
-        </label>
-
-        <input
-            type="tel"
-            id="phone"
-            placeholder="09xxxxxxxxx">
-
-    </div>
-
-
-    <!-- SUBMIT -->
-
-    <button
-        class="submit"
-        onclick="bookAppointment()">
-
-        ثبت نوبت
-
-    </button>
-
-
-    <!-- SUCCESS -->
-
-    <div
-        class="success"
-        id="success">
-
-        <h2>
-            ✅ نوبت شما ثبت شد
-        </h2>
-
-        <p id="result"></p>
-
-    </div>
-
-
-    <div class="footer">
-        ESI BARBER
-    </div>
+<p>رزرو نوبت آنلاین</p>
 
 </div>
 
 
-<script>
+<!-- خدمات -->
 
-/* =========================
-   SERVICE
-========================= */
+<div class="card">
 
-let selectedService = "";
+<div class="title">
+💈 انتخاب خدمات
+</div>
 
+<div class="services">
 
-function selectService(element, service){
+<div class="service" onclick="selectService(this,'اصلاح')">
 
-    document
-    .querySelectorAll(".service")
-    .forEach(function(item){
+<span>
+✂️ اصلاح
+</span>
 
-        item.classList.remove("selected");
+<span class="service-price">
+—
+</span>
 
-    });
-
-
-    element.classList.add("selected");
-
-    selectedService = service;
-
-}
+</div>
 
 
-/* =========================
-   CREATE TIME SLOTS
-========================= */
+<div class="service" onclick="selectService(this,'اصلاح VIP')">
 
-const timesContainer =
-    document.getElementById("times");
+<span>
+👑 اصلاح VIP
+</span>
 
+<span class="service-price">
+—
+</span>
 
-for(let hour = 9; hour <= 21; hour++){
+</div>
 
-    for(let minute of [0,30]){
+</div>
 
-        /*
-        ساعت 21:30 ساخته نمی‌شود
-        چون پایان کار ساعت 21 است
-        */
-
-        if(hour === 21 && minute === 30){
-            continue;
-        }
+</div>
 
 
-        const time =
-            String(hour).padStart(2,"0")
-            + ":"
-            + String(minute).padStart(2,"0");
+<!-- تاریخ و ساعت -->
+
+<div class="card">
+
+<div class="title">
+📅 انتخاب تاریخ و ساعت
+</div>
 
 
-        const button =
-            document.createElement("div");
+<label>
+تاریخ نوبت
+</label>
+
+<input
+type="date"
+id="date"
+>
 
 
-        button.className = "time";
+<label>
+ساعت نوبت
+</label>
 
+<div class="times">
 
-        button.textContent = time;
+<div class="time" onclick="selectTime(this,'09:00')">09:00</div>
+<div class="time" onclick="selectTime(this,'09:30')">09:30</div>
 
+<div class="time" onclick="selectTime(this,'10:00')">10:00</div>
+<div class="time" onclick="selectTime(this,'10:30')">10:30</div>
 
-        button.onclick = function(){
+<div class="time" onclick="selectTime(this,'11:00')">11:00</div>
+<div class="time" onclick="selectTime(this,'11:30')">11:30</div>
 
-           
+<div class="time" onclick="selectTime(this,'12:00')">12:00</div>
+<div class="time" onclick="selectTime(this,'12:30')">12:30</div>
+
+<div class="time" onclick="selectTime(this,'13:00')">13:00</div>
+<div class="time" onclick="selectTime(this,'13:30')">13:30</div>
+
+<div class="time" onclick="selectTime(this,'14:00')">14:00</div>
+<div class="time" onclick="selectTime(this,'14:30')">14:30</div>
+
+<div class="time" onclick="selectTime(this,'15:00')">15:00</div>
+<div class="time" onclick="selectTime(this,'15:30')">15:30</div>
+
+<div class="time" onclick="selectTime(this,'16:00')">16:00</div>
+<div class="time" onclick="selectTime(this,'16:30')">16:30</div>
+
+<div class="time" onclick="selectTime(this,'17:00')">17:00</div>
+<div class="time" onclick="selectTime(this,'17:30')">17:30</div>
+
+<div class="time" onclick="selectTime(this,'18:00')">18:00</div>
+<div class="
