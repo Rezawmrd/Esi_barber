@@ -608,27 +608,6 @@ onclick="selectTime(this,'13:30')">
 </div>
 
 
-<div class="time"
-onclick="selectTime(this,'14:00')">
-14:00
-</div>
-
-<div class="time"
-onclick="selectTime(this,'14:30')">
-14:30
-</div>
-
-
-<div class="time"
-onclick="selectTime(this,'15:00')">
-15:00
-</div>
-
-<div class="time"
-onclick="selectTime(this,'15:30')">
-15:30
-</div>
-
 
 <div class="time"
 onclick="selectTime(this,'16:00')">
@@ -811,7 +790,7 @@ const timesContainer = document.querySelector(".times");
 if(service === "اصلاح"){
 
 timesContainer.innerHTML = `
-
+<div class="time" onclick="selectTime(this,'08:30')">08:30</div>
 <div class="time" onclick="selectTime(this,'09:00')">09:00</div>
 <div class="time" onclick="selectTime(this,'09:30')">09:30</div>
 <div class="time" onclick="selectTime(this,'10:00')">10:00</div>
@@ -822,10 +801,6 @@ timesContainer.innerHTML = `
 <div class="time" onclick="selectTime(this,'12:30')">12:30</div>
 <div class="time" onclick="selectTime(this,'13:00')">13:00</div>
 <div class="time" onclick="selectTime(this,'13:30')">13:30</div>
-<div class="time" onclick="selectTime(this,'14:00')">14:00</div>
-<div class="time" onclick="selectTime(this,'14:30')">14:30</div>
-<div class="time" onclick="selectTime(this,'15:00')">15:00</div>
-<div class="time" onclick="selectTime(this,'15:30')">15:30</div>
 <div class="time" onclick="selectTime(this,'16:00')">16:00</div>
 <div class="time" onclick="selectTime(this,'16:30')">16:30</div>
 <div class="time" onclick="selectTime(this,'17:00')">17:00</div>
@@ -849,8 +824,6 @@ timesContainer.innerHTML = `
 <div class="time" onclick="selectTime(this,'11:00')">11:00</div>
 <div class="time" onclick="selectTime(this,'12:00')">12:00</div>
 <div class="time" onclick="selectTime(this,'13:00')">13:00</div>
-<div class="time" onclick="selectTime(this,'14:00')">14:00</div>
-<div class="time" onclick="selectTime(this,'15:00')">15:00</div>
 <div class="time" onclick="selectTime(this,'16:00')">16:00</div>
 <div class="time" onclick="selectTime(this,'17:00')">17:00</div>
 <div class="time" onclick="selectTime(this,'18:00')">18:00</div>
