@@ -2099,13 +2099,52 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-window.saveAppointment = async (data) => {
+window.saveAppointment = async function(data) {
 
-await addDoc(
-collection(db,"appointments"),
-data
-);
+    console.log("SAVE START:", data);
 
+    if (!db) {
+        alert("Firebase DB ساخته نشده است.");
+        throw new Error("Firebase DB is not initialized");
+    }
+
+    try {
+
+        const ref = await addDoc(
+            collection(db, "appointments"),
+            data
+        );
+
+        console.log(
+            "SAVE SUCCESS:",
+            ref.id
+        );
+
+        alert(
+            "ثبت در Firebase موفق بود.\n\nID:\n" +
+            ref.id
+        );
+
+        return ref.id;
+
+    } catch (error) {
+
+        console.error(
+            "FIREBASE REAL ERROR:",
+            error
+        );
+
+        alert(
+            "خطای واقعی Firebase:\n\n" +
+            "Code: " +
+            (error.code || "unknown") +
+            "\n\n" +
+            "Message:\n" +
+            (error.message || "unknown")
+        );
+
+        throw error;
+    }
 };
 
 window.isTimeBooked = async (date, time, service) => {
