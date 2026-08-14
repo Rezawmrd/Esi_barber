@@ -764,32 +764,10 @@ ESI BARBER
 
 let selectedService = "";
 let selectedTime = "";
-let bookingInProgress = false;
 
 let selectedDate = null;
 
 let calendarDate = null;
-
-/* =========================
-   MONTH NAMES
-========================= */
-
-const months=[
-
-"فروردین",
-"اردیبهشت",
-"خرداد",
-"تیر",
-"مرداد",
-"شهریور",
-"مهر",
-"آبان",
-"آذر",
-"دی",
-"بهمن",
-"اسفند"
-
-];
 
 
 /* =========================
@@ -892,15 +870,9 @@ function selectTime(element, time){
     .getElementById("time")
     .value = time;
 }
-
-async function refreshBookedTimes(){
+    async function refreshBookedTimes(){
 
     if(!selectedDate) return;
-
-    if (typeof window.loadAppointments !== "function") {
-        console.warn("loadAppointments is not ready yet.");
-        return;
-    }
 
     const dateText =
         persianNumber(selectedDate.day)
@@ -909,79 +881,86 @@ async function refreshBookedTimes(){
         + " "
         + persianNumber(selectedDate.year);
 
-    try {
-        const snapshot = await window.loadAppointments();
+    const snapshot = await loadAppointments();
 
-        document.querySelectorAll(".time").forEach(timeBtn => {
+    document.querySelectorAll(".time").forEach(timeBtn => {
 
-            const time = timeBtn.textContent.trim();
+        const time = timeBtn.textContent.trim();
 
-            const toMinutes = (t) => {
-                const [h, m] = t.split(":").map(Number);
-                return h * 60 + m;
-            };
+        const toMinutes = (t) => {
+            const [h, m] = t.split(":").map(Number);
+            return h * 60 + m;
+        };
 
-            const currentStart = toMinutes(time);
+        const currentStart = toMinutes(time);
 
-            const currentDuration =
-                selectedService === "اصلاح VIP"
+        /*
+        مدت زمان سرویس فعلی
+        VIP = 60 دقیقه
+        عادی = 30 دقیقه
+        */
+
+        const currentDuration =
+            selectedService === "اصلاح VIP"
+            ? 60
+            : 30;
+
+        const currentEnd =
+            currentStart + currentDuration;
+
+        let booked = false;
+
+        snapshot.forEach(item => {
+
+            // فقط رزروهای همین تاریخ
+            if(item.date !== dateText) return;
+
+            const bookedStart =
+                toMinutes(item.time);
+
+            const bookedDuration =
+                item.service === "اصلاح VIP"
                 ? 60
                 : 30;
 
-            const currentEnd =
-                currentStart + currentDuration;
+            const bookedEnd =
+                bookedStart + bookedDuration;
 
-            let booked = false;
+            /*
+            بررسی تداخل زمانی
+            */
 
-            snapshot.forEach(item => {
-
-                if(item.date !== dateText) return;
-
-                const bookedStart =
-                    toMinutes(item.time);
-
-                const bookedDuration =
-                    item.service === "اصلاح VIP"
-                    ? 60
-                    : 30;
-
-                const bookedEnd =
-                    bookedStart + bookedDuration;
-
-                if(
-                    currentStart < bookedEnd &&
-                    currentEnd > bookedStart
-                ){
-                    booked = true;
-                }
-
-            });
-
-            if(booked){
-
-                timeBtn.classList.add("booked");
-                timeBtn.classList.remove("selected");
-
-                timeBtn.onclick = null;
-
-            }else{
-
-                timeBtn.classList.remove("booked");
-
-                timeBtn.onclick = function(){
-
-                    selectTime(this, time);
-
-                };
-
+            if(
+                currentStart < bookedEnd &&
+                currentEnd > bookedStart
+            ){
+                booked = true;
             }
 
         });
-    } catch(err) {
-        console.error("Error refreshing times:", err);
-    }
 
-}
+        if(booked){
+
+            timeBtn.classList.add("booked");
+            timeBtn.classList.remove("selected");
+
+            timeBtn.onclick = null;
+
+        }else{
+
+            timeBtn.classList.remove("booked");
+
+            timeBtn.onclick = function(){
+
+                selectTime(this, time);
+
+            };
+
+        }
+
+    });
+
+    }
 
 /* =========================
    GREGORIAN → JALALI
@@ -1152,6 +1131,28 @@ gm++;
 return [gy,gm,gd];
 
 }
+
+
+/* =========================
+   MONTH NAMES
+========================= */
+
+const months=[
+
+"فروردین",
+"اردیبهشت",
+"خرداد",
+"تیر",
+"مرداد",
+"شهریور",
+"مهر",
+"آبان",
+"آذر",
+"دی",
+"بهمن",
+"اسفند"
+
+];
 
 
 /* =========================
@@ -1450,6 +1451,12 @@ function selectDate(year, month, day){
         .getElementById("calendar")
         .classList.remove("show");
 
+    /*
+    =========================
+    بروزرسانی ساعت‌های رزروشده
+    =========================
+    */
+
     if(selectedService){
 
         setTimeout(() => {
@@ -1510,1059 +1517,293 @@ renderCalendar();
 }
 
 
-function withTimeout(promise, ms = 10000) {
-
-    return Promise.race([
-
-        promise,
-
-        new Promise((_, reject) => {
-
-            setTimeout(() => {
-
-                const error =
-                    new Error("TIMEOUT");
-
-                error.code = "timeout";
-
-                reject(error);
-
-            }, ms);
-
-        })
-
-    ]);
-
-}
-
-
 /* =========================
    BOOK
 ========================= */
 
-async function bookAppointment() {
+async function bookAppointment(){
+const name=
+document
+.getElementById("name")
+.value
+.trim();
 
-    if (bookingInProgress) {
-        return;
-    }
 
+const phone=
+document
+.getElementById("phone")
+.value
+.trim();
 
-    const button =
-        document.querySelector(".submit");
 
+/* SERVICE */
 
-    const nameElement =
-        document.getElementById("name");
+if(!selectedService){
 
+alert("لطفاً یک خدمت انتخاب کنید.");
 
-    const phoneElement =
-        document.getElementById("phone");
+return;
 
+}
 
-    const name =
-        nameElement
-            ? nameElement.value.trim()
-            : "";
 
+/* DATE */
 
-    const phone =
-        phoneElement
-            ? phoneElement.value.trim()
-            : "";
+if(!selectedDate){
 
+alert("لطفاً تاریخ نوبت را انتخاب کنید.");
 
-    /* =========================
-       CHECK INPUTS
-    ========================= */
+return;
 
-    if (!selectedService) {
+}
 
-        alert(
-            "لطفاً یک خدمت انتخاب کنید."
-        );
 
-        return;
-    }
+/* TIME */
 
+if(!selectedTime){
 
-    if (!selectedDate) {
+alert("لطفاً ساعت نوبت را انتخاب کنید.");
 
-        alert(
-            "لطفاً تاریخ نوبت را انتخاب کنید."
-        );
+return;
 
-        return;
-    }
+}
 
 
-    if (!selectedTime) {
+/* NAME */
 
-        alert(
-            "لطفاً ساعت نوبت را انتخاب کنید."
-        );
+if(!name){
 
-        return;
-    }
+alert("لطفاً نام خود را وارد کنید.");
 
+return;
 
-    if (!name) {
+}
 
-        alert(
-            "لطفاً نام خود را وارد کنید."
-        );
 
-        return;
-    }
+/* PHONE */
 
+if(!phone){
 
-    if (!phone) {
+alert("لطفاً شماره تماس را وارد کنید.");
 
-        alert(
-            "لطفاً شماره تماس خود را وارد کنید."
-        );
+return;
 
-        return;
-    }
+}
 
 
-    /* =========================
-       CHECK FIREBASE
-    ========================= */
+/* DATE TEXT */
 
-    if (
-        typeof window.isTimeBooked !==
-        "function" ||
+const dateText=
 
-        typeof window.saveAppointment !==
-        "function"
-    ) {
+persianNumber(selectedDate.day)
++
+" "
++
+months[selectedDate.month-1]
++
+" "
++
+persianNumber(selectedDate.year);
 
-        alert(
-            "سیستم نوبت‌دهی هنوز آماده نشده است.\n\n" +
-            "لطفاً چند ثانیه صبر کنید و دوباره تلاش کنید."
-        );
 
+/* RESULT */
 
-        console.error(
-            "Firebase booking functions are not ready.",
-            {
-                isTimeBooked:
-                    typeof window.isTimeBooked,
+document
+.getElementById("result")
+.innerHTML=
 
-                saveAppointment:
-                    typeof window.saveAppointment
-            }
-        );
+"خدمت: <b>"
++
+selectedService
++
+"</b><br>"
 
++
 
-        return;
-    }
+"نام: <b>"
++
+name
++
+"</b><br>"
 
++
 
-    /* =========================
-       DATE
-    ========================= */
+"شماره تماس: <b>"
++
+phone
++
+"</b><br>"
 
-    const dateText =
++
 
-        persianNumber(
-            selectedDate.day
-        ) +
+"تاریخ: <b>"
++
+dateText
++
+"</b><br>"
 
-        " " +
++
 
-        months[
-            selectedDate.month - 1
-        ] +
+"ساعت: <b>"
++
+selectedTime
++
+"</b><br><br>"
 
-        " " +
++
 
-        persianNumber(
-            selectedDate.year
-        );
+"لطفاً در زمان تعیین‌شده در آرایشگاه حضور داشته باشید.";
 
+const alreadyBooked =
+await isTimeBooked(
+dateText,
+selectedTime,
+selectedService
+);
 
-    /* =========================
-       START
-    ========================= */
+if(alreadyBooked){
 
-    bookingInProgress = true;
+alert("این ساعت قبلاً رزرو شده است.");
 
+return;
 
-    if (button) {
+}
+    
+    await saveAppointment({
 
-        button.disabled = true;
+service: selectedService,
 
-        button.style.opacity =
-            "0.6";
+name: name,
 
-        button.style.cursor =
-            "not-allowed";
+phone: phone,
 
-        button.textContent =
-            "در حال ثبت...";
-    }
+date: dateText,
 
+time: selectedTime,
 
-    try {
+createdAt: new Date().toISOString()
 
-        console.log(
-            "=============================="
-        );
+});
 
-        console.log(
-            "BOOKING STARTED"
-        );
+/* SHOW */
 
-        console.log(
-            "Booking information:",
-            {
-                service:
-                    selectedService,
+document
+.getElementById("success")
+.style.display="block";
 
-                name:
-                    name,
 
-                phone:
-                    phone,
-
-                date:
-                    dateText,
-
-                time:
-                    selectedTime
-            }
-        );
-
-
-        /* =========================
-           CHECK BOOKED TIME
-        ========================= */
-
-        console.log(
-            "Checking booked time..."
-        );
-
-
-        const alreadyBooked =
-    await withTimeout(
-
-        window.isTimeBooked(
-
-            dateText,
-
-            selectedTime,
-
-            selectedService
-
-        ),
-
-        10000
-
-    );
-
-
-        console.log(
-            "isTimeBooked result:",
-            alreadyBooked
-        );
-
-
-        if (alreadyBooked) {
-
-            alert(
-                "این ساعت قبلاً رزرو شده است.\n\n" +
-                "لطفاً ساعت دیگری انتخاب کنید."
-            );
-
-
-            try {
-
-                refreshBookedTimes()
-                    .catch(error => {
-
-                        console.error(
-                            "REFRESH ERROR:",
-                            error
-                        );
-
-                    });
-
-            } catch (error) {
-
-                console.error(
-                    "REFRESH CALL ERROR:",
-                    error
-                );
-
-            }
-
-
-            return;
-        }
-
-
-        /* =========================
-           SAVE
-        ========================= */
-
-        console.log(
-            "Saving appointment to Firebase..."
-        );
-
-
-        await withTimeout(
-
-            window.saveAppointment({
-
-                service:
-                    selectedService,
-
-                name:
-                    name,
-
-                phone:
-                    phone,
-
-                date:
-                    dateText,
-
-                time:
-                    selectedTime,
-
-                createdAt:
-                    new Date().toISOString()
-
-            }),
-
-            10000
-
-        );
-
-
-        console.log(
-            "APPOINTMENT SAVED SUCCESSFULLY"
-        );
-
-
-        /* =========================
-           SUCCESS
-        ========================= */
-
-        const result =
-            document.getElementById(
-                "result"
-            );
-
-
-        const success =
-            document.getElementById(
-                "success"
-            );
-
-
-        if (result) {
-
-            result.innerHTML =
-
-                "خدمت: <b>" +
-                selectedService +
-                "</b><br>" +
-
-                "نام: <b>" +
-                name +
-                "</b><br>" +
-
-                "شماره تماس: <b>" +
-                phone +
-                "</b><br>" +
-
-                "تاریخ: <b>" +
-                dateText +
-                "</b><br>" +
-
-                "ساعت: <b>" +
-                selectedTime +
-                "</b><br><br>" +
-
-                "نوبت شما با موفقیت ثبت شد.<br>" +
-
-                "لطفاً در زمان تعیین‌شده " +
-                "در آرایشگاه حضور داشته باشید.";
-
-        }
-
-
-        if (success) {
-
-            success.style.display =
-                "block";
-
-
-            success.scrollIntoView({
-
-                behavior:
-                    "smooth"
-
-            });
-
-        }
-
-
-        try {
-
-            refreshBookedTimes()
-                .catch(error => {
-
-                    console.error(
-                        "REFRESH AFTER BOOKING ERROR:",
-                        error
-                    );
-
-                });
-
-        } catch (error) {
-
-            console.error(
-                "REFRESH CALL ERROR:",
-                error
-            );
-
-        }
-
-
-    } catch (error) {
-
-
-        /* =========================
-           ERROR
-        ========================= */
-
-        console.error(
-            "=============================="
-        );
-
-        console.error(
-            "BOOKING ERROR"
-        );
-
-        console.error(
-            "Error:",
-            error
-        );
-
-        console.error(
-            "Error code:",
-            error?.code
-        );
-
-        console.error(
-            "Error message:",
-            error?.message
-        );
-
-        console.error(
-            "=============================="
-        );
-
-
-        let message =
-            "ثبت نوبت انجام نشد.";
-
-
-        if (
-            error?.code ===
-            "timeout"
-        ) {
-
-            message =
-
-                "ارتباط با سیستم نوبت‌دهی برقرار نشد.\n\n" +
-
-                "لطفاً اینترنت گوشی را بررسی کنید " +
-                "و دوباره تلاش کنید.";
-
-
-        } else if (
-            error?.code ===
-            "permission-denied"
-        ) {
-
-            message =
-
-                "Firebase اجازه ثبت نوبت را نمی‌دهد.\n\n" +
-
-                "خطا: permission-denied";
-
-
-        } else if (
-            error?.code ===
-            "unavailable"
-        ) {
-
-            message =
-
-                "ارتباط با سرور Firebase برقرار نشد.\n\n" +
-
-                "لطفاً اینترنت را بررسی کنید.";
-
-
-        } else if (
-            error?.code ===
-            "failed-precondition"
-        ) {
-
-            message =
-
-                "Firebase آماده ثبت اطلاعات نیست.\n\n" +
-
-                "خطا: failed-precondition";
-
-
-        } else if (
-            error?.message
-        ) {
-
-            message =
-
-                "ثبت نوبت انجام نشد.\n\n" +
-
-                "خطا:\n" +
-
-                error.message;
-
-        }
-
-
-        alert(message);
-
-
-    } finally {
-
-
-        bookingInProgress =
-            false;
-
-
-        if (button) {
-
-            button.disabled = false;
-            button.style.opacity = "";
-            button.style.cursor = "pointer";
-            button.textContent = "ثبت نوبت";
-
-        }
-
-    }
+document
+.getElementById("success")
+.scrollIntoView({
+behavior:"smooth"
+});
 
 }
 
 </script>
 
-        <script type="module">
+    <script type="module">
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
-import {
-    initializeFirestore,
-    collection,
-    addDoc,
-    getDocs
+getFirestore,
+collection,
+addDoc,
+getDocs
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-
-/* =====================================
-   FIREBASE CONFIG
-===================================== */
-
 const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyCqk2vmTUl1iHG2y9tMB2dv_DMEl99zvtU",
-
-    authDomain:
-        "esibarber-3642b.firebaseapp.com",
-
-    projectId:
-        "esibarber-3642b",
-
-    storageBucket:
-        "esibarber-3642b.firebasestorage.app",
-
-    messagingSenderId:
-        "519319650838",
-
-    appId:
-        "1:519319650838:web:29cf5bced898093db6eb37",
-
-    measurementId:
-        "G-TLGZCLZJRL"
+  apiKey: "AIzaSyCqk2vmTUl1iHG2y9tMB2dv_DMEl99zvtU",
+  authDomain: "esibarber-3642b.firebaseapp.com",
+  projectId: "esibarber-3642b",
+  storageBucket: "esibarber-3642b.firebasestorage.app",
+  messagingSenderId: "519319650838",
+  appId: "1:519319650838:web:29cf5bced898093db6eb37",
+  measurementId: "G-TLGZCLZJRL"
 };
-
-
-/* =====================================
-   INITIALIZE FIREBASE
-===================================== */
 
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-const db = initializeFirestore(app, {
-    experimentalForceLongPolling: true
+window.saveAppointment = async (data) => {
+
+await addDoc(
+collection(db,"appointments"),
+data
+);
+
+};
+
+window.isTimeBooked = async (date,time,service) => {
+
+const snapshot =
+await getDocs(
+collection(db,"appointments")
+);
+
+const toMinutes = (t) => {
+const [h,m] = t.split(":").map(Number);
+return h * 60 + m;
+};
+
+const currentStart = toMinutes(time);
+
+let currentEnd =
+service === "اصلاح VIP"
+? currentStart + 60
+: currentStart + 30;
+
+let booked = false;
+
+snapshot.forEach((doc)=>{
+
+const item = doc.data();
+
+if(item.date !== date) return;
+
+const bookedStart =
+toMinutes(item.time);
+
+let bookedEnd =
+item.service === "اصلاح VIP"
+? bookedStart + 60
+: bookedStart + 30;
+
+if(
+currentStart < bookedEnd &&
+currentEnd > bookedStart
+){
+booked = true;
+}
+
 });
 
-console.log(
-    "FIREBASE INITIALIZED",
-    app.options.projectId
-);
-
-
-/* =====================================
-   SAVE APPOINTMENT
-===================================== */
-
-window.saveAppointment =
-async function(data) {
-
-    console.log(
-        "SAVE APPOINTMENT START",
-        data
-    );
-
-
-    if (!db) {
-
-        const error =
-            new Error(
-                "Firestore database is not initialized"
-            );
-
-        error.code =
-            "firebase-not-initialized";
-
-        throw error;
-    }
-
-
-    try {
-
-        console.log(
-            "BEFORE ADD DOC"
-        );
-
-
-        const firebaseRequest =
-            addDoc(
-                collection(
-                    db,
-                    "appointments"
-                ),
-                data
-            );
-
-
-        const timeout =
-            new Promise(
-                (_, reject) => {
-
-                    setTimeout(
-                        () => {
-
-                            const error =
-                                new Error(
-                                    "Firebase addDoc did not respond within 15 seconds."
-                                );
-
-                            error.code =
-                                "firebase-timeout";
-
-                            reject(error);
-
-                        },
-                        15000
-                    );
-
-                }
-            );
-
-
-        const ref =
-            await Promise.race([
-                firebaseRequest,
-                timeout
-            ]);
-
-
-        console.log(
-            "ADD DOC SUCCESS",
-            ref.id
-        );
-
-
-        return ref.id;
-
-
-    } catch (error) {
-
-
-        console.error(
-            "================================"
-        );
-
-        console.error(
-            "FIREBASE ADD DOC ERROR"
-        );
-
-        console.error(
-            "CODE:",
-            error?.code
-        );
-
-        console.error(
-            "MESSAGE:",
-            error?.message
-        );
-
-        console.error(
-            "FULL ERROR:",
-            error
-        );
-
-        console.error(
-            "================================"
-        );
-
-
-        throw error;
-    }
+return booked;
 
 };
 
 
-/* =====================================
-   CHECK BOOKED TIME
-===================================== */
+window.loadAppointments = async () => {
 
-window.isTimeBooked =
-async function(
-    date,
-    time,
-    service
-) {
+const snapshot =
+await getDocs(
+collection(db,"appointments")
+);
 
-    console.log(
-        "CHECK BOOKED TIME",
-        {
-            date,
-            time,
-            service
-        }
-    );
+const data = [];
 
+snapshot.forEach((doc)=>{
 
-    if (!db) {
+data.push(doc.data());
 
-        const error =
-            new Error(
-                "Firestore database is not initialized"
-            );
+});
 
-        error.code =
-            "firebase-not-initialized";
-
-        throw error;
-    }
-
-
-    try {
-
-        const firebaseRequest =
-            getDocs(
-                collection(
-                    db,
-                    "appointments"
-                )
-            );
-
-
-        const timeout =
-            new Promise(
-                (_, reject) => {
-
-                    setTimeout(
-                        () => {
-
-                            const error =
-                                new Error(
-                                    "Firebase getDocs did not respond within 15 seconds."
-                                );
-
-                            error.code =
-                                "firebase-timeout";
-
-                            reject(error);
-
-                        },
-                        15000
-                    );
-
-                }
-            );
-
-
-        const snapshot =
-            await Promise.race([
-                firebaseRequest,
-                timeout
-            ]);
-
-
-        const toMinutes =
-            (value) => {
-
-                if (
-                    !value ||
-                    typeof value !== "string"
-                ) {
-                    return null;
-                }
-
-
-                const parts =
-                    value.trim().split(":");
-
-
-                if (
-                    parts.length !== 2
-                ) {
-                    return null;
-                }
-
-
-                const h =
-                    Number(parts[0]);
-
-
-                const m =
-                    Number(parts[1]);
-
-
-                if (
-                    !Number.isInteger(h) ||
-                    !Number.isInteger(m) ||
-                    h < 0 ||
-                    h > 23 ||
-                    m < 0 ||
-                    m > 59
-                ) {
-
-                    return null;
-
-                }
-
-
-                return h * 60 + m;
-
-            };
-
-
-        const currentStart =
-            toMinutes(time);
-
-
-        if (
-            currentStart === null
-        ) {
-
-            return false;
-
-        }
-
-
-        const currentDuration =
-            service === "اصلاح VIP"
-                ? 60
-                : 30;
-
-
-        const currentEnd =
-            currentStart +
-            currentDuration;
-
-
-        let booked =
-            false;
-
-
-        snapshot.forEach(
-            (doc) => {
-
-                const item =
-                    doc.data();
-
-
-                if (
-                    String(item.date).trim() !==
-                    String(date).trim()
-                ) {
-
-                    return;
-
-                }
-
-
-                const bookedStart =
-                    toMinutes(
-                        item.time
-                    );
-
-
-                if (
-                    bookedStart === null
-                ) {
-
-                    return;
-
-                }
-
-
-                const bookedDuration =
-                    item.service ===
-                    "اصلاح VIP"
-
-                        ? 60
-                        : 30;
-
-
-                const bookedEnd =
-                    bookedStart +
-                    bookedDuration;
-
-
-                if (
-                    currentStart < bookedEnd &&
-                    currentEnd > bookedStart
-                ) {
-
-                    booked = true;
-
-                }
-
-            }
-        );
-
-
-        console.log(
-            "BOOKED RESULT:",
-            booked
-        );
-
-
-        return booked;
-
-
-    } catch (error) {
-
-        console.error(
-            "FIREBASE CHECK ERROR:",
-            error
-        );
-
-        throw error;
-
-    }
+return data;
 
 };
 
 
-/* =====================================
-   LOAD APPOINTMENTS
-===================================== */
-
-window.loadAppointments =
-async function() {
-
-    console.log(
-        "LOADING APPOINTMENTS"
-    );
-
-
-    if (!db) {
-
-        const error =
-            new Error(
-                "Firestore database is not initialized"
-            );
-
-        error.code =
-            "firebase-not-initialized";
-
-        throw error;
-
-    }
-
-
-    try {
-
-        const snapshot =
-            await getDocs(
-                collection(
-                    db,
-                    "appointments"
-                )
-            );
-
-
-        const data = [];
-
-
-        snapshot.forEach(
-            (doc) => {
-
-                data.push({
-
-                    id:
-                        doc.id,
-
-                    ...doc.data()
-
-                });
-
-            }
-        );
-
-
-        return data;
-
-
-    } catch (error) {
-
-        console.error(
-            "LOAD APPOINTMENTS ERROR:",
-            error
-        );
-
-        throw error;
-
-    }
-
-};
-
-
-console.log(
-    "================================="
-);
-
-console.log(
-    "ESI BARBER FIREBASE READY"
-);
-
-console.log(
-    "================================="
-);
-
-        </script>
+    </script>
 
 </body>
 
