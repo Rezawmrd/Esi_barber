@@ -1522,182 +1522,127 @@ renderCalendar();
 ========================= */
 
 async function bookAppointment(){
-const name=
-document
-.getElementById("name")
-.value
-.trim();
 
+    const name =
+        document.getElementById("name").value.trim();
 
-const phone=
-document
-.getElementById("phone")
-.value
-.trim();
+    const phone =
+        document.getElementById("phone").value.trim();
 
+    if(!selectedService){
+        alert("لطفاً یک خدمت انتخاب کنید.");
+        return;
+    }
 
-/* SERVICE */
+    if(!selectedDate){
+        alert("لطفاً تاریخ نوبت را انتخاب کنید.");
+        return;
+    }
 
-if(!selectedService){
+    if(!selectedTime){
+        alert("لطفاً ساعت نوبت را انتخاب کنید.");
+        return;
+    }
 
-alert("لطفاً یک خدمت انتخاب کنید.");
+    if(!name){
+        alert("لطفاً نام خود را وارد کنید.");
+        return;
+    }
 
-return;
+    if(!phone){
+        alert("لطفاً شماره تماس خود را وارد کنید.");
+        return;
+    }
 
-}
+    const dateText =
+        persianNumber(selectedDate.day)
+        + " "
+        + months[selectedDate.month - 1]
+        + " "
+        + persianNumber(selectedDate.year);
 
+    try {
 
-/* DATE */
+        if(typeof window.isTimeBooked === "function"){
 
-if(!selectedDate){
+            const alreadyBooked =
+                await window.isTimeBooked(
+                    dateText,
+                    selectedTime,
+                    selectedService
+                );
 
-alert("لطفاً تاریخ نوبت را انتخاب کنید.");
+            if(alreadyBooked){
+                alert("این ساعت قبلاً رزرو شده است. لطفاً ساعت دیگری انتخاب کنید.");
+                return;
+            }
+        }
 
-return;
+        if(typeof window.saveAppointment !== "function"){
 
-}
+            alert("سیستم نوبت‌دهی آماده نیست. لطفاً صفحه را دوباره باز کنید.");
 
+            console.error("saveAppointment هنوز آماده نیست.");
 
-/* TIME */
+            return;
+        }
 
-if(!selectedTime){
+        await window.saveAppointment({
 
-alert("لطفاً ساعت نوبت را انتخاب کنید.");
+            service: selectedService,
+            name: name,
+            phone: phone,
+            date: dateText,
+            time: selectedTime,
+            createdAt: new Date().toISOString()
 
-return;
+        });
 
-}
+        document
+        .getElementById("result")
+        .innerHTML =
 
+            "خدمت: <b>"
+            + selectedService
+            + "</b><br>"
 
-/* NAME */
+            + "نام: <b>"
+            + name
+            + "</b><br>"
 
-if(!name){
+            + "شماره تماس: <b>"
+            + phone
+            + "</b><br>"
 
-alert("لطفاً نام خود را وارد کنید.");
+            + "تاریخ: <b>"
+            + dateText
+            + "</b><br>"
 
-return;
+            + "ساعت: <b>"
+            + selectedTime
+            + "</b><br><br>"
 
-}
+            + "لطفاً در زمان تعیین‌شده در آرایشگاه حضور داشته باشید.";
 
+        document
+        .getElementById("success")
+        .style.display = "block";
 
-/* PHONE */
+        document
+        .getElementById("success")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
 
-if(!phone){
+    } catch(error){
 
-alert("لطفاً شماره تماس را وارد کنید.");
+        console.error("BOOKING ERROR:", error);
 
-return;
+        alert("ثبت نوبت انجام نشد. لطفاً دوباره تلاش کنید.");
 
-}
+    }
 
-
-/* DATE TEXT */
-
-const dateText=
-
-persianNumber(selectedDate.day)
-+
-" "
-+
-months[selectedDate.month-1]
-+
-" "
-+
-persianNumber(selectedDate.year);
-
-
-/* RESULT */
-
-document
-.getElementById("result")
-.innerHTML=
-
-"خدمت: <b>"
-+
-selectedService
-+
-"</b><br>"
-
-+
-
-"نام: <b>"
-+
-name
-+
-"</b><br>"
-
-+
-
-"شماره تماس: <b>"
-+
-phone
-+
-"</b><br>"
-
-+
-
-"تاریخ: <b>"
-+
-dateText
-+
-"</b><br>"
-
-+
-
-"ساعت: <b>"
-+
-selectedTime
-+
-"</b><br><br>"
-
-+
-
-"لطفاً در زمان تعیین‌شده در آرایشگاه حضور داشته باشید.";
-
-/*
-const alreadyBooked =
-await isTimeBooked(
-dateText,
-selectedTime,
-selectedService
-);
-
-if(alreadyBooked){
-alert("این ساعت قبلاً رزرو شده است.");
-return;
-}
-*/
-    
-    await saveAppointment({
-
-service: selectedService,
-
-name: name,
-
-phone: phone,
-
-date: dateText,
-
-time: selectedTime,
-
-createdAt: new Date().toISOString()
-
-});
-
-/* SHOW */
-
-document
-.getElementById("success")
-.style.display="block";
-
-
-document
-.getElementById("success")
-.scrollIntoView({
-behavior:"smooth"
-});
-
-}
+    }
 
 </script>
 
