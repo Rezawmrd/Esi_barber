@@ -1540,168 +1540,56 @@ function withTimeout(promise, ms = 10000) {
    BOOK
 ========================= */
 
-async function bookAppointment() {
 
-    if (bookingInProgress) {
+        async function bookAppointment() {
+    if (bookingInProgress) return;
+    const button = document.querySelector(".submit");
+    const name = document.getElementById("name")?.value.trim() || "";
+    const phone = document.getElementById("phone")?.value.trim() || "";
+
+    if (!selectedService) { alert("لطفاً یک خدمت انتخاب کنید."); return; }
+    if (!selectedDate) { alert("لطفاً تاریخ نوبت را انتخاب کنید."); return; }
+    if (!selectedTime) { alert("لطفاً ساعت نوبت را انتخاب کنید."); return; }
+    if (!name) { alert("لطفاً نام خود را وارد کنید."); return; }
+    if (!phone) { alert("لطفاً شماره تماس خود را وارد کنید."); return; }
+
+    if (typeof window.isTimeBooked !== "function" || typeof window.saveAppointment !== "function") {
+        alert("ارتباط با دیتابیس در حال برقرار شدن است. لطفاً ۵ ثانیه دیگر دوباره دکمه را بزنید.");
         return;
     }
 
-
-    const button =
-        document.querySelector(".submit");
-
-
-    const nameElement =
-        document.getElementById("name");
-
-
-    const phoneElement =
-        document.getElementById("phone");
-
-
-    const name =
-        nameElement
-            ? nameElement.value.trim()
-            : "";
-
-
-    const phone =
-        phoneElement
-            ? phoneElement.value.trim()
-            : "";
-
-
-    /* =========================
-       CHECK INPUTS
-    ========================= */
-
-    if (!selectedService) {
-
-        alert(
-            "لطفاً یک خدمت انتخاب کنید."
-        );
-
-        return;
-    }
-
-
-    if (!selectedDate) {
-
-        alert(
-            "لطفاً تاریخ نوبت را انتخاب کنید."
-        );
-
-        return;
-    }
-
-
-    if (!selectedTime) {
-
-        alert(
-            "لطفاً ساعت نوبت را انتخاب کنید."
-        );
-
-        return;
-    }
-
-
-    if (!name) {
-
-        alert(
-            "لطفاً نام خود را وارد کنید."
-        );
-
-        return;
-    }
-
-
-    if (!phone) {
-
-        alert(
-            "لطفاً شماره تماس خود را وارد کنید."
-        );
-
-        return;
-    }
-
-
-    /* =========================
-       CHECK FIREBASE
-    ========================= */
-
-    if (
-        typeof window.isTimeBooked !==
-        "function" ||
-
-        typeof window.saveAppointment !==
-        "function"
-    ) {
-
-        alert(
-            "سیستم نوبت‌دهی هنوز آماده نشده است.\n\n" +
-            "لطفاً چند ثانیه صبر کنید و دوباره تلاش کنید."
-        );
-
-
-        console.error(
-            "Firebase booking functions are not ready.",
-            {
-                isTimeBooked:
-                    typeof window.isTimeBooked,
-
-                saveAppointment:
-                    typeof window.saveAppointment
-            }
-        );
-
-
-        return;
-    }
-
-
-    /* =========================
-       DATE
-    ========================= */
-
-    const dateText =
-
-        persianNumber(
-            selectedDate.day
-        ) +
-
-        " " +
-
-        months[
-            selectedDate.month - 1
-        ] +
-
-        " " +
-
-        persianNumber(
-            selectedDate.year
-        );
-
-
-    /* =========================
-       START
-    ========================= */
-
+    const dateText = persianNumber(selectedDate.day) + " " + months[selectedDate.month - 1] + " " + persianNumber(selectedDate.year);
     bookingInProgress = true;
+    if (button) { button.disabled = true; button.style.opacity = "0.6"; button.textContent = "در حال ثبت..."; }
 
+    try {
+        const alreadyBooked = await withTimeout(window.isTimeBooked(dateText, selectedTime, selectedService), 35000);
+        if (alreadyBooked) {
+            alert("این ساعت قبلاً رزرو شده است.\nلطفاً ساعت دیگری انتخاب کنید.");
+            refreshBookedTimes().catch(()=>{});
+            return;
+        }
 
-    if (button) {
+        await withTimeout(window.saveAppointment({
+            service: selectedService, name, phone, date: dateText, time: selectedTime, createdAt: new Date().toISOString()
+        }), 35000);
 
-        button.disabled = true;
+        const result = document.getElementById("result");
+        const success = document.getElementById("success");
+        if (result) {
+            result.innerHTML = "خدمت: <b>" + selectedService + "</b><br>نام: <b>" + name + "</b><br>شماره تماس: <b>" + phone + "</b><br>تاریخ: <b>" + dateText + "</b><br>ساعت: <b>" + selectedTime + "</b><br><br>نوبت شما با موفقیت ثبت شد.";
+        }
+        if (success) { success.style.display = "block"; success.scrollIntoView({ behavior: "smooth" }); }
+        refreshBookedTimes().catch(()=>{});
 
-        button.style.opacity =
-            "0.6";
-
-        button.style.cursor =
-            "not-allowed";
-
-        button.textContent =
-            "در حال ثبت...";
+    } catch (error) {
+        alert("کد خطا: " + (error.code || "نامشخص") + "\nمتن خطا: " + error.message);
+    } finally {
+        bookingInProgress = false;
+        if (button) { button.disabled = false; button.style.opacity = ""; button.textContent = "ثبت نوبت"; }
     }
+}
+
 
 
     try {
