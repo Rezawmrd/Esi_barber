@@ -2101,12 +2101,29 @@ const db = getFirestore(app);
 
 window.saveAppointment = async function(data) {
 
-    console.log("SAVE START:", data);
+    alert("مرحله 1: تابع ثبت نوبت اجرا شد.");
+
+    console.log("SAVE FUNCTION START:", data);
 
     if (!db) {
-        alert("Firebase DB ساخته نشده است.");
-        throw new Error("Firebase DB is not initialized");
+
+        alert(
+            "مرحله 2: Firebase DB وجود ندارد!"
+        );
+
+        throw new Error(
+            "Firebase DB is not initialized"
+        );
     }
+
+    alert(
+        "مرحله 2: Firebase آماده است.\n\n" +
+        "حالا در حال ارسال اطلاعات..."
+    );
+
+    console.log(
+        "قبل از addDoc"
+    );
 
     try {
 
@@ -2115,24 +2132,20 @@ window.saveAppointment = async function(data) {
             data
         );
 
-        console.log(
-            "SAVE SUCCESS:",
+        alert(
+            "مرحله 3: ثبت موفق بود!\n\n" +
+            "ID:\n" +
             ref.id
         );
 
-        alert(
-            "ثبت در Firebase موفق بود.\n\nID:\n" +
+        console.log(
+            "SAVE SUCCESS:",
             ref.id
         );
 
         return ref.id;
 
     } catch (error) {
-
-        console.error(
-            "FIREBASE REAL ERROR:",
-            error
-        );
 
         alert(
             "خطای واقعی Firebase:\n\n" +
@@ -2141,6 +2154,11 @@ window.saveAppointment = async function(data) {
             "\n\n" +
             "Message:\n" +
             (error.message || "unknown")
+        );
+
+        console.error(
+            "FIREBASE REAL ERROR:",
+            error
         );
 
         throw error;
