@@ -770,6 +770,27 @@ let selectedDate = null;
 
 let calendarDate = null;
 
+/* =========================
+   MONTH NAMES
+========================= */
+
+const months=[
+
+"فروردین",
+"اردیبهشت",
+"خرداد",
+"تیر",
+"مرداد",
+"شهریور",
+"مهر",
+"آبان",
+"آذر",
+"دی",
+"بهمن",
+"اسفند"
+
+];
+
 
 /* =========================
    SERVICE
@@ -871,9 +892,15 @@ function selectTime(element, time){
     .getElementById("time")
     .value = time;
 }
-    async function refreshBookedTimes(){
+
+async function refreshBookedTimes(){
 
     if(!selectedDate) return;
+
+    if (typeof window.loadAppointments !== "function") {
+        console.warn("loadAppointments is not ready yet.");
+        return;
+    }
 
     const dateText =
         persianNumber(selectedDate.day)
@@ -882,86 +909,79 @@ function selectTime(element, time){
         + " "
         + persianNumber(selectedDate.year);
 
-    const snapshot = await loadAppointments();
+    try {
+        const snapshot = await window.loadAppointments();
 
-    document.querySelectorAll(".time").forEach(timeBtn => {
+        document.querySelectorAll(".time").forEach(timeBtn => {
 
-        const time = timeBtn.textContent.trim();
+            const time = timeBtn.textContent.trim();
 
-        const toMinutes = (t) => {
-            const [h, m] = t.split(":").map(Number);
-            return h * 60 + m;
-        };
+            const toMinutes = (t) => {
+                const [h, m] = t.split(":").map(Number);
+                return h * 60 + m;
+            };
 
-        const currentStart = toMinutes(time);
+            const currentStart = toMinutes(time);
 
-        /*
-        مدت زمان سرویس فعلی
-        VIP = 60 دقیقه
-        عادی = 30 دقیقه
-        */
-
-        const currentDuration =
-            selectedService === "اصلاح VIP"
-            ? 60
-            : 30;
-
-        const currentEnd =
-            currentStart + currentDuration;
-
-        let booked = false;
-
-        snapshot.forEach(item => {
-
-            // فقط رزروهای همین تاریخ
-            if(item.date !== dateText) return;
-
-            const bookedStart =
-                toMinutes(item.time);
-
-            const bookedDuration =
-                item.service === "اصلاح VIP"
+            const currentDuration =
+                selectedService === "اصلاح VIP"
                 ? 60
                 : 30;
 
-            const bookedEnd =
-                bookedStart + bookedDuration;
+            const currentEnd =
+                currentStart + currentDuration;
 
-            /*
-            بررسی تداخل زمانی
-            */
+            let booked = false;
 
-            if(
-                currentStart < bookedEnd &&
-                currentEnd > bookedStart
-            ){
-                booked = true;
+            snapshot.forEach(item => {
+
+                if(item.date !== dateText) return;
+
+                const bookedStart =
+                    toMinutes(item.time);
+
+                const bookedDuration =
+                    item.service === "اصلاح VIP"
+                    ? 60
+                    : 30;
+
+                const bookedEnd =
+                    bookedStart + bookedDuration;
+
+                if(
+                    currentStart < bookedEnd &&
+                    currentEnd > bookedStart
+                ){
+                    booked = true;
+                }
+
+            });
+
+            if(booked){
+
+                timeBtn.classList.add("booked");
+                timeBtn.classList.remove("selected");
+
+                timeBtn.onclick = null;
+
+            }else{
+
+                timeBtn.classList.remove("booked");
+
+                timeBtn.onclick = function(){
+
+                    selectTime(this, time);
+
+                };
+
             }
 
         });
-
-        if(booked){
-
-            timeBtn.classList.add("booked");
-            timeBtn.classList.remove("selected");
-
-            timeBtn.onclick = null;
-
-        }else{
-
-            timeBtn.classList.remove("booked");
-
-            timeBtn.onclick = function(){
-
-                selectTime(this, time);
-
-            };
-
-        }
-
-    });
-
+    } catch(err) {
+        console.error("Error refreshing times:", err);
     }
+
+}
 
 /* =========================
    GREGORIAN → JALALI
@@ -1132,28 +1152,6 @@ gm++;
 return [gy,gm,gd];
 
 }
-
-
-/* =========================
-   MONTH NAMES
-========================= */
-
-const months=[
-
-"فروردین",
-"اردیبهشت",
-"خرداد",
-"تیر",
-"مرداد",
-"شهریور",
-"مهر",
-"آبان",
-"آذر",
-"دی",
-"بهمن",
-"اسفند"
-
-];
 
 
 /* =========================
@@ -1451,12 +1449,6 @@ function selectDate(year, month, day){
     document
         .getElementById("calendar")
         .classList.remove("show");
-
-    /*
-    =========================
-    بروزرسانی ساعت‌های رزروشده
-    =========================
-    */
 
     if(selectedService){
 
@@ -1917,11 +1909,6 @@ async function bookAppointment() {
         }
 
 
-        /* =========================
-           REFRESH
-           نباید جلوی ثبت را بگیرد
-        ========================= */
-
         try {
 
             refreshBookedTimes()
@@ -2053,15 +2040,11 @@ async function bookAppointment() {
     } finally {
 
 
-        /* =========================
-           RESET BUTTON
-        ========================= */
-
         bookingInProgress =
             false;
 
 
-                        if (button) {
+        if (button) {
 
             button.disabled = false;
             button.style.opacity = "";
@@ -2169,12 +2152,6 @@ async function(data) {
         );
 
 
-        /*
-         * تایم‌اوت مخصوص خود Firebase
-         * تا خطای واقعی را قبل از
-         * timeout بیرونی بگیریم.
-         */
-
         const firebaseRequest =
             addDoc(
                 collection(
@@ -2256,11 +2233,6 @@ async function(data) {
             "================================"
         );
 
-
-        /*
-         * خطای واقعی را به bookAppointment
-         * منتقل می‌کنیم.
-         */
 
         throw error;
     }
