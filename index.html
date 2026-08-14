@@ -2,12 +2,17 @@
 <html lang="fa" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>ESI BARBER | نوبت دهی</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link
+href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap"
+rel="stylesheet">
 
 <style>
 
@@ -103,16 +108,11 @@ body{
     background:#202020;
     border:1px solid #444;
     color:#fff;
-
     padding:15px;
-
     border-radius:12px;
-
     font-family:inherit;
     font-size:15px;
-
     cursor:pointer;
-
     text-align:center;
 }
 
@@ -286,19 +286,15 @@ label{
 input{
     width:100%;
     padding:13px;
-
     margin-bottom:15px;
 
     border-radius:10px;
-
     border:1px solid #333;
 
     background:#101010;
-
     color:white;
 
     font-family:inherit;
-
     font-size:15px;
 
     outline:none;
@@ -310,25 +306,19 @@ input:focus{
 
 .submit{
     width:100%;
-
     padding:15px;
 
     border:0;
-
     border-radius:12px;
 
     background:#d4af37;
-
     color:#000;
 
     font-family:inherit;
-
     font-size:16px;
-
     font-weight:800;
 
     cursor:pointer;
-
     transition:.2s;
 }
 
@@ -448,8 +438,6 @@ onclick="selectService(this,'اصلاح VIP')">
 </div>
 
 
-<!-- DATE -->
-
 <button
 class="date-button"
 id="dateButton"
@@ -517,8 +505,6 @@ id="days">
 
 <br>
 
-
-<!-- TIME -->
 
 <label>
 ساعت نوبت
@@ -635,7 +621,9 @@ onclick="selectTime(this,'21:00')">
 
 </div>
 
-<input type="hidden" id="time">
+<input
+type="hidden"
+id="time">
 
 </div>
 
@@ -656,8 +644,7 @@ onclick="selectTime(this,'21:00')">
 <input
 type="text"
 id="name"
-placeholder="مثلاً علی رضایی"
->
+placeholder="مثلاً علی رضایی">
 
 
 <label>
@@ -706,13 +693,17 @@ ESI BARBER
 </div>
 
 
+<!-- =========================
+     SCRIPT 1
+     MAIN WEBSITE
+========================= -->
+
 <script>
 
-/* =========================
-   VARIABLES
-========================= */
+/* VARIABLES */
 
 let selectedService = "";
+
 let selectedTime = "";
 
 let selectedDate = null;
@@ -720,24 +711,31 @@ let selectedDate = null;
 let calendarDate = null;
 
 
-/* =========================
-   SERVICE
-========================= */
+/* SERVICES */
 
-function selectService(element, service){
+function selectService(element,service){
 
     document
     .querySelectorAll(".service")
     .forEach(function(item){
+
         item.classList.remove("selected");
+
     });
+
 
     element.classList.add("selected");
 
+
     selectedService = service;
+
     selectedTime = "";
 
-    document.getElementById("time").value = "";
+
+    document
+    .getElementById("time")
+    .value = "";
+
 
     const timesContainer =
         document.querySelector(".times");
@@ -747,47 +745,49 @@ function selectService(element, service){
 
         timesContainer.innerHTML = `
 
-            <div class="time" onclick="selectTime(this,'08:30')">08:30</div>
-            <div class="time" onclick="selectTime(this,'09:00')">09:00</div>
-            <div class="time" onclick="selectTime(this,'09:30')">09:30</div>
-            <div class="time" onclick="selectTime(this,'10:00')">10:00</div>
-            <div class="time" onclick="selectTime(this,'10:30')">10:30</div>
-            <div class="time" onclick="selectTime(this,'11:00')">11:00</div>
-            <div class="time" onclick="selectTime(this,'11:30')">11:30</div>
-            <div class="time" onclick="selectTime(this,'12:00')">12:00</div>
-            <div class="time" onclick="selectTime(this,'12:30')">12:30</div>
-            <div class="time" onclick="selectTime(this,'13:00')">13:00</div>
-            <div class="time" onclick="selectTime(this,'13:30')">13:30</div>
+        <div class="time" onclick="selectTime(this,'08:30')">08:30</div>
+        <div class="time" onclick="selectTime(this,'09:00')">09:00</div>
+        <div class="time" onclick="selectTime(this,'09:30')">09:30</div>
+        <div class="time" onclick="selectTime(this,'10:00')">10:00</div>
+        <div class="time" onclick="selectTime(this,'10:30')">10:30</div>
+        <div class="time" onclick="selectTime(this,'11:00')">11:00</div>
+        <div class="time" onclick="selectTime(this,'11:30')">11:30</div>
+        <div class="time" onclick="selectTime(this,'12:00')">12:00</div>
+        <div class="time" onclick="selectTime(this,'12:30')">12:30</div>
+        <div class="time" onclick="selectTime(this,'13:00')">13:00</div>
+        <div class="time" onclick="selectTime(this,'13:30')">13:30</div>
 
-            <div class="time" onclick="selectTime(this,'16:00')">16:00</div>
-            <div class="time" onclick="selectTime(this,'16:30')">16:30</div>
-            <div class="time" onclick="selectTime(this,'17:00')">17:00</div>
-            <div class="time" onclick="selectTime(this,'17:30')">17:30</div>
-            <div class="time" onclick="selectTime(this,'18:00')">18:00</div>
-            <div class="time" onclick="selectTime(this,'18:30')">18:30</div>
-            <div class="time" onclick="selectTime(this,'19:00')">19:00</div>
-            <div class="time" onclick="selectTime(this,'19:30')">19:30</div>
-            <div class="time" onclick="selectTime(this,'20:00')">20:00</div>
-            <div class="time" onclick="selectTime(this,'20:30')">20:30</div>
-            <div class="time" onclick="selectTime(this,'21:00')">21:00</div>
+        <div class="time" onclick="selectTime(this,'16:00')">16:00</div>
+        <div class="time" onclick="selectTime(this,'16:30')">16:30</div>
+        <div class="time" onclick="selectTime(this,'17:00')">17:00</div>
+        <div class="time" onclick="selectTime(this,'17:30')">17:30</div>
+        <div class="time" onclick="selectTime(this,'18:00')">18:00</div>
+        <div class="time" onclick="selectTime(this,'18:30')">18:30</div>
+        <div class="time" onclick="selectTime(this,'19:00')">19:00</div>
+        <div class="time" onclick="selectTime(this,'19:30')">19:30</div>
+        <div class="time" onclick="selectTime(this,'20:00')">20:00</div>
+        <div class="time" onclick="selectTime(this,'20:30')">20:30</div>
+        <div class="time" onclick="selectTime(this,'21:00')">21:00</div>
 
         `;
 
-    } else if(service === "اصلاح VIP"){
+    }
+
+    else if(service === "اصلاح VIP"){
 
         timesContainer.innerHTML = `
 
-            <div class="time" onclick="selectTime(this,'08:30')">08:30</div>
-            <div class="time" onclick="selectTime(this,'09:30')">09:30</div>
-            <div class="time" onclick="selectTime(this,'10:30')">10:30</div>
-            <div class="time" onclick="selectTime(this,'11:30')">11:30</div>
-            <div class="time" onclick="selectTime(this,'12:30')">12:30</div>
+        <div class="time" onclick="selectTime(this,'08:30')">08:30</div>
+        <div class="time" onclick="selectTime(this,'09:30')">09:30</div>
+        <div class="time" onclick="selectTime(this,'10:30')">10:30</div>
+        <div class="time" onclick="selectTime(this,'11:30')">11:30</div>
+        <div class="time" onclick="selectTime(this,'12:30')">12:30</div>
 
-            <div class="time" onclick="selectTime(this,'16:00')">16:00</div>
-            <div class="time" onclick="selectTime(this,'17:00')">17:00</div>
-            <div class="time" onclick="selectTime(this,'18:00')">18:00</div>
-            <div class="time" onclick="selectTime(this,'19:00')">19:00</div>
-            <div class="time" onclick="selectTime(this,'20:00')">20:00</div>
+        <div class="time" onclick="selectTime(this,'16:00')">16:00</div>
+        <div class="time" onclick="selectTime(this,'17:00')">17:00</div>
+        <div class="time" onclick="selectTime(this,'18:00')">18:00</div>
+        <div class="time" onclick="selectTime(this,'19:00')">19:00</div>
+        <div class="time" onclick="selectTime(this,'20:00')">20:00</div>
 
         `;
 
@@ -796,26 +796,27 @@ function selectService(element, service){
 
     if(selectedDate){
 
-        setTimeout(() => {
-
-            refreshBookedTimes();
-
-        },100);
+        setTimeout(
+            refreshBookedTimes,
+            100
+        );
 
     }
 
 }
 
 
-/* =========================
-   TIME
-========================= */
+/* TIME */
 
 function selectTime(element,time){
 
-    if(element.classList.contains("booked")){
+    if(
+        element.classList.contains("booked")
+    ){
 
-        alert("این ساعت قبلاً رزرو شده است.");
+        alert(
+            "این ساعت قبلاً رزرو شده است."
+        );
 
         return;
 
@@ -833,7 +834,9 @@ function selectTime(element,time){
 
     element.classList.add("selected");
 
+
     selectedTime = time;
+
 
     document
     .getElementById("time")
@@ -842,44 +845,59 @@ function selectTime(element,time){
 }
 
 
-/* =========================
-   REFRESH BOOKED TIMES
-========================= */
+/* REFRESH BOOKED TIMES */
 
 async function refreshBookedTimes(){
 
-    if(!selectedDate) return;
-
-
-    const dateText =
-        persianNumber(selectedDate.day)
-        + " "
-        + months[selectedDate.month - 1]
-        + " "
-        + persianNumber(selectedDate.year);
+    if(!selectedDate)
+        return;
 
 
     try{
 
-        const snapshot =
+        const appointments =
             await loadAppointments();
+
+
+        const gregorian =
+            jalaliToGregorian(
+                selectedDate.year,
+                selectedDate.month,
+                selectedDate.day
+            );
+
+
+        const selectedDateISO =
+            gregorian[0]
+            +
+            "-"
+            +
+            String(gregorian[1]).padStart(2,"0")
+            +
+            "-"
+            +
+            String(gregorian[2]).padStart(2,"0");
 
 
         document
         .querySelectorAll(".time")
-        .forEach(timeBtn => {
-
+        .forEach(function(timeBtn){
 
             const time =
                 timeBtn.textContent.trim();
 
 
-            const toMinutes = (t) => {
+            const toMinutes =
+            function(t){
 
-                const [h,m] =
-                    t.split(":").map(Number);
+                const parts =
+                    t.split(":");
 
-                return h * 60 + m;
+                return (
+                    Number(parts[0]) * 60
+                    +
+                    Number(parts[1])
+                );
 
             };
 
@@ -895,51 +913,81 @@ async function refreshBookedTimes(){
 
 
             const currentEnd =
-                currentStart + currentDuration;
+                currentStart
+                +
+                currentDuration;
 
 
-            let booked = false;
+            let booked=false;
 
 
-            snapshot.forEach(item => {
+            appointments.forEach(
+                function(item){
 
-                if(item.date !== dateText)
-                    return;
+                    if(
+                        item.appointment_date
+                        !==
+                        selectedDateISO
+                    ){
 
+                        return;
 
-                const bookedStart =
-                    toMinutes(item.time);
-
-
-                const bookedDuration =
-                    item.service === "اصلاح VIP"
-                    ? 60
-                    : 30;
+                    }
 
 
-                const bookedEnd =
-                    bookedStart + bookedDuration;
+                    const bookedStart =
+                        toMinutes(
+                            item.appointment_time
+                        );
 
 
-                if(
-                    currentStart < bookedEnd &&
-                    currentEnd > bookedStart
-                ){
+                    const bookedDuration =
+                        Number(
+                            item.appointment_minute
+                        )
+                        ||
+                        (
+                            item.service ===
+                            "اصلاح VIP"
+                            ? 60
+                            : 30
+                        );
 
-                    booked = true;
+
+                    const bookedEnd =
+                        bookedStart
+                        +
+                        bookedDuration;
+
+
+                    if(
+                        currentStart < bookedEnd
+                        &&
+                        currentEnd > bookedStart
+                    ){
+
+                        booked=true;
+
+                    }
 
                 }
-
-            });
+            );
 
 
             if(booked){
 
-                timeBtn.classList.add("booked");
+                timeBtn
+                .classList
+                .add("booked");
 
-                timeBtn.classList.remove("selected");
 
-                timeBtn.onclick = function(){
+                timeBtn
+                .classList
+                .remove("selected");
+
+
+                timeBtn.onclick =
+                function(){
 
                     alert(
                         "این ساعت قبلاً رزرو شده است."
@@ -948,11 +996,17 @@ async function refreshBookedTimes(){
                 };
 
 
-            }else{
+            }
 
-                timeBtn.classList.remove("booked");
+            else{
 
-                timeBtn.onclick = function(){
+                timeBtn
+                .classList
+                .remove("booked");
+
+
+                timeBtn.onclick =
+                function(){
 
                     selectTime(
                         this,
@@ -964,6 +1018,7 @@ async function refreshBookedTimes(){
             }
 
         });
+
 
     }catch(error){
 
@@ -977,11 +1032,13 @@ async function refreshBookedTimes(){
 }
 
 
-/* =========================
-   GREGORIAN → JALALI
-========================= */
+/* GREGORIAN TO JALALI */
 
-function gregorianToJalali(gy,gm,gd){
+function gregorianToJalali(
+    gy,
+    gm,
+    gd
+){
 
 let gdm=[
 0,31,59,90,120,151,
@@ -990,146 +1047,220 @@ let gdm=[
 
 let jy;
 
+
 if(gy>1600){
 
 jy=979;
+
 gy-=1600;
 
-}else{
+}
+
+else{
 
 jy=0;
+
 gy-=621;
 
 }
 
-let gy2=(gm>2)?gy+1:gy;
 
-let days=
-365*gy
-+
-Math.floor((gy2+3)/4)
--
-Math.floor((gy2+99)/100)
-+
-Math.floor((gy2+399)/400)
--
-80
-+
-gd
-+
-gdm[gm-1];
+let gy2 =
+    (gm>2)
+    ? gy+1
+    : gy;
 
-jy+=33*Math.floor(days/12053);
 
-days%=12053;
+let days =
+    365*gy
+    +
+    Math.floor((gy2+3)/4)
+    -
+    Math.floor((gy2+99)/100)
+    +
+    Math.floor((gy2+399)/400)
+    -
+    80
+    +
+    gd
+    +
+    gdm[gm-1];
 
-jy+=4*Math.floor(days/1461);
 
-days%=1461;
+jy +=
+    33 *
+    Math.floor(days/12053);
+
+
+days %= 12053;
+
+
+jy +=
+    4 *
+    Math.floor(days/1461);
+
+
+days %= 1461;
+
 
 if(days>365){
 
-jy+=Math.floor((days-1)/365);
+jy +=
+    Math.floor((days-1)/365);
 
-days=(days-1)%365;
+days =
+    (days-1)%365;
 
 }
 
+
 let jm;
+
 let jd;
+
 
 if(days<186){
 
-jm=1+Math.floor(days/31);
+jm =
+    1+
+    Math.floor(days/31);
 
-jd=1+(days%31);
-
-}else{
-
-jm=7+Math.floor((days-186)/30);
-
-jd=1+((days-186)%30);
+jd =
+    1+
+    (days%31);
 
 }
 
-return [jy,jm,jd];
+else{
+
+jm =
+    7+
+    Math.floor((days-186)/30);
+
+jd =
+    1+
+    ((days-186)%30);
 
 }
 
 
-/* =========================
-   JALALI → GREGORIAN
-========================= */
+return [
+    jy,
+    jm,
+    jd
+];
 
-function jalaliToGregorian(jy,jm,jd){
+}
+
+
+/* JALALI TO GREGORIAN */
+
+function jalaliToGregorian(
+    jy,
+    jm,
+    jd
+){
 
 jy=parseInt(jy);
+
 jm=parseInt(jm);
+
 jd=parseInt(jd);
 
+
 let gy;
+
 
 if(jy>979){
 
 gy=1600;
+
 jy-=979;
 
-}else{
+}
+
+else{
 
 gy=621;
 
 }
 
-let days=
-365*jy
-+
-Math.floor(jy/33)*8
-+
-Math.floor(((jy%33)+3)/4)
-+
-78
-+
-jd
-+
-((jm<7)
-?
-((jm-1)*31)
-:
-(((jm-7)*30)+186));
 
-gy+=400*Math.floor(days/146097);
+let days =
+    365*jy
+    +
+    Math.floor(jy/33)*8
+    +
+    Math.floor(((jy%33)+3)/4)
+    +
+    78
+    +
+    jd
+    +
+    (
+        (jm<7)
+        ?
+        ((jm-1)*31)
+        :
+        (((jm-7)*30)+186)
+    );
 
-days%=146097;
+
+gy +=
+    400 *
+    Math.floor(days/146097);
+
+
+days %= 146097;
+
 
 if(days>36524){
 
-gy+=100*Math.floor(--days/36524);
+gy +=
+    100 *
+    Math.floor(--days/36524);
 
-days%=36524;
+days %= 36524;
+
 
 if(days>=365)
-days++;
+    days++;
 
 }
 
-gy+=4*Math.floor(days/1461);
 
-days%=1461;
+gy +=
+    4 *
+    Math.floor(days/1461);
+
+
+days %= 1461;
+
 
 if(days>365){
 
-gy+=Math.floor((days-1)/365);
+gy +=
+    Math.floor((days-1)/365);
 
-days=(days-1)%365;
+days =
+    (days-1)%365;
 
 }
 
-let gd=days+1;
+
+let gd =
+    days+1;
+
 
 let sal_a=[
 0,
 31,
-((gy%4===0 && gy%100!==0)||gy%400===0)
+(
+    (gy%4===0 &&
+     gy%100!==0)
+    ||
+    gy%400===0
+)
 ?29
 :28,
 31,
@@ -1144,24 +1275,32 @@ let sal_a=[
 31
 ];
 
+
 let gm=0;
 
-while(gd>sal_a[gm]){
 
-gd-=sal_a[gm];
+while(
+    gd>sal_a[gm]
+){
+
+gd -=
+    sal_a[gm];
 
 gm++;
 
 }
 
-return [gy,gm,gd];
+
+return [
+    gy,
+    gm,
+    gd
+];
 
 }
 
 
-/* =========================
-   MONTH NAMES
-========================= */
+/* MONTHS */
 
 const months=[
 
@@ -1181,9 +1320,7 @@ const months=[
 ];
 
 
-/* =========================
-   PERSIAN NUMBERS
-========================= */
+/* PERSIAN NUMBER */
 
 function persianNumber(num){
 
@@ -1199,9 +1336,7 @@ return String(num).replace(
 }
 
 
-/* =========================
-   TODAY
-========================= */
+/* TODAY */
 
 const todayGregorian =
     new Date();
@@ -1215,62 +1350,25 @@ const todayJalali =
     );
 
 
-/* =========================
-   START CALENDAR
-========================= */
-
 calendarDate={
 
-    year:todayJalali[0],
-    month:todayJalali[1]
+    year:
+        todayJalali[0],
+
+    month:
+        todayJalali[1]
 
 };
 
 
-/* =========================
-   TOGGLE CALENDAR
-========================= */
+/* CALENDAR */
 
 function toggleCalendar(){
 
     const calendar =
-        document.getElementById("calendar");
-
-
-    if(!calendarDate){
-
-        const today =
-            new Date();
-
-
-        const gy =
-            today.getFullYear();
-
-
-        const gm =
-            today.getMonth()+1;
-
-
-        const gd =
-            today.getDate();
-
-
-        const jalali =
-            gregorianToJalali(
-                gy,
-                gm,
-                gd
-            );
-
-
-        calendarDate={
-
-            year:jalali[0],
-            month:jalali[1]
-
-        };
-
-    }
+        document.getElementById(
+            "calendar"
+        );
 
 
     calendar
@@ -1278,7 +1376,9 @@ function toggleCalendar(){
     .toggle("show");
 
 
-    if(calendar.classList.contains("show")){
+    if(
+        calendar.classList.contains("show")
+    ){
 
         renderCalendar();
 
@@ -1287,9 +1387,7 @@ function toggleCalendar(){
 }
 
 
-/* =========================
-   RENDER CALENDAR
-========================= */
+/* RENDER CALENDAR */
 
 function renderCalendar(){
 
@@ -1303,6 +1401,7 @@ const month =
 document
 .getElementById("calendarMonth")
 .textContent =
+
     months[month-1]
     +
     " "
@@ -1333,7 +1432,7 @@ const firstDate =
     );
 
 
-let startDay =
+const startDay =
     (firstDate.getDay()+1)%7;
 
 
@@ -1344,11 +1443,15 @@ if(month<=6){
 
 daysInMonth=31;
 
-}else if(month<=11){
+}
+
+else if(month<=11){
 
 daysInMonth=30;
 
-}else{
+}
+
+else{
 
 daysInMonth=30;
 
@@ -1370,7 +1473,7 @@ empty.className =
 
 
 daysContainer
-    .appendChild(empty);
+.appendChild(empty);
 
 }
 
@@ -1385,8 +1488,7 @@ const div =
     document.createElement("div");
 
 
-div.className =
-    "day";
+div.className="day";
 
 
 div.textContent =
@@ -1394,8 +1496,10 @@ div.textContent =
 
 
 if(
-    year===todayJalali[0] &&
-    month===todayJalali[1] &&
+    year===todayJalali[0]
+    &&
+    month===todayJalali[1]
+    &&
     day===todayJalali[2]
 ){
 
@@ -1405,9 +1509,12 @@ div.classList.add("today");
 
 
 if(
-    selectedDate &&
-    selectedDate.year===year &&
-    selectedDate.month===month &&
+    selectedDate
+    &&
+    selectedDate.year===year
+    &&
+    selectedDate.month===month
+    &&
     selectedDate.day===day
 ){
 
@@ -1419,20 +1526,29 @@ div.classList.add("selected");
 let isPast=false;
 
 
-if(year<todayJalali[0]){
+if(
+    year<todayJalali[0]
+){
 
 isPast=true;
 
-}else if(
-    year===todayJalali[0] &&
+}
+
+else if(
+    year===todayJalali[0]
+    &&
     month<todayJalali[1]
 ){
 
 isPast=true;
 
-}else if(
-    year===todayJalali[0] &&
-    month===todayJalali[1] &&
+}
+
+else if(
+    year===todayJalali[0]
+    &&
+    month===todayJalali[1]
+    &&
     day<todayJalali[2]
 ){
 
@@ -1447,32 +1563,33 @@ div.style.opacity="0.25";
 
 div.style.cursor="not-allowed";
 
-}else{
+}
 
-div.onclick=function(){
+else{
 
-selectDate(
-    year,
-    month,
-    day
-);
+div.onclick =
+    function(){
 
-};
+        selectDate(
+            year,
+            month,
+            day
+        );
+
+    };
 
 }
 
 
 daysContainer
-    .appendChild(div);
+.appendChild(div);
 
 }
 
 }
 
 
-/* =========================
-   SELECT DATE
-========================= */
+/* SELECT DATE */
 
 function selectDate(
     year,
@@ -1480,69 +1597,75 @@ function selectDate(
     day
 ){
 
-    selectedDate={
+selectedDate={
 
-        year:year,
-        month:month,
-        day:day
+    year:year,
 
-    };
+    month:month,
 
+    day:day
 
-    const text =
-
-        persianNumber(day)
-        +
-        " "
-        +
-        months[month-1]
-        +
-        " "
-        +
-        persianNumber(year);
+};
 
 
-    document
-        .getElementById("selectedDateText")
-        .textContent=text;
+const text =
+
+    persianNumber(day)
+    +
+    " "
+    +
+    months[month-1]
+    +
+    " "
+    +
+    persianNumber(year);
 
 
-    const button =
-        document.getElementById("dateButton");
+document
+.getElementById(
+    "selectedDateText"
+)
+.textContent=text;
 
 
-    button.textContent=text;
-
-    button.classList.add("selected");
-
-
-    document
-        .getElementById("calendar")
-        .classList
-        .remove("show");
+const button =
+    document.getElementById(
+        "dateButton"
+    );
 
 
-    if(selectedService){
+button.textContent=text;
 
-        setTimeout(() => {
+button.classList.add(
+    "selected"
+);
 
-            refreshBookedTimes();
 
-        },100);
+document
+.getElementById("calendar")
+.classList
+.remove("show");
 
-    }
+
+if(selectedService){
+
+    setTimeout(
+        refreshBookedTimes,
+        100
+    );
+
+}
 
 }
 
 
-/* =========================
-   PREVIOUS MONTH
-========================= */
+/* PREVIOUS */
 
 function previousMonth(){
 
 if(
-    calendarDate.year===todayJalali[0] &&
+    calendarDate.year===todayJalali[0]
+    &&
     calendarDate.month===todayJalali[1]
 ){
 
@@ -1568,9 +1691,7 @@ renderCalendar();
 }
 
 
-/* =========================
-   NEXT MONTH
-========================= */
+/* NEXT */
 
 function nextMonth(){
 
@@ -1591,9 +1712,7 @@ renderCalendar();
 }
 
 
-/* =========================
-   BOOK
-========================= */
+/* BOOK APPOINTMENT */
 
 async function bookAppointment(){
 
@@ -1666,28 +1785,61 @@ return;
 }
 
 
+/* PERSIAN DATE */
+
 const dateText =
 
-    persianNumber(selectedDate.day)
+    persianNumber(
+        selectedDate.day
+    )
     +
     " "
     +
-    months[selectedDate.month-1]
+    months[
+        selectedDate.month-1
+    ]
     +
     " "
     +
-    persianNumber(selectedDate.year);
+    persianNumber(
+        selectedDate.year
+    );
 
 
-/*
-اول بررسی می‌کنیم ساعت قبلاً رزرو نشده باشد
-*/
+/* GREGORIAN DATE */
+
+const gregorian =
+    jalaliToGregorian(
+        selectedDate.year,
+        selectedDate.month,
+        selectedDate.day
+    );
+
+
+const appointmentDate =
+
+    gregorian[0]
+    +
+    "-"
+    +
+    String(
+        gregorian[1]
+    ).padStart(2,"0")
+    +
+    "-"
+    +
+    String(
+        gregorian[2]
+    ).padStart(2,"0");
+
 
 try{
 
+    /* CHECK AGAIN */
+
     const alreadyBooked =
         await isTimeBooked(
-            dateText,
+            appointmentDate,
             selectedTime,
             selectedService
         );
@@ -1699,28 +1851,33 @@ try{
             "این ساعت قبلاً رزرو شده است."
         );
 
+
         await refreshBookedTimes();
+
 
         return;
 
     }
 
 
-    /*
-    ذخیره نوبت
-    */
+    /* SAVE */
 
     await saveAppointment({
 
-        service:selectedService,
+        service:
+            selectedService,
 
-        name:name,
+        name:
+            name,
 
-        phone:phone,
+        phone:
+            phone,
 
-        date:dateText,
+        date:
+            appointmentDate,
 
-        time:selectedTime,
+        time:
+            selectedTime,
 
         createdAt:
             new Date().toISOString()
@@ -1728,9 +1885,7 @@ try{
     });
 
 
-    /*
-    نمایش نتیجه
-    */
+    /* RESULT */
 
     document
     .getElementById("result")
@@ -1799,13 +1954,19 @@ try{
 }catch(error){
 
     console.error(
-        "خطا در ثبت نوبت:",
+        "SUPABASE ERROR:",
         error
     );
 
 
     alert(
-        "ثبت نوبت انجام نشد. لطفاً دوباره تلاش کنید."
+        "ثبت نوبت انجام نشد.\n\n"
+        +
+        (
+            error.message
+            ||
+            "خطای نامشخص"
+        )
     );
 
 }
@@ -1816,8 +1977,10 @@ try{
 
 
 <!-- =========================
+     SCRIPT 2
      SUPABASE
 ========================= -->
+
 <script type="module">
 
 import {
@@ -1842,9 +2005,7 @@ const supabase =
     );
 
 
-/* =========================
-   SAVE APPOINTMENT
-========================= */
+/* SAVE */
 
 window.saveAppointment =
 async function(data){
@@ -1860,31 +2021,39 @@ async function(data){
     } =
     await supabase
     .from("appointments")
-    .insert([{
+    .insert({
 
-        service: data.service,
+        service:
+            data.service,
 
-        name: data.name,
+        name:
+            data.name,
 
-        phone: data.phone,
+        phone:
+            data.phone,
 
-        appointment_date: data.date,
+        appointment_date:
+            data.date,
 
-        appointment_time: data.time,
+        appointment_time:
+            data.time,
 
-        appointment_minute: appointmentMinutes,
+        appointment_minute:
+            appointmentMinutes,
 
-        created_at: data.createdAt
+        created_at:
+            data.createdAt
 
-    }]);
+    });
 
 
     if(error){
 
         console.error(
-            "Supabase save error:",
+            "SUPABASE INSERT ERROR:",
             error
         );
+
 
         throw error;
 
@@ -1893,9 +2062,7 @@ async function(data){
 };
 
 
-/* =========================
-   CHECK BOOKED TIME
-========================= */
+/* CHECK BOOKED */
 
 window.isTimeBooked =
 async function(
@@ -1922,9 +2089,10 @@ async function(
     if(error){
 
         console.error(
-            "Supabase read error:",
+            "SUPABASE SELECT ERROR:",
             error
         );
+
 
         throw error;
 
@@ -1934,12 +2102,16 @@ async function(
     const toMinutes =
     function(t){
 
-        const [h,m] =
+        const parts =
             t
-            .split(":")
-            .map(Number);
+            .split(":");
 
-        return h * 60 + m;
+
+        return (
+            Number(parts[0])*60
+            +
+            Number(parts[1])
+        );
 
     };
 
@@ -1960,7 +2132,7 @@ async function(
         currentDuration;
 
 
-    let booked = false;
+    let booked=false;
 
 
     (data || []).forEach(
@@ -1975,9 +2147,11 @@ async function(
             const bookedDuration =
                 Number(
                     item.appointment_minute
-                ) ||
+                )
+                ||
                 (
-                    item.service === "اصلاح VIP"
+                    item.service ===
+                    "اصلاح VIP"
                     ? 60
                     : 30
                 );
@@ -1990,11 +2164,12 @@ async function(
 
 
             if(
-                currentStart < bookedEnd &&
+                currentStart < bookedEnd
+                &&
                 currentEnd > bookedStart
             ){
 
-                booked = true;
+                booked=true;
 
             }
 
@@ -2007,9 +2182,7 @@ async function(
 };
 
 
-/* =========================
-   LOAD APPOINTMENTS
-========================= */
+/* LOAD */
 
 window.loadAppointments =
 async function(){
@@ -2028,36 +2201,17 @@ async function(){
     if(error){
 
         console.error(
-            "Supabase load error:",
+            "SUPABASE LOAD ERROR:",
             error
         );
+
 
         throw error;
 
     }
 
 
-    return (data || []).map(
-        function(item){
-
-            return {
-
-                service:
-                    item.service,
-
-                date:
-                    item.appointment_date,
-
-                time:
-                    item.appointment_time,
-
-                appointment_minute:
-                    item.appointment_minute
-
-            };
-
-        }
-    );
+    return data || [];
 
 };
 
