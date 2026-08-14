@@ -1,30 +1,2569 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ESI BARBER | نوبت دهی</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:'Vazirmatn',sans-serif;background:#0b0b0b;color:#fff}.container{max-width:500px;margin:auto;padding:25px 18px 40px}.header{text-align:center;padding:35px 10px 25px}.logo{width:90px;height:90px;border-radius:50%;border:2px solid #d4af37;object-fit:cover;margin-bottom:15px}.header h1{margin:0;color:#d4af37;font-size:28px;letter-spacing:2px}.header p{color:#999;margin-top:8px}.card{background:#151515;border:1px solid #292929;border-radius:16px;padding:20px;margin-bottom:15px}.title{color:#d4af37;font-size:18px;font-weight:700;margin-bottom:15px}.services{display:grid;gap:10px}.service{background:#202020;border:1px solid #333;border-radius:12px;padding:15px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:.25s}.service.selected{border-color:#d4af37;background:#24200f;box-shadow:0 0 12px rgba(212,175,55,.15)}.service-price{color:#d4af37}.date-button{width:100%;background:#202020;border:1px solid #444;color:#fff;padding:15px;border-radius:12px;font-family:inherit;font-size:15px;cursor:pointer;text-align:center}.date-button:hover,.date-button.selected{border-color:#d4af37;color:#d4af37}.calendar{display:none;margin-top:12px;background:#101010;border:1px solid #333;border-radius:14px;padding:15px}.calendar.show{display:block}.calendar-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}.calendar-header button{background:#202020;color:#d4af37;border:1px solid #444;width:38px;height:38px;border-radius:9px;cursor:pointer;font-size:18px}.calendar-month{color:#d4af37;font-weight:700}.weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:7px}.weekday{text-align:center;color:#777;font-size:11px;padding:5px 0}.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.day{min-height:40px;display:flex;align-items:center;justify-content:center;background:#202020;border:1px solid #292929;border-radius:8px;cursor:pointer;font-size:13px}.day:hover,.day.today{border-color:#d4af37}.day.selected{background:#d4af37;color:#000;border-color:#d4af37;font-weight:700}.day.empty{background:transparent;border:0;cursor:default}.selected-date{margin-top:10px;text-align:center;color:#999;font-size:13px}.selected-date span{color:#d4af37;font-weight:700}.times{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}.time{background:#202020;border:1px solid #444;color:#fff;padding:13px 5px;border-radius:10px;text-align:center;cursor:pointer;font-size:14px;transition:.2s;user-select:none}.time:active{transform:scale(.96)}.time.selected{background:#d4af37;color:#000;border-color:#d4af37;font-weight:700;box-shadow:0 0 15px rgba(212,175,55,.3)}.time.booked{background:#111;color:#666;border-color:#333;cursor:not-allowed;opacity:.5}label{display:block;margin-bottom:8px;color:#ccc;font-size:14px}input{width:100%;padding:13px;margin-bottom:15px;border-radius:10px;border:1px solid #333;background:#101010;color:white;font-family:inherit;font-size:15px;outline:none}input:focus{border-color:#d4af37}.submit{width:100%;padding:15px;border:0;border-radius:12px;background:#d4af37;color:#000;font-family:inherit;font-size:16px;font-weight:800;cursor:pointer;transition:.2s}.submit:hover{box-shadow:0 0 20px rgba(212,175,55,.35)}.success{display:none;text-align:center;background:#151515;border:1px solid #d4af37;border-radius:16px;padding:25px;margin-top:20px}.success h2{color:#d4af37;margin-top:0}.success p{color:#ccc;line-height:2}.footer{text-align:center;color:#666;font-size:12px;margin-top:25px}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:'Vazirmatn',sans-serif;
+    background:#0b0b0b;
+    color:#fff;
+}
+
+.container{
+    max-width:500px;
+    margin:auto;
+    padding:25px 18px 40px;
+}
+
+/* HEADER */
+
+.header{
+    text-align:center;
+    padding:35px 10px 25px;
+}
+
+.logo{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    border:2px solid #d4af37;
+    object-fit:cover;
+    margin-bottom:15px;
+}
+
+.header h1{
+    margin:0;
+    color:#d4af37;
+    font-size:28px;
+    letter-spacing:2px;
+}
+
+.header p{
+    color:#999;
+    margin-top:8px;
+}
+
+
+/* CARD */
+
+.card{
+    background:#151515;
+    border:1px solid #292929;
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:15px;
+}
+
+.title{
+    color:#d4af37;
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+
+/* SERVICES */
+
+.services{
+    display:grid;
+    gap:10px;
+}
+
+.service{
+    background:#202020;
+    border:1px solid #333;
+    border-radius:12px;
+    padding:15px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    cursor:pointer;
+    transition:.25s;
+}
+
+.service.selected{
+    border-color:#d4af37;
+    background:#24200f;
+    box-shadow:0 0 12px rgba(212,175,55,.15);
+}
+
+.service-price{
+    color:#d4af37;
+}
+
+
+/* DATE BUTTON */
+
+.date-button{
+    width:100%;
+    background:#202020;
+    border:1px solid #444;
+    color:#fff;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    font-family:inherit;
+    font-size:15px;
+
+    cursor:pointer;
+
+    text-align:center;
+}
+
+.date-button:hover{
+    border-color:#d4af37;
+}
+
+.date-button.selected{
+    border-color:#d4af37;
+    color:#d4af37;
+}
+
+
+/* CALENDAR */
+
+.calendar{
+    display:none;
+    margin-top:12px;
+    background:#101010;
+    border:1px solid #333;
+    border-radius:14px;
+    padding:15px;
+}
+
+.calendar.show{
+    display:block;
+}
+
+.calendar-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:15px;
+}
+
+.calendar-header button{
+    background:#202020;
+    color:#d4af37;
+    border:1px solid #444;
+    width:38px;
+    height:38px;
+    border-radius:9px;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.calendar-month{
+    color:#d4af37;
+    font-weight:700;
+}
+
+.weekdays{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:5px;
+    margin-bottom:7px;
+}
+
+.weekday{
+    text-align:center;
+    color:#777;
+    font-size:11px;
+    padding:5px 0;
+}
+
+.days{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:6px;
+}
+
+.day{
+    min-height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#202020;
+    border:1px solid #292929;
+    border-radius:8px;
+
+    cursor:pointer;
+    font-size:13px;
+}
+
+.day:hover{
+    border-color:#d4af37;
+}
+
+.day.today{
+    border-color:#d4af37;
+}
+
+.day.selected{
+    background:#d4af37;
+    color:#000;
+    border-color:#d4af37;
+    font-weight:700;
+}
+
+.day.empty{
+    background:transparent;
+    border:0;
+    cursor:default;
+}
+
+
+/* SELECTED DATE */
+
+.selected-date{
+    margin-top:10px;
+    text-align:center;
+    color:#999;
+    font-size:13px;
+}
+
+.selected-date span{
+    color:#d4af37;
+    font-weight:700;
+}
+
+
+/* TIMES */
+
+.times{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:10px;
+}
+
+.time{
+    background:#202020;
+    border:1px solid #444;
+    color:#fff;
+
+    padding:13px 5px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    transition:.2s;
+
+    user-select:none;
+}
+
+.time:active{
+    transform:scale(.96);
+}
+
+.time.selected{
+    background:#d4af37;
+    color:#000;
+    border-color:#d4af37;
+    font-weight:700;
+
+    box-shadow:0 0 15px rgba(212,175,55,.3);
+}
+
+
+/* INPUT */
+
+label{
+    display:block;
+    margin-bottom:8px;
+    color:#ccc;
+    font-size:14px;
+}
+
+input{
+    width:100%;
+    padding:13px;
+
+    margin-bottom:15px;
+
+    border-radius:10px;
+
+    border:1px solid #333;
+
+    background:#101010;
+
+    color:white;
+
+    font-family:inherit;
+
+    font-size:15px;
+
+    outline:none;
+}
+
+input:focus{
+    border-color:#d4af37;
+}
+
+
+/* SUBMIT */
+
+.submit{
+    width:100%;
+
+    padding:15px;
+
+    border:0;
+
+    border-radius:12px;
+
+    background:#d4af37;
+
+    color:#000;
+
+    font-family:inherit;
+
+    font-size:16px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.submit:hover{
+    box-shadow:0 0 20px rgba(212,175,55,.35);
+}
+
+
+/* SUCCESS */
+
+.success{
+    display:none;
+
+    text-align:center;
+
+    background:#151515;
+
+    border:1px solid #d4af37;
+
+    border-radius:16px;
+
+    padding:25px;
+
+    margin-top:20px;
+}
+
+.success h2{
+    color:#d4af37;
+    margin-top:0;
+}
+
+.success p{
+    color:#ccc;
+    line-height:2;
+}
+
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    color:#666;
+    font-size:12px;
+    margin-top:25px;
+}
+
+    .time.booked{
+    background:#111;
+    color:#666;
+    border-color:#333;
+    cursor:not-allowed;
+    opacity:.5;
+    }
+    
 </style>
+
 </head>
+
+
 <body>
+
 <div class="container">
-<div class="header"><img class="logo" src="esi_barber_1994_14050522_200959787.jpg" alt="ESI BARBER"><h1>ESI BARBER</h1><p>رزرو نوبت آنلاین</p></div>
-<div class="card"><div class="title">💈 انتخاب خدمات</div><div class="services"><div class="service" onclick="selectService(this,'اصلاح')"><span>✂️ اصلاح</span><span class="service-price">—</span></div><div class="service" onclick="selectService(this,'اصلاح VIP')"><span>👑 اصلاح VIP</span><span class="service-price">—</span></div></div></div>
-<div class="card"><div class="title">📅 انتخاب تاریخ و ساعت</div><button class="date-button" id="dateButton" onclick="toggleCalendar()">انتخاب تاریخ</button><div class="calendar" id="calendar"><div class="calendar-header"><button onclick="previousMonth()">‹</button><div class="calendar-month" id="calendarMonth"></div><button onclick="nextMonth()">›</button></div><div class="weekdays"><div class="weekday">ش</div><div class="weekday">ی</div><div class="weekday">د</div><div class="weekday">س</div><div class="weekday">چ</div><div class="weekday">پ</div><div class="weekday">ج</div></div><div class="days" id="days"></div><div class="selected-date">تاریخ انتخاب شده: <span id="selectedDateText">انتخاب نشده</span></div></div><br><label>ساعت نوبت</label><div class="times"><div class="time" onclick="selectTime(this,'08:30')">08:30</div><div class="time" onclick="selectTime(this,'09:00')">09:00</div><div class="time" onclick="selectTime(this,'09:30')">09:30</div><div class="time" onclick="selectTime(this,'10:00')">10:00</div><div class="time" onclick="selectTime(this,'10:30')">10:30</div><div class="time" onclick="selectTime(this,'11:00')">11:00</div><div class="time" onclick="selectTime(this,'11:30')">11:30</div><div class="time" onclick="selectTime(this,'12:00')">12:00</div><div class="time" onclick="selectTime(this,'12:30')">12:30</div><div class="time" onclick="selectTime(this,'13:00')">13:00</div><div class="time" onclick="selectTime(this,'13:30')">13:30</div><div class="time" onclick="selectTime(this,'16:00')">16:00</div><div class="time" onclick="selectTime(this,'16:30')">16:30</div><div class="time" onclick="selectTime(this,'17:00')">17:00</div><div class="time" onclick="selectTime(this,'17:30')">17:30</div><div class="time" onclick="selectTime(this,'18:00')">18:00</div><div class="time" onclick="selectTime(this,'18:30')">18:30</div><div class="time" onclick="selectTime(this,'19:00')">19:00</div><div class="time" onclick="selectTime(this,'19:30')">19:30</div><div class="time" onclick="selectTime(this,'20:00')">20:00</div><div class="time" onclick="selectTime(this,'20:30')">20:30</div><div class="time" onclick="selectTime(this,'21:00')">21:00</div></div><input type="hidden" id="time"></div>
-<div class="card"><div class="title">👤 اطلاعات شما</div><label>نام و نام خانوادگی</label><input type="text" id="name" placeholder="مثلاً علی رضایی"><label>شماره تماس</label><input type="tel" id="phone" placeholder="09xxxxxxxxx"></div>
-<button class="submit" onclick="bookAppointment()">ثبت نوبت</button>
-<div class="success" id="success"><h2>✅ نوبت شما ثبت شد</h2><p id="result"></p></div>
-<div class="footer">ESI BARBER</div>
+
+
+<!-- HEADER -->
+
+<div class="header">
+
+<img
+class="logo"
+src="esi_barber_1994_14050522_200959787.jpg"
+alt="ESI BARBER">
+
+<h1>ESI BARBER</h1>
+
+<p>رزرو نوبت آنلاین</p>
+
 </div>
+
+
+
+<!-- SERVICES -->
+
+<div class="card">
+
+<div class="title">
+💈 انتخاب خدمات
+</div>
+
+<div class="services">
+
+<div
+class="service"
+onclick="selectService(this,'اصلاح')">
+
+<span>
+✂️ اصلاح
+</span>
+
+<span class="service-price">
+—
+</span>
+
+</div>
+
+
+<div
+class="service"
+onclick="selectService(this,'اصلاح VIP')">
+
+<span>
+👑 اصلاح VIP
+</span>
+
+<span class="service-price">
+—
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- DATE AND TIME -->
+
+<div class="card">
+
+<div class="title">
+📅 انتخاب تاریخ و ساعت
+</div>
+
+
+<!-- DATE -->
+
+<button
+class="date-button"
+id="dateButton"
+onclick="toggleCalendar()">
+
+انتخاب تاریخ
+
+</button>
+
+
+<div
+class="calendar"
+id="calendar">
+
+
+<div class="calendar-header">
+
+<button onclick="previousMonth()">
+‹
+</button>
+
+<div
+class="calendar-month"
+id="calendarMonth">
+</div>
+
+<button onclick="nextMonth()">
+›
+</button>
+
+</div>
+
+
+<div class="weekdays">
+
+<div class="weekday">ش</div>
+<div class="weekday">ی</div>
+<div class="weekday">د</div>
+<div class="weekday">س</div>
+<div class="weekday">چ</div>
+<div class="weekday">پ</div>
+<div class="weekday">ج</div>
+
+</div>
+
+
+<div
+class="days"
+id="days">
+</div>
+
+
+<div class="selected-date">
+تاریخ انتخاب شده:
+<span id="selectedDateText">
+انتخاب نشده
+</span>
+</div>
+
+
+</div>
+
+
+
+<br>
+
+
+<!-- TIME -->
+
+<label>
+ساعت نوبت
+</label>
+
+
+<div class="times">
+
+
+<div class="time"
+onclick="selectTime(this,'09:00')">
+09:00
+</div>
+
+<div class="time"
+onclick="selectTime(this,'09:30')">
+09:30
+</div>
+
+
+<div class="time"
+onclick="selectTime(this,'10:00')">
+10:00
+</div>
+
+<div class="time"
+onclick="selectTime(this,'10:30')">
+10:30
+</div>
+
+
+<div class="time"
+onclick="selectTime(this,'11:00')">
+11:00
+</div>
+
+<div class="time"
+onclick="selectTime(this,'11:30')">
+11:30
+</div>
+
+
+<div class="time"
+onclick="selectTime(this,'12:00')">
+12:00
+</div>
+
+<div class="time"
+onclick="selectTime(this,'12:30')">
+12:30
+</div>
+
+
+<div class="time"
+onclick="selectTime(this,'13:00')">
+13:00
+</div>
+
+<div class="time"
+onclick="selectTime(this,'13:30')">
+13:30
+</div>
+
+
+
+<div class="time"
+onclick="selectTime(this,'16:00')">
+16:00
+</div>
+
+<div class="time"
+onclick="selectTime(this,'16:30')">
+16:30
+</div>
+
+
+<div class="time"
+onclick="selectTime(this,'17:00')">
+17:00
+</div>
+
+<div class="time"
+onclick="selectTime(this,'17:30')">
+17:30
+</div>
+
+
+<div class="time"
+onclick="selectTime(this,'18:00')">
+18:00
+</div>
+
+<div class="time"
+onclick="selectTime(this,'18:30')">
+18:30
+</div>
+
+
+<div class="time"
+onclick="selectTime(this,'19:00')">
+19:00
+</div>
+
+<div class="time"
+onclick="selectTime(this,'19:30')">
+19:30
+</div>
+
+
+<div class="time"
+onclick="selectTime(this,'20:00')">
+20:00
+</div>
+
+<div class="time"
+onclick="selectTime(this,'20:30')">
+20:30
+</div>
+
+
+<div class="time"
+onclick="selectTime(this,'21:00')">
+21:00
+</div>
+
+
+</div>
+
+<input type="hidden" id="time">
+
+</div>
+
+
+
+<!-- CUSTOMER -->
+
+<div class="card">
+
+<div class="title">
+👤 اطلاعات شما
+</div>
+
+
+<label>
+نام و نام خانوادگی
+</label>
+
+<input
+type="text"
+id="name"
+placeholder="مثلاً علی رضایی"
+>
+
+
+<label>
+شماره تماس
+</label>
+
+<input
+type="tel"
+id="phone"
+placeholder="09xxxxxxxxx">
+
+</div>
+
+
+
+<!-- SUBMIT -->
+
+<button
+class="submit"
+onclick="bookAppointment()">
+
+ثبت نوبت
+
+</button>
+
+
+
+<!-- SUCCESS -->
+
+<div
+class="success"
+id="success">
+
+<h2>
+✅ نوبت شما ثبت شد
+</h2>
+
+<p id="result"></p>
+
+</div>
+
+
+
+<div class="footer">
+ESI BARBER
+</div>
+
+
+</div>
+
+
+
 <script>
-let selectedService="",selectedTime="",bookingInProgress=!1,selectedDate=null,calendarDate=null;const months=["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"];function selectService(e,t){document.querySelectorAll(".service").forEach(e=>e.classList.remove("selected")),e.classList.add("selected"),selectedService=t,selectedTime="",document.getElementById("time").value="";const n=document.querySelector(".times");"اصلاح"===t?n.innerHTML='<div class="time" onclick="selectTime(this,\'08:30\')">08:30</div><div class="time" onclick="selectTime(this,\'09:00\')">09:00</div><div class="time" onclick="selectTime(this,\'09:30\')">09:30</div><div class="time" onclick="selectTime(this,\'10:00\')">10:00</div><div class="time" onclick="selectTime(this,\'10:30\')">10:30</div><div class="time" onclick="selectTime(this,\'11:00\')">11:00</div><div class="time" onclick="selectTime(this,\'11:30\')">11:30</div><div class="time" onclick="selectTime(this,\'12:00\')">12:00</div><div class="time" onclick="selectTime(this,\'12:30\')">12:30</div><div class="time" onclick="selectTime(this,\'13:00\')">13:00</div><div class="time" onclick="selectTime(this,\'13:30\')">13:30</div><div class="time" onclick="selectTime(this,\'16:00\')">16:00</div><div class="time" onclick="selectTime(this,\'16:30\')">16:30</div><div class="time" onclick="selectTime(this,\'17:00\')">17:00</div><div class="time" onclick="selectTime(this,\'17:30\')">17:30</div><div class="time" onclick="selectTime(this,\'18:00\')">18:00</div><div class="time" onclick="selectTime(this,\'18:30\')">18:30</div><div class="time" onclick="selectTime(this,\'19:00\')">19:00</div><div class="time" onclick="selectTime(this,\'19:30\')">19:30</div><div class="time" onclick="selectTime(this,\'20:00\')">20:00</div><div class="time" onclick="selectTime(this,\'20:30\')">20:30</div><div class="time" onclick="selectTime(this,\'21:00\')">21:00</div>':"اصلاح VIP"===t&&(n.innerHTML='<div class="time" onclick="selectTime(this,\'08:30\')">08:30</div><div class="time" onclick="selectTime(this,\'09:30\')">09:30</div><div class="time" onclick="selectTime(this,\'10:30\')">10:30</div><div class="time" onclick="selectTime(this,\'11:30\')">11:30</div><div class="time" onclick="selectTime(this,\'12:30\')">12:30</div><div class="time" onclick="selectTime(this,\'16:00\')">16:00</div><div class="time" onclick="selectTime(this,\'17:00\')">17:00</div><div class="time" onclick="selectTime(this,\'18:00\')">18:00</div><div class="time" onclick="selectTime(this,\'19:00\')">19:00</div><div class="time" onclick="selectTime(this,\'20:00\')">20:00</div>'),selectedDate&&setTimeout(()=>{refreshBookedTimes()},100)}function selectTime(e,t){e.classList.contains("booked")?alert("این ساعت قبلاً رزرو شده است."):(document.querySelectorAll(".time").forEach(e=>e.classList.remove("selected")),e.classList.add("selected"),selectedTime=t,document.getElementById("time").value=t)}async function refreshBookedTimes(){if(selectedDate&&"function"==typeof window.loadAppointments){const e=persianNumber(selectedDate.day)+" "+months[selectedDate.month-1]+" "+persianNumber(selectedDate.year);try{const t=await window.loadAppointments();document.querySelectorAll(".time").forEach(n=>{const s=n.textContent.trim(),a=e=>{const[t,n]=e.split(":").map(Number);return 60*t+n},o=a(s),i=o+("اصلاح VIP"===selectedService?60:30);let r=!1;t.forEach(t=>{if(t.date===e){const n=a(t.time),s=n+("اصلاح VIP"===t.service?60:30);o<s&&i>n&&(r=!0)}}),r?(n.classList.add("booked"),n.classList.remove("selected"),n.onclick=null):(n.classList.remove("booked"),n.onclick=function(){selectTime(this,s)})})}catch(e){console.error("Error refreshing times:",e)}}}function gregorianToJalali(e,t,n){let s=[0,31,59,90,120,151,181,212,243,273,304,334],a=e>1600?979:0;e-=e>1600?1600:621;let o=t>2?e+1:e,i=365*e+Math.floor((o+3)/4)-Math.floor((o+99)/100)+Math.floor((o+399)/400)-80+n+s[t-1];a+=33*Math.floor(i/12053),i%=12053,a+=4*Math.floor(i/1461),(i%=1461)>365&&(a+=Math.floor((i-1)/365),i=(i-1)%365);let r=i<186?1+Math.floor(i/31):7+Math.floor((i-186)/30),c=i<186?1+i%31:1+(i-186)%30;return[a,r,c]}function jalaliToGregorian(e,t,n){e=parseInt(e),t=parseInt(t),n=parseInt(n);let s=e>979?1600:621;e>979&&(e-=979);let a=365*e+33*Math.floor(e/33)+Math.floor(((e%33)+3)/4)+78+n+(t<7?31*(t-1):30*(t-7)+186);s+=400*Math.floor(a/146097),a%=146097,a>36524&&(s+=100*Math.floor(--a/36524),a%=36524,a>=365&&s++),s+=4*Math.floor(a/1461),(a%=1461)>365&&(s+=Math.floor((a-1)/365),a=(a-1)%365);let o=a+1,i=[0,31,e%4==0&&e%100!=0||e%400==0?29:28,31,30,31,30,31,31,30,31,30,31],r=0;for(;o>i[r];)o-=i[r],r++;return[s,r,o]}function persianNumber(e){return String(e).replace(/\d/g,e=>"۰۱۲۳۴۵۶۷۸۹"[e])}const todayGregorian=new Date,todayJalali=gregorianToJalali(todayGregorian.getFullYear(),todayGregorian.getMonth()+1,todayGregorian.getDate());calendarDate={year:todayJalali[0],month:todayJalali[1]};function toggleCalendar(){const e=document.getElementById("calendar");e.classList.toggle("show"),e.classList.contains("show")&&renderCalendar()}function renderCalendar(){const e=calendarDate.year,t=calendarDate.month;document.getElementById("calendarMonth").textContent=months[t-1]+" "+persianNumber(e);const n=document.getElementById("days");n.innerHTML="";const s=jalaliToGregorian(e,t,1),a=new Date(s[0],s[1]-1,s[2]),o=(a.getDay()+1)%7,i=t<=6?31:30;for(let e=0;e<o;e++){const e=document.createElement("div");e.className="day empty",n.appendChild(e)}for(let s=1;s<=i;s++){const a=document.createElement("div");a.className="day",a.textContent=persianNumber(s),e===todayJalali[0]&&t===todayJalali[1]&&s===todayJalali[2]&&a.classList.add("today"),selectedDate&&selectedDate.year===e&&selectedDate.month===t&&selectedDate.day===s&&a.classList.add("selected"),(e<todayJalali[0]||e===todayJalali[0]&&t<todayJalali[1]||e===todayJalali[0]&&t===todayJalali[1]&&s<todayJalali[2])?(a.style.opacity="0.25",a.style.cursor="not-allowed"):a.onclick=function(){selectDate(e,t,s)},n.appendChild(a)}}function selectDate(e,t,n){selectedDate={year:e,month:t,day:n};const s=persianNumber(n)+" "+months[t-1]+" "+persianNumber(e);document.getElementById("selectedDateText").textContent=s;const a=document.getElementById("dateButton");a.textContent=s,a.classList.add("selected"),document.getElementById("calendar").classList.remove("show"),selectedService&&setTimeout(()=>{refreshBookedTimes()},100)}function previousMonth(){calendarDate.year===todayJalali[0]&&calendarDate.month===todayJalali[1]||(calendarDate.month--,0===calendarDate.month&&(calendarDate.month=12,calendarDate.year--),renderCalendar())}function nextMonth(){calendarDate.month++,13===calendarDate.month&&(calendarDate.month=1,calendarDate.year++),renderCalendar()}function withTimeout(e,t=35e3){return Promise.race([e,new Promise((e,n)=>{setTimeout(()=>{const e=new Error("TIMEOUT");e.code="timeout",n(e)},t)})])}async function bookAppointment(){if(!bookingInProgress){const e=document.querySelector(".submit"),t=document.getElementById("name")?.value.trim()||"",n=document.getElementById("phone")?.value.trim()||"";if(selectedService)if(selectedDate)if(selectedTime)if(t)if(n)if("function"==typeof window.isTimeBooked&&"function"==typeof window.saveAppointment){const s=persianNumber(selectedDate.day)+" "+months[selectedDate.month-1]+" "+persianNumber(selectedDate.year);bookingInProgress=!0,e&&(e.disabled=!0,e.style.opacity="0.6",e.textContent="در حال ثبت...");try{if(await withTimeout(window.isTimeBooked(s,selectedTime,selectedService),35e3))return alert("این ساعت قبلاً رزرو شده است.\nلطفاً ساعت دیگری انتخاب کنید."),void refreshBookedTimes().catch(()=>{});await withTimeout(window.saveAppointment({service:selectedService,name:t,phone:n,date:s,time:selectedTime,createdAt:(new Date).toISOString()}),35e3);const o=document.getElementById("result"),i=document.getElementById("success");o&&(o.innerHTML="خدمت: <b>"+selectedService+"</b><br>نام: <b>"+t+"</b><br>شماره تماس: <b>"+n+"</b><br>تاریخ: <b>"+s+"</b><br>ساعت: <b>"+selectedTime+"</b><br><br>نوبت شما با موفقیت ثبت شد."),i&&(i.style.display="block",i.scrollIntoView({behavior:"smooth"})),refreshBookedTimes().catch(()=>{})}catch(e){alert("کد خطا: "+(e.code||"نامشخص")+"\nمتن خطا: "+e.message)}finally{bookingInProgress=!1,e&&(e.disabled=!1,e.style.opacity="",e.textContent="ثبت نوبت")}}else alert("ارتباط با دیتابیس در حال برقرار شدن است. لطفاً ۵ ثانیه دیگر دوباره دکمه را بزنید.");else alert("لطفاً شماره تماس خود را وارد کنید.");else alert("لطفاً نام خود را وارد کنید.");else alert("لطفاً ساعت نوبت را انتخاب کنید.");else alert("لطفاً تاریخ نوبت را انتخاب کنید.");else alert("لطفاً یک خدمت انتخاب کنید.")}}
+
+/* =========================
+   VARIABLES
+========================= */
+
+let selectedService = "";
+let selectedTime = "";
+let bookingInProgress = false;
+
+let selectedDate = null;
+
+let calendarDate = null;
+
+/* =========================
+   MONTH NAMES
+========================= */
+
+const months=[
+
+"فروردین",
+"اردیبهشت",
+"خرداد",
+"تیر",
+"مرداد",
+"شهریور",
+"مهر",
+"آبان",
+"آذر",
+"دی",
+"بهمن",
+"اسفند"
+
+];
+
+
+/* =========================
+   SERVICE
+========================= */
+function selectService(element, service){
+
+    document
+    .querySelectorAll(".service")
+    .forEach(function(item){
+        item.classList.remove("selected");
+    });
+
+    element.classList.add("selected");
+
+    selectedService = service;
+    selectedTime = "";
+
+    document.getElementById("time").value = "";
+
+    const timesContainer = document.querySelector(".times");
+
+    if(service === "اصلاح"){
+
+        timesContainer.innerHTML = `
+
+            <div class="time" onclick="selectTime(this,'08:30')">08:30</div>
+            <div class="time" onclick="selectTime(this,'09:00')">09:00</div>
+            <div class="time" onclick="selectTime(this,'09:30')">09:30</div>
+            <div class="time" onclick="selectTime(this,'10:00')">10:00</div>
+            <div class="time" onclick="selectTime(this,'10:30')">10:30</div>
+            <div class="time" onclick="selectTime(this,'11:00')">11:00</div>
+            <div class="time" onclick="selectTime(this,'11:30')">11:30</div>
+            <div class="time" onclick="selectTime(this,'12:00')">12:00</div>
+            <div class="time" onclick="selectTime(this,'12:30')">12:30</div>
+            <div class="time" onclick="selectTime(this,'13:00')">13:00</div>
+            <div class="time" onclick="selectTime(this,'13:30')">13:30</div>
+
+            <div class="time" onclick="selectTime(this,'16:00')">16:00</div>
+            <div class="time" onclick="selectTime(this,'16:30')">16:30</div>
+            <div class="time" onclick="selectTime(this,'17:00')">17:00</div>
+            <div class="time" onclick="selectTime(this,'17:30')">17:30</div>
+            <div class="time" onclick="selectTime(this,'18:00')">18:00</div>
+            <div class="time" onclick="selectTime(this,'18:30')">18:30</div>
+            <div class="time" onclick="selectTime(this,'19:00')">19:00</div>
+            <div class="time" onclick="selectTime(this,'19:30')">19:30</div>
+            <div class="time" onclick="selectTime(this,'20:00')">20:00</div>
+            <div class="time" onclick="selectTime(this,'20:30')">20:30</div>
+            <div class="time" onclick="selectTime(this,'21:00')">21:00</div>
+
+        `;
+
+    } else if(service === "اصلاح VIP"){
+
+        timesContainer.innerHTML = `
+
+            <div class="time" onclick="selectTime(this,'08:30')">08:30</div>
+            <div class="time" onclick="selectTime(this,'09:30')">09:30</div>
+            <div class="time" onclick="selectTime(this,'10:30')">10:30</div>
+            <div class="time" onclick="selectTime(this,'11:30')">11:30</div>
+            <div class="time" onclick="selectTime(this,'12:30')">12:30</div>
+
+            <div class="time" onclick="selectTime(this,'16:00')">16:00</div>
+            <div class="time" onclick="selectTime(this,'17:00')">17:00</div>
+            <div class="time" onclick="selectTime(this,'18:00')">18:00</div>
+            <div class="time" onclick="selectTime(this,'19:00')">19:00</div>
+            <div class="time" onclick="selectTime(this,'20:00')">20:00</div>
+
+        `;
+    }
+
+    if(selectedDate){
+    setTimeout(() => {
+        refreshBookedTimes();
+    }, 100);
+}
+}
+/* =========================
+   TIME
+========================= */
+
+function selectTime(element, time){
+
+    if(element.classList.contains("booked")){
+        alert("این ساعت قبلاً رزرو شده است.");
+        return;
+    }
+
+    document
+    .querySelectorAll(".time")
+    .forEach(function(item){
+        item.classList.remove("selected");
+    });
+
+    element.classList.add("selected");
+
+    selectedTime = time;
+
+    document
+    .getElementById("time")
+    .value = time;
+}
+
+async function refreshBookedTimes(){
+
+    if(!selectedDate) return;
+
+    if (typeof window.loadAppointments !== "function") {
+        console.warn("loadAppointments is not ready yet.");
+        return;
+    }
+
+    const dateText =
+        persianNumber(selectedDate.day)
+        + " "
+        + months[selectedDate.month - 1]
+        + " "
+        + persianNumber(selectedDate.year);
+
+    try {
+        const snapshot = await window.loadAppointments();
+
+        document.querySelectorAll(".time").forEach(timeBtn => {
+
+            const time = timeBtn.textContent.trim();
+
+            const toMinutes = (t) => {
+                const [h, m] = t.split(":").map(Number);
+                return h * 60 + m;
+            };
+
+            const currentStart = toMinutes(time);
+
+            const currentDuration =
+                selectedService === "اصلاح VIP"
+                ? 60
+                : 30;
+
+            const currentEnd =
+                currentStart + currentDuration;
+
+            let booked = false;
+
+            snapshot.forEach(item => {
+
+                if(item.date !== dateText) return;
+
+                const bookedStart =
+                    toMinutes(item.time);
+
+                const bookedDuration =
+                    item.service === "اصلاح VIP"
+                    ? 60
+                    : 30;
+
+                const bookedEnd =
+                    bookedStart + bookedDuration;
+
+                if(
+                    currentStart < bookedEnd &&
+                    currentEnd > bookedStart
+                ){
+                    booked = true;
+                }
+
+            });
+
+            if(booked){
+
+                timeBtn.classList.add("booked");
+                timeBtn.classList.remove("selected");
+
+                timeBtn.onclick = null;
+
+            }else{
+
+                timeBtn.classList.remove("booked");
+
+                timeBtn.onclick = function(){
+
+                    selectTime(this, time);
+
+                };
+
+            }
+
+        });
+    } catch(err) {
+        console.error("Error refreshing times:", err);
+    }
+
+}
+
+/* =========================
+   GREGORIAN → JALALI
+========================= */
+
+function gregorianToJalali(gy,gm,gd){
+
+let gdm=[
+0,31,59,90,120,151,
+181,212,243,273,304,334
+];
+
+let jy;
+
+if(gy>1600){
+
+jy=979;
+gy-=1600;
+
+}else{
+
+jy=0;
+gy-=621;
+
+}
+
+let gy2=(gm>2)?gy+1:gy;
+
+let days=
+365*gy
++
+Math.floor((gy2+3)/4)
+-
+Math.floor((gy2+99)/100)
++
+Math.floor((gy2+399)/400)
+-
+80
++
+gd
++
+gdm[gm-1];
+
+jy+=33*Math.floor(days/12053);
+
+days%=12053;
+
+jy+=4*Math.floor(days/1461);
+
+days%=1461;
+
+if(days>365){
+
+jy+=Math.floor((days-1)/365);
+
+days=(days-1)%365;
+
+}
+
+let jm;
+let jd;
+
+if(days<186){
+
+jm=1+Math.floor(days/31);
+
+jd=1+(days%31);
+
+}else{
+
+jm=7+Math.floor((days-186)/30);
+
+jd=1+((days-186)%30);
+
+}
+
+return [jy,jm,jd];
+
+}
+
+
+/* =========================
+   JALALI → GREGORIAN
+========================= */
+
+function jalaliToGregorian(jy,jm,jd){
+
+jy=parseInt(jy);
+jm=parseInt(jm);
+jd=parseInt(jd);
+
+let gy;
+
+if(jy>979){
+
+gy=1600;
+jy-=979;
+
+}else{
+
+gy=621;
+
+}
+
+let days=
+365*jy
++
+Math.floor(jy/33)*8
++
+Math.floor(((jy%33)+3)/4)
++
+78
++
+jd
++
+((jm<7)
+?
+((jm-1)*31)
+:
+(((jm-7)*30)+186));
+
+gy+=400*Math.floor(days/146097);
+
+days%=146097;
+
+if(days>36524){
+
+gy+=100*Math.floor(--days/36524);
+
+days%=36524;
+
+if(days>=365)
+days++;
+
+}
+
+gy+=4*Math.floor(days/1461);
+
+days%=1461;
+
+if(days>365){
+
+gy+=Math.floor((days-1)/365);
+
+days=(days-1)%365;
+
+}
+
+let gd=days+1;
+
+let sal_a=[
+0,31,
+((gy%4===0 && gy%100!==0)||gy%400===0)?29:28,
+31,30,31,30,
+31,31,30,31,30,31
+];
+
+let gm=0;
+
+while(gd>sal_a[gm]){
+
+gd-=sal_a[gm];
+
+gm++;
+
+}
+
+return [gy,gm,gd];
+
+}
+
+
+/* =========================
+   PERSIAN NUMBERS
+========================= */
+
+function persianNumber(num){
+
+return String(num).replace(
+    /\d/g,
+    function(d){
+        return "۰۱۲۳۴۵۶۷۸۹"[d];
+    }
+);
+
+}
+
+
+/* =========================
+   TODAY
+========================= */
+
+const todayGregorian = new Date();
+
+const todayJalali =
+gregorianToJalali(
+todayGregorian.getFullYear(),
+todayGregorian.getMonth()+1,
+todayGregorian.getDate()
+);
+
+
+/* =========================
+   START CALENDAR
+========================= */
+
+calendarDate={
+    year:todayJalali[0],
+    month:todayJalali[1]
+};
+
+
+/* =========================
+   TOGGLE CALENDAR
+========================= */
+
+function toggleCalendar(){
+
+    const calendar = document.getElementById("calendar");
+
+    if(!calendarDate){
+
+        const today = new Date();
+
+        const gy = today.getFullYear();
+        const gm = today.getMonth() + 1;
+        const gd = today.getDate();
+
+        const jalali = gregorianToJalali(gy, gm, gd);
+
+        calendarDate = {
+            year: jalali[0],
+            month: jalali[1]
+        };
+    }
+
+    calendar.classList.toggle("show");
+
+    if(calendar.classList.contains("show")){
+        renderCalendar();
+    }
+}
+
+
+/* =========================
+   RENDER CALENDAR
+========================= */
+
+function renderCalendar(){
+
+const year=calendarDate.year;
+
+const month=calendarDate.month;
+
+
+/* عنوان */
+
+document
+.getElementById("calendarMonth")
+.textContent=
+months[month-1]
++
+" "
++
+persianNumber(year);
+
+
+/* روزها */
+
+const daysContainer=
+document.getElementById("days");
+
+daysContainer.innerHTML="";
+
+
+/*
+اولین روز ماه شمسی
+*/
+
+const firstGregorian=
+jalaliToGregorian(
+year,
+month,
+1
+);
+
+const firstDate=
+new Date(
+firstGregorian[0],
+firstGregorian[1]-1,
+firstGregorian[2]
+);
+
+
+/*
+جا به جایی هفته
+*/
+
+let startDay=
+(firstDate.getDay()+1)%7;
+
+
+/*
+تعداد روزهای ماه
+*/
+
+let daysInMonth;
+
+if(month<=6){
+
+daysInMonth=31;
+
+}else if(month<=11){
+
+daysInMonth=30;
+
+}else{
+
+daysInMonth=30;
+
+}
+
+
+/* خانه های خالی */
+
+for(let i=0;i<startDay;i++){
+
+const empty=
+document.createElement("div");
+
+empty.className="day empty";
+
+daysContainer.appendChild(empty);
+
+}
+
+
+/* روزها */
+
+for(let day=1;day<=daysInMonth;day++){
+
+const div=
+document.createElement("div");
+
+div.className="day";
+
+div.textContent=
+persianNumber(day);
+
+
+/* امروز */
+
+if(
+year===todayJalali[0] &&
+month===todayJalali[1] &&
+day===todayJalali[2]
+){
+
+div.classList.add("today");
+
+}
+
+
+/* انتخاب قبلی */
+
+if(
+selectedDate &&
+selectedDate.year===year &&
+selectedDate.month===month &&
+selectedDate.day===day
+){
+
+div.classList.add("selected");
+
+}
+
+
+/* جلوگیری از روزهای قبل */
+
+let isPast=false;
+
+if(year<todayJalali[0]){
+
+isPast=true;
+
+}else if(
+year===todayJalali[0] &&
+month<todayJalali[1]
+){
+
+isPast=true;
+
+}else if(
+year===todayJalali[0] &&
+month===todayJalali[1] &&
+day<todayJalali[2]
+){
+
+isPast=true;
+
+}
+
+
+if(isPast){
+
+div.style.opacity="0.25";
+div.style.cursor="not-allowed";
+
+}else{
+
+div.onclick=function(){
+
+selectDate(
+year,
+month,
+day
+);
+
+};
+
+}
+
+
+daysContainer.appendChild(div);
+
+}
+
+}
+
+
+/* =========================
+   SELECT DATE
+========================= */
+
+function selectDate(year, month, day){
+
+    selectedDate = {
+        year: year,
+        month: month,
+        day: day
+    };
+
+    const text =
+        persianNumber(day)
+        +
+        " "
+        +
+        months[month - 1]
+        +
+        " "
+        +
+        persianNumber(year);
+
+    document
+        .getElementById("selectedDateText")
+        .textContent = text;
+
+    const button =
+        document.getElementById("dateButton");
+
+    button.textContent = text;
+
+    button.classList.add("selected");
+
+    document
+        .getElementById("calendar")
+        .classList.remove("show");
+
+    if(selectedService){
+
+        setTimeout(() => {
+            refreshBookedTimes();
+        }, 100);
+
+    }
+
+    }
+
+
+/* =========================
+   PREVIOUS MONTH
+========================= */
+
+function previousMonth(){
+
+if(
+calendarDate.year===todayJalali[0] &&
+calendarDate.month===todayJalali[1]
+){
+
+return;
+
+}
+
+calendarDate.month--;
+
+if(calendarDate.month===0){
+
+calendarDate.month=12;
+calendarDate.year--;
+
+}
+
+renderCalendar();
+
+}
+
+
+/* =========================
+   NEXT MONTH
+========================= */
+
+function nextMonth(){
+
+calendarDate.month++;
+
+if(calendarDate.month===13){
+
+calendarDate.month=1;
+calendarDate.year++;
+
+}
+
+renderCalendar();
+
+}
+
+
+function withTimeout(promise, ms = 10000) {
+
+    return Promise.race([
+
+        promise,
+
+        new Promise((_, reject) => {
+
+            setTimeout(() => {
+
+                const error =
+                    new Error("TIMEOUT");
+
+                error.code = "timeout";
+
+                reject(error);
+
+            }, ms);
+
+        })
+
+    ]);
+
+}
+
+
+/* =========================
+   BOOK
+========================= */
+
+async function bookAppointment() {
+
+    if (bookingInProgress) {
+        return;
+    }
+
+
+    const button =
+        document.querySelector(".submit");
+
+
+    const nameElement =
+        document.getElementById("name");
+
+
+    const phoneElement =
+        document.getElementById("phone");
+
+
+    const name =
+        nameElement
+            ? nameElement.value.trim()
+            : "";
+
+
+    const phone =
+        phoneElement
+            ? phoneElement.value.trim()
+            : "";
+
+
+    /* =========================
+       CHECK INPUTS
+    ========================= */
+
+    if (!selectedService) {
+
+        alert(
+            "لطفاً یک خدمت انتخاب کنید."
+        );
+
+        return;
+    }
+
+
+    if (!selectedDate) {
+
+        alert(
+            "لطفاً تاریخ نوبت را انتخاب کنید."
+        );
+
+        return;
+    }
+
+
+    if (!selectedTime) {
+
+        alert(
+            "لطفاً ساعت نوبت را انتخاب کنید."
+        );
+
+        return;
+    }
+
+
+    if (!name) {
+
+        alert(
+            "لطفاً نام خود را وارد کنید."
+        );
+
+        return;
+    }
+
+
+    if (!phone) {
+
+        alert(
+            "لطفاً شماره تماس خود را وارد کنید."
+        );
+
+        return;
+    }
+
+
+    /* =========================
+       CHECK FIREBASE
+    ========================= */
+
+    if (
+        typeof window.isTimeBooked !==
+        "function" ||
+
+        typeof window.saveAppointment !==
+        "function"
+    ) {
+
+        alert(
+            "سیستم نوبت‌دهی هنوز آماده نشده است.\n\n" +
+            "لطفاً چند ثانیه صبر کنید و دوباره تلاش کنید."
+        );
+
+
+        console.error(
+            "Firebase booking functions are not ready.",
+            {
+                isTimeBooked:
+                    typeof window.isTimeBooked,
+
+                saveAppointment:
+                    typeof window.saveAppointment
+            }
+        );
+
+
+        return;
+    }
+
+
+    /* =========================
+       DATE
+    ========================= */
+
+    const dateText =
+
+        persianNumber(
+            selectedDate.day
+        ) +
+
+        " " +
+
+        months[
+            selectedDate.month - 1
+        ] +
+
+        " " +
+
+        persianNumber(
+            selectedDate.year
+        );
+
+
+    /* =========================
+       START
+    ========================= */
+
+    bookingInProgress = true;
+
+
+    if (button) {
+
+        button.disabled = true;
+
+        button.style.opacity =
+            "0.6";
+
+        button.style.cursor =
+            "not-allowed";
+
+        button.textContent =
+            "در حال ثبت...";
+    }
+
+
+    try {
+
+        console.log(
+            "=============================="
+        );
+
+        console.log(
+            "BOOKING STARTED"
+        );
+
+        console.log(
+            "Booking information:",
+            {
+                service:
+                    selectedService,
+
+                name:
+                    name,
+
+                phone:
+                    phone,
+
+                date:
+                    dateText,
+
+                time:
+                    selectedTime
+            }
+        );
+
+
+        /* =========================
+           CHECK BOOKED TIME
+        ========================= */
+
+        console.log(
+            "Checking booked time..."
+        );
+
+
+        const alreadyBooked =
+    await withTimeout(
+
+        window.isTimeBooked(
+
+            dateText,
+
+            selectedTime,
+
+            selectedService
+
+        ),
+
+        10000
+
+    );
+
+
+        console.log(
+            "isTimeBooked result:",
+            alreadyBooked
+        );
+
+
+        if (alreadyBooked) {
+
+            alert(
+                "این ساعت قبلاً رزرو شده است.\n\n" +
+                "لطفاً ساعت دیگری انتخاب کنید."
+            );
+
+
+            try {
+
+                refreshBookedTimes()
+                    .catch(error => {
+
+                        console.error(
+                            "REFRESH ERROR:",
+                            error
+                        );
+
+                    });
+
+            } catch (error) {
+
+                console.error(
+                    "REFRESH CALL ERROR:",
+                    error
+                );
+
+            }
+
+
+            return;
+        }
+
+
+        /* =========================
+           SAVE
+        ========================= */
+
+        console.log(
+            "Saving appointment to Firebase..."
+        );
+
+
+        await withTimeout(
+
+            window.saveAppointment({
+
+                service:
+                    selectedService,
+
+                name:
+                    name,
+
+                phone:
+                    phone,
+
+                date:
+                    dateText,
+
+                time:
+                    selectedTime,
+
+                createdAt:
+                    new Date().toISOString()
+
+            }),
+
+            10000
+
+        );
+
+
+        console.log(
+            "APPOINTMENT SAVED SUCCESSFULLY"
+        );
+
+
+        /* =========================
+           SUCCESS
+        ========================= */
+
+        const result =
+            document.getElementById(
+                "result"
+            );
+
+
+        const success =
+            document.getElementById(
+                "success"
+            );
+
+
+        if (result) {
+
+            result.innerHTML =
+
+                "خدمت: <b>" +
+                selectedService +
+                "</b><br>" +
+
+                "نام: <b>" +
+                name +
+                "</b><br>" +
+
+                "شماره تماس: <b>" +
+                phone +
+                "</b><br>" +
+
+                "تاریخ: <b>" +
+                dateText +
+                "</b><br>" +
+
+                "ساعت: <b>" +
+                selectedTime +
+                "</b><br><br>" +
+
+                "نوبت شما با موفقیت ثبت شد.<br>" +
+
+                "لطفاً در زمان تعیین‌شده " +
+                "در آرایشگاه حضور داشته باشید.";
+
+        }
+
+
+        if (success) {
+
+            success.style.display =
+                "block";
+
+
+            success.scrollIntoView({
+
+                behavior:
+                    "smooth"
+
+            });
+
+        }
+
+
+        try {
+
+            refreshBookedTimes()
+                .catch(error => {
+
+                    console.error(
+                        "REFRESH AFTER BOOKING ERROR:",
+                        error
+                    );
+
+                });
+
+        } catch (error) {
+
+            console.error(
+                "REFRESH CALL ERROR:",
+                error
+            );
+
+        }
+
+
+    } catch (error) {
+
+
+        /* =========================
+           ERROR
+        ========================= */
+
+        console.error(
+            "=============================="
+        );
+
+        console.error(
+            "BOOKING ERROR"
+        );
+
+        console.error(
+            "Error:",
+            error
+        );
+
+        console.error(
+            "Error code:",
+            error?.code
+        );
+
+        console.error(
+            "Error message:",
+            error?.message
+        );
+
+        console.error(
+            "=============================="
+        );
+
+
+        let message =
+            "ثبت نوبت انجام نشد.";
+
+
+        if (
+            error?.code ===
+            "timeout"
+        ) {
+
+            message =
+
+                "ارتباط با سیستم نوبت‌دهی برقرار نشد.\n\n" +
+
+                "لطفاً اینترنت گوشی را بررسی کنید " +
+                "و دوباره تلاش کنید.";
+
+
+        } else if (
+            error?.code ===
+            "permission-denied"
+        ) {
+
+            message =
+
+                "Firebase اجازه ثبت نوبت را نمی‌دهد.\n\n" +
+
+                "خطا: permission-denied";
+
+
+        } else if (
+            error?.code ===
+            "unavailable"
+        ) {
+
+            message =
+
+                "ارتباط با سرور Firebase برقرار نشد.\n\n" +
+
+                "لطفاً اینترنت را بررسی کنید.";
+
+
+        } else if (
+            error?.code ===
+            "failed-precondition"
+        ) {
+
+            message =
+
+                "Firebase آماده ثبت اطلاعات نیست.\n\n" +
+
+                "خطا: failed-precondition";
+
+
+        } else if (
+            error?.message
+        ) {
+
+            message =
+
+                "ثبت نوبت انجام نشد.\n\n" +
+
+                "خطا:\n" +
+
+                error.message;
+
+        }
+
+
+        alert(message);
+
+
+    } finally {
+
+
+        bookingInProgress =
+            false;
+
+
+        if (button) {
+
+            button.disabled = false;
+            button.style.opacity = "";
+            button.style.cursor = "pointer";
+            button.textContent = "ثبت نوبت";
+
+        }
+
+    }
+
+}
+
 </script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script>
-const firebaseConfig={apiKey:"AIzaSyCqk2vmTUl1iHG2y9tMB2dv_DMEl99zvtU",authDomain:"esibarber-3642b.firebaseapp.com",projectId:"esibarber-3642b",storageBucket:"esibarber-3642b.firebasestorage.app",messagingSenderId:"519319650838",appId:"1:519319650838:web:29cf5bced898093db6eb37",measurementId:"G-TLGZCLZJRL"};firebase.initializeApp(firebaseConfig);const db=firebase.firestore();window.saveAppointment=async e=>{const t=await db.collection("appointments").add(e);return t.id},window.isTimeBooked=async(e,t,n)=>{const s=await db.collection("appointments").get(),a=e=>{if(!e||"string"!=typeof e)return null;const t=e.trim().split(":");return 2!==t.length?null:60*Number(t[0])+Number(t[1])},o=a(t);if(null===o)return!1;const i="اصلاح VIP"===n?60:30,r=o+i;let c=!1;return s.forEach(t=>{const n=t.data();if(String(n.date).trim()===String(e).trim()){const e=a(n.time);if(null!==e){const t=e+("اصلاح VIP"===n.service?60:30);o<t&&r>e&&(c=!0)}}}),c},window.loadAppointments=async()=>{const e=await db.collection("appointments").get(),t=[];return e.forEach(e=>{t.push({id:e.id,...e.data()})}),t};
-</script>
+
+        <script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+    initializeFirestore,
+    collection,
+    addDoc,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =====================================
+   FIREBASE CONFIG
+===================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyCqk2vmTUl1iHG2y9tMB2dv_DMEl99zvtU",
+
+    authDomain:
+        "esibarber-3642b.firebaseapp.com",
+
+    projectId:
+        "esibarber-3642b",
+
+    storageBucket:
+        "esibarber-3642b.firebasestorage.app",
+
+    messagingSenderId:
+        "519319650838",
+
+    appId:
+        "1:519319650838:web:29cf5bced898093db6eb37",
+
+    measurementId:
+        "G-TLGZCLZJRL"
+};
+
+
+/* =====================================
+   INITIALIZE FIREBASE
+===================================== */
+
+const app = initializeApp(firebaseConfig);
+
+const db = initializeFirestore(app, {
+    experimentalForceLongPolling: true
+});
+
+console.log(
+    "FIREBASE INITIALIZED",
+    app.options.projectId
+);
+
+
+/* =====================================
+   SAVE APPOINTMENT
+===================================== */
+
+window.saveAppointment =
+async function(data) {
+
+    console.log(
+        "SAVE APPOINTMENT START",
+        data
+    );
+
+
+    if (!db) {
+
+        const error =
+            new Error(
+                "Firestore database is not initialized"
+            );
+
+        error.code =
+            "firebase-not-initialized";
+
+        throw error;
+    }
+
+
+    try {
+
+        console.log(
+            "BEFORE ADD DOC"
+        );
+
+
+        const firebaseRequest =
+            addDoc(
+                collection(
+                    db,
+                    "appointments"
+                ),
+                data
+            );
+
+
+        const timeout =
+            new Promise(
+                (_, reject) => {
+
+                    setTimeout(
+                        () => {
+
+                            const error =
+                                new Error(
+                                    "Firebase addDoc did not respond within 15 seconds."
+                                );
+
+                            error.code =
+                                "firebase-timeout";
+
+                            reject(error);
+
+                        },
+                        15000
+                    );
+
+                }
+            );
+
+
+        const ref =
+            await Promise.race([
+                firebaseRequest,
+                timeout
+            ]);
+
+
+        console.log(
+            "ADD DOC SUCCESS",
+            ref.id
+        );
+
+
+        return ref.id;
+
+
+    } catch (error) {
+
+
+        console.error(
+            "================================"
+        );
+
+        console.error(
+            "FIREBASE ADD DOC ERROR"
+        );
+
+        console.error(
+            "CODE:",
+            error?.code
+        );
+
+        console.error(
+            "MESSAGE:",
+            error?.message
+        );
+
+        console.error(
+            "FULL ERROR:",
+            error
+        );
+
+        console.error(
+            "================================"
+        );
+
+
+        throw error;
+    }
+
+};
+
+
+/* =====================================
+   CHECK BOOKED TIME
+===================================== */
+
+window.isTimeBooked =
+async function(
+    date,
+    time,
+    service
+) {
+
+    console.log(
+        "CHECK BOOKED TIME",
+        {
+            date,
+            time,
+            service
+        }
+    );
+
+
+    if (!db) {
+
+        const error =
+            new Error(
+                "Firestore database is not initialized"
+            );
+
+        error.code =
+            "firebase-not-initialized";
+
+        throw error;
+    }
+
+
+    try {
+
+        const firebaseRequest =
+            getDocs(
+                collection(
+                    db,
+                    "appointments"
+                )
+            );
+
+
+        const timeout =
+            new Promise(
+                (_, reject) => {
+
+                    setTimeout(
+                        () => {
+
+                            const error =
+                                new Error(
+                                    "Firebase getDocs did not respond within 15 seconds."
+                                );
+
+                            error.code =
+                                "firebase-timeout";
+
+                            reject(error);
+
+                        },
+                        15000
+                    );
+
+                }
+            );
+
+
+        const snapshot =
+            await Promise.race([
+                firebaseRequest,
+                timeout
+            ]);
+
+
+        const toMinutes =
+            (value) => {
+
+                if (
+                    !value ||
+                    typeof value !== "string"
+                ) {
+                    return null;
+                }
+
+
+                const parts =
+                    value.trim().split(":");
+
+
+                if (
+                    parts.length !== 2
+                ) {
+                    return null;
+                }
+
+
+                const h =
+                    Number(parts[0]);
+
+
+                const m =
+                    Number(parts[1]);
+
+
+                if (
+                    !Number.isInteger(h) ||
+                    !Number.isInteger(m) ||
+                    h < 0 ||
+                    h > 23 ||
+                    m < 0 ||
+                    m > 59
+                ) {
+
+                    return null;
+
+                }
+
+
+                return h * 60 + m;
+
+            };
+
+
+        const currentStart =
+            toMinutes(time);
+
+
+        if (
+            currentStart === null
+        ) {
+
+            return false;
+
+        }
+
+
+        const currentDuration =
+            service === "اصلاح VIP"
+                ? 60
+                : 30;
+
+
+        const currentEnd =
+            currentStart +
+            currentDuration;
+
+
+        let booked =
+            false;
+
+
+        snapshot.forEach(
+            (doc) => {
+
+                const item =
+                    doc.data();
+
+
+                if (
+                    String(item.date).trim() !==
+                    String(date).trim()
+                ) {
+
+                    return;
+
+                }
+
+
+                const bookedStart =
+                    toMinutes(
+                        item.time
+                    );
+
+
+                if (
+                    bookedStart === null
+                ) {
+
+                    return;
+
+                }
+
+
+                const bookedDuration =
+                    item.service ===
+                    "اصلاح VIP"
+
+                        ? 60
+                        : 30;
+
+
+                const bookedEnd =
+                    bookedStart +
+                    bookedDuration;
+
+
+                if (
+                    currentStart < bookedEnd &&
+                    currentEnd > bookedStart
+                ) {
+
+                    booked = true;
+
+                }
+
+            }
+        );
+
+
+        console.log(
+            "BOOKED RESULT:",
+            booked
+        );
+
+
+        return booked;
+
+
+    } catch (error) {
+
+        console.error(
+            "FIREBASE CHECK ERROR:",
+            error
+        );
+
+        throw error;
+
+    }
+
+};
+
+
+/* =====================================
+   LOAD APPOINTMENTS
+===================================== */
+
+window.loadAppointments =
+async function() {
+
+    console.log(
+        "LOADING APPOINTMENTS"
+    );
+
+
+    if (!db) {
+
+        const error =
+            new Error(
+                "Firestore database is not initialized"
+            );
+
+        error.code =
+            "firebase-not-initialized";
+
+        throw error;
+
+    }
+
+
+    try {
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "appointments"
+                )
+            );
+
+
+        const data = [];
+
+
+        snapshot.forEach(
+            (doc) => {
+
+                data.push({
+
+                    id:
+                        doc.id,
+
+                    ...doc.data()
+
+                });
+
+            }
+        );
+
+
+        return data;
+
+
+    } catch (error) {
+
+        console.error(
+            "LOAD APPOINTMENTS ERROR:",
+            error
+        );
+
+        throw error;
+
+    }
+
+};
+
+
+console.log(
+    "================================="
+);
+
+console.log(
+    "ESI BARBER FIREBASE READY"
+);
+
+console.log(
+    "================================="
+);
+
+        </script>
+
 </body>
+
 </html>
