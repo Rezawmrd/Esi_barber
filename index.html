@@ -1818,7 +1818,6 @@ try{
 <!-- =========================
      SUPABASE
 ========================= -->
-
 <script type="module">
 
 import {
@@ -1850,12 +1849,34 @@ const supabase =
 window.saveAppointment =
 async function(data){
 
+    const appointmentMinutes =
+        data.service === "اصلاح VIP"
+        ? 60
+        : 30;
+
+
     const {
         error
     } =
     await supabase
     .from("appointments")
-    .insert([data]);
+    .insert([{
+
+        service: data.service,
+
+        name: data.name,
+
+        phone: data.phone,
+
+        appointment_date: data.date,
+
+        appointment_time: data.time,
+
+        appointment_minute: appointmentMinutes,
+
+        created_at: data.createdAt
+
+    }]);
 
 
     if(error){
@@ -1890,10 +1911,10 @@ async function(
     await supabase
     .from("appointments")
     .select(
-        "date,time,service"
+        "service,appointment_date,appointment_time,appointment_minute"
     )
     .eq(
-        "date",
+        "appointment_date",
         date
     );
 
@@ -1918,8 +1939,7 @@ async function(
             .split(":")
             .map(Number);
 
-
-        return h*60+m;
+        return h * 60 + m;
 
     };
 
@@ -1940,7 +1960,7 @@ async function(
         currentDuration;
 
 
-    let booked=false;
+    let booked = false;
 
 
     (data || []).forEach(
@@ -1948,14 +1968,19 @@ async function(
 
             const bookedStart =
                 toMinutes(
-                    item.time
+                    item.appointment_time
                 );
 
 
             const bookedDuration =
-                item.service === "اصلاح VIP"
-                ? 60
-                : 30;
+                Number(
+                    item.appointment_minute
+                ) ||
+                (
+                    item.service === "اصلاح VIP"
+                    ? 60
+                    : 30
+                );
 
 
             const bookedEnd =
@@ -1969,7 +1994,7 @@ async function(
                 currentEnd > bookedStart
             ){
 
-                booked=true;
+                booked = true;
 
             }
 
@@ -1996,7 +2021,7 @@ async function(){
     await supabase
     .from("appointments")
     .select(
-        "date,time,service"
+        "service,appointment_date,appointment_time,appointment_minute"
     );
 
 
@@ -2012,7 +2037,27 @@ async function(){
     }
 
 
-    return data || [];
+    return (data || []).map(
+        function(item){
+
+            return {
+
+                service:
+                    item.service,
+
+                date:
+                    item.appointment_date,
+
+                time:
+                    item.appointment_time,
+
+                appointment_minute:
+                    item.appointment_minute
+
+            };
+
+        }
+    );
 
 };
 
