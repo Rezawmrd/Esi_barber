@@ -2083,7 +2083,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
-    getFirestore,
+    initializeFirestore,
     collection,
     addDoc,
     getDocs
@@ -2123,11 +2123,11 @@ const firebaseConfig = {
    INITIALIZE FIREBASE
 ===================================== */
 
-const app =
-    initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const db =
-    getFirestore(app);
+const db = initializeFirestore(app, {
+    experimentalForceLongPolling: true
+});
 
 console.log(
     "FIREBASE INITIALIZED",
