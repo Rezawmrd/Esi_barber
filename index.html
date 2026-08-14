@@ -2076,221 +2076,521 @@ async function bookAppointment() {
 
 </script>
 
-<script type="module">
-    
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+        <script type="module">
+
 import {
-getFirestore,
-collection,
-addDoc,
-getDocs
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
+
+/* =====================================
+   FIREBASE CONFIG
+===================================== */
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCqk2vmTUl1iHG2y9tMB2dv_DMEl99zvtU",
-  authDomain: "esibarber-3642b.firebaseapp.com",
-  projectId: "esibarber-3642b",
-  storageBucket: "esibarber-3642b.firebasestorage.app",
-  messagingSenderId: "519319650838",
-  appId: "1:519319650838:web:29cf5bced898093db6eb37",
-  measurementId: "G-TLGZCLZJRL"
+
+    apiKey:
+        "AIzaSyCqk2vmTUl1iHG2y9tMB2dv_DMEl99zvtU",
+
+    authDomain:
+        "esibarber-3642b.firebaseapp.com",
+
+    projectId:
+        "esibarber-3642b",
+
+    storageBucket:
+        "esibarber-3642b.firebasestorage.app",
+
+    messagingSenderId:
+        "519319650838",
+
+    appId:
+        "1:519319650838:web:29cf5bced898093db6eb37",
+
+    measurementId:
+        "G-TLGZCLZJRL"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
-window.saveAppointment = async function(data) {
+/* =====================================
+   INITIALIZE FIREBASE
+===================================== */
 
-    alert("مرحله 1: تابع ثبت نوبت اجرا شد.");
+const app =
+    initializeApp(firebaseConfig);
 
-    console.log("SAVE FUNCTION START:", data);
+const db =
+    getFirestore(app);
+
+console.log(
+    "FIREBASE INITIALIZED",
+    app.options.projectId
+);
+
+
+/* =====================================
+   SAVE APPOINTMENT
+===================================== */
+
+window.saveAppointment =
+async function(data) {
+
+    console.log(
+        "SAVE APPOINTMENT START",
+        data
+    );
+
 
     if (!db) {
 
-        alert(
-            "مرحله 2: Firebase DB وجود ندارد!"
-        );
+        const error =
+            new Error(
+                "Firestore database is not initialized"
+            );
 
-        throw new Error(
-            "Firebase DB is not initialized"
-        );
+        error.code =
+            "firebase-not-initialized";
+
+        throw error;
     }
 
-    alert(
-        "مرحله 2: Firebase آماده است.\n\n" +
-        "حالا در حال ارسال اطلاعات..."
-    );
-
-    console.log(
-        "قبل از addDoc"
-    );
 
     try {
 
-        const ref = await addDoc(
-            collection(db, "appointments"),
-            data
+        console.log(
+            "BEFORE ADD DOC"
         );
 
-        alert(
-            "مرحله 3: ثبت موفق بود!\n\n" +
-            "ID:\n" +
-            ref.id
-        );
+
+        /*
+         * تایم‌اوت مخصوص خود Firebase
+         * تا خطای واقعی را قبل از
+         * timeout بیرونی بگیریم.
+         */
+
+        const firebaseRequest =
+            addDoc(
+                collection(
+                    db,
+                    "appointments"
+                ),
+                data
+            );
+
+
+        const timeout =
+            new Promise(
+                (_, reject) => {
+
+                    setTimeout(
+                        () => {
+
+                            const error =
+                                new Error(
+                                    "Firebase addDoc did not respond within 15 seconds."
+                                );
+
+                            error.code =
+                                "firebase-timeout";
+
+                            reject(error);
+
+                        },
+                        15000
+                    );
+
+                }
+            );
+
+
+        const ref =
+            await Promise.race([
+                firebaseRequest,
+                timeout
+            ]);
+
 
         console.log(
-            "SAVE SUCCESS:",
+            "ADD DOC SUCCESS",
             ref.id
         );
+
 
         return ref.id;
 
+
     } catch (error) {
 
-        alert(
-            "خطای واقعی Firebase:\n\n" +
-            "Code: " +
-            (error.code || "unknown") +
-            "\n\n" +
-            "Message:\n" +
-            (error.message || "unknown")
+
+        console.error(
+            "================================"
         );
 
         console.error(
-            "FIREBASE REAL ERROR:",
+            "FIREBASE ADD DOC ERROR"
+        );
+
+        console.error(
+            "CODE:",
+            error?.code
+        );
+
+        console.error(
+            "MESSAGE:",
+            error?.message
+        );
+
+        console.error(
+            "FULL ERROR:",
+            error
+        );
+
+        console.error(
+            "================================"
+        );
+
+
+        /*
+         * خطای واقعی را به bookAppointment
+         * منتقل می‌کنیم.
+         */
+
+        throw error;
+    }
+
+};
+
+
+/* =====================================
+   CHECK BOOKED TIME
+===================================== */
+
+window.isTimeBooked =
+async function(
+    date,
+    time,
+    service
+) {
+
+    console.log(
+        "CHECK BOOKED TIME",
+        {
+            date,
+            time,
+            service
+        }
+    );
+
+
+    if (!db) {
+
+        const error =
+            new Error(
+                "Firestore database is not initialized"
+            );
+
+        error.code =
+            "firebase-not-initialized";
+
+        throw error;
+    }
+
+
+    try {
+
+        const firebaseRequest =
+            getDocs(
+                collection(
+                    db,
+                    "appointments"
+                )
+            );
+
+
+        const timeout =
+            new Promise(
+                (_, reject) => {
+
+                    setTimeout(
+                        () => {
+
+                            const error =
+                                new Error(
+                                    "Firebase getDocs did not respond within 15 seconds."
+                                );
+
+                            error.code =
+                                "firebase-timeout";
+
+                            reject(error);
+
+                        },
+                        15000
+                    );
+
+                }
+            );
+
+
+        const snapshot =
+            await Promise.race([
+                firebaseRequest,
+                timeout
+            ]);
+
+
+        const toMinutes =
+            (value) => {
+
+                if (
+                    !value ||
+                    typeof value !== "string"
+                ) {
+                    return null;
+                }
+
+
+                const parts =
+                    value.trim().split(":");
+
+
+                if (
+                    parts.length !== 2
+                ) {
+                    return null;
+                }
+
+
+                const h =
+                    Number(parts[0]);
+
+
+                const m =
+                    Number(parts[1]);
+
+
+                if (
+                    !Number.isInteger(h) ||
+                    !Number.isInteger(m) ||
+                    h < 0 ||
+                    h > 23 ||
+                    m < 0 ||
+                    m > 59
+                ) {
+
+                    return null;
+
+                }
+
+
+                return h * 60 + m;
+
+            };
+
+
+        const currentStart =
+            toMinutes(time);
+
+
+        if (
+            currentStart === null
+        ) {
+
+            return false;
+
+        }
+
+
+        const currentDuration =
+            service === "اصلاح VIP"
+                ? 60
+                : 30;
+
+
+        const currentEnd =
+            currentStart +
+            currentDuration;
+
+
+        let booked =
+            false;
+
+
+        snapshot.forEach(
+            (doc) => {
+
+                const item =
+                    doc.data();
+
+
+                if (
+                    String(item.date).trim() !==
+                    String(date).trim()
+                ) {
+
+                    return;
+
+                }
+
+
+                const bookedStart =
+                    toMinutes(
+                        item.time
+                    );
+
+
+                if (
+                    bookedStart === null
+                ) {
+
+                    return;
+
+                }
+
+
+                const bookedDuration =
+                    item.service ===
+                    "اصلاح VIP"
+
+                        ? 60
+                        : 30;
+
+
+                const bookedEnd =
+                    bookedStart +
+                    bookedDuration;
+
+
+                if (
+                    currentStart < bookedEnd &&
+                    currentEnd > bookedStart
+                ) {
+
+                    booked = true;
+
+                }
+
+            }
+        );
+
+
+        console.log(
+            "BOOKED RESULT:",
+            booked
+        );
+
+
+        return booked;
+
+
+    } catch (error) {
+
+        console.error(
+            "FIREBASE CHECK ERROR:",
             error
         );
 
         throw error;
+
     }
+
 };
 
-window.isTimeBooked = async (date, time, service) => {
 
-    const snapshot = await getDocs(
-        collection(db, "appointments")
+/* =====================================
+   LOAD APPOINTMENTS
+===================================== */
+
+window.loadAppointments =
+async function() {
+
+    console.log(
+        "LOADING APPOINTMENTS"
     );
 
-    const toMinutes = (value) => {
 
-        if (!value || typeof value !== "string") {
-            return null;
-        }
+    if (!db) {
 
-        const parts = value.trim().split(":");
+        const error =
+            new Error(
+                "Firestore database is not initialized"
+            );
 
-        if (parts.length !== 2) {
-            return null;
-        }
+        error.code =
+            "firebase-not-initialized";
 
-        const h = Number(parts[0]);
-        const m = Number(parts[1]);
+        throw error;
 
-        if (
-            !Number.isInteger(h) ||
-            !Number.isInteger(m) ||
-            h < 0 ||
-            h > 23 ||
-            m < 0 ||
-            m > 59
-        ) {
-            return null;
-        }
-
-        return h * 60 + m;
-    };
-
-
-    const currentStart = toMinutes(time);
-
-    if (currentStart === null) {
-        return false;
     }
 
 
-    const currentDuration =
-        service === "اصلاح VIP"
-        ? 60
-        : 30;
+    try {
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "appointments"
+                )
+            );
 
 
-    const currentEnd =
-        currentStart + currentDuration;
+        const data = [];
 
 
-    let booked = false;
+        snapshot.forEach(
+            (doc) => {
+
+                data.push({
+
+                    id:
+                        doc.id,
+
+                    ...doc.data()
+
+                });
+
+            }
+        );
 
 
-    snapshot.forEach((doc) => {
-
-        const item = doc.data();
+        return data;
 
 
-        /* تاریخ متفاوت است */
-        if (String(item.date).trim() !== String(date).trim()) {
-            return;
-        }
+    } catch (error) {
 
+        console.error(
+            "LOAD APPOINTMENTS ERROR:",
+            error
+        );
 
-        /* ساعت نامعتبر است */
-        const bookedStart =
-            toMinutes(item.time);
+        throw error;
 
-        if (bookedStart === null) {
-            return;
-        }
-
-
-        const bookedDuration =
-            item.service === "اصلاح VIP"
-            ? 60
-            : 30;
-
-
-        const bookedEnd =
-            bookedStart + bookedDuration;
-
-
-        /* بررسی تداخل زمانی */
-
-        if (
-            currentStart < bookedEnd &&
-            currentEnd > bookedStart
-        ) {
-
-            booked = true;
-
-        }
-
-    });
-
-
-    return booked;
+    }
 
 };
 
 
-window.loadAppointments = async () => {
-
-const snapshot =
-await getDocs(
-collection(db,"appointments")
+console.log(
+    "================================="
 );
 
-const data = [];
+console.log(
+    "ESI BARBER FIREBASE READY"
+);
 
-snapshot.forEach((doc)=>{
+console.log(
+    "================================="
+);
 
-data.push(doc.data());
-
-});
-
-return data;
-
-};
-
-
-    </script>
+        </script>
 
 </body>
 
