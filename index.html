@@ -1517,7 +1517,6 @@ renderCalendar();
 
 }
 
-<script>
 
 function withTimeout(promise, ms = 10000) {
 
@@ -2062,19 +2061,12 @@ async function bookAppointment() {
             false;
 
 
-                if (button) {
+                        if (button) {
 
-            button.disabled =
-                false;
-
-            button.style.opacity =
-                "";
-
-            button.style.cursor =
-                "pointer";
-
-            button.textContent =
-                "ثبت نوبت";
+            button.disabled = false;
+            button.style.opacity = "";
+            button.style.cursor = "pointer";
+            button.textContent = "ثبت نوبت";
 
         }
 
@@ -2085,6 +2077,7 @@ async function bookAppointment() {
 </script>
 
 <script type="module">
+    
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 import {
 getFirestore,
