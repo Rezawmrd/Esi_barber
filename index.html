@@ -1517,135 +1517,574 @@ renderCalendar();
 
 }
 
+<script>
+
+function withTimeout(promise, ms = 10000) {
+
+    return Promise.race([
+
+        promise,
+
+        new Promise((_, reject) => {
+
+            setTimeout(() => {
+
+                const error =
+                    new Error("TIMEOUT");
+
+                error.code = "timeout";
+
+                reject(error);
+
+            }, ms);
+
+        })
+
+    ]);
+
+}
+
 
 /* =========================
    BOOK
 ========================= */
 
-async function bookAppointment(){
+async function bookAppointment() {
 
-    if(bookingInProgress){
+    if (bookingInProgress) {
         return;
     }
 
-    const button = document.querySelector(".submit");
-    const name = document.getElementById("name").value.trim();
-    const phone = document.getElementById("phone").value.trim();
 
-    if(!selectedService){
-        alert("لطفاً یک خدمت انتخاب کنید.");
+    const button =
+        document.querySelector(".submit");
+
+
+    const nameElement =
+        document.getElementById("name");
+
+
+    const phoneElement =
+        document.getElementById("phone");
+
+
+    const name =
+        nameElement
+            ? nameElement.value.trim()
+            : "";
+
+
+    const phone =
+        phoneElement
+            ? phoneElement.value.trim()
+            : "";
+
+
+    /* =========================
+       CHECK INPUTS
+    ========================= */
+
+    if (!selectedService) {
+
+        alert(
+            "لطفاً یک خدمت انتخاب کنید."
+        );
+
         return;
     }
 
-    if(!selectedDate){
-        alert("لطفاً تاریخ نوبت را انتخاب کنید.");
+
+    if (!selectedDate) {
+
+        alert(
+            "لطفاً تاریخ نوبت را انتخاب کنید."
+        );
+
         return;
     }
 
-    if(!selectedTime){
-        alert("لطفاً ساعت نوبت را انتخاب کنید.");
+
+    if (!selectedTime) {
+
+        alert(
+            "لطفاً ساعت نوبت را انتخاب کنید."
+        );
+
         return;
     }
 
-    if(!name){
-        alert("لطفاً نام خود را وارد کنید.");
+
+    if (!name) {
+
+        alert(
+            "لطفاً نام خود را وارد کنید."
+        );
+
         return;
     }
 
-    if(!phone){
-        alert("لطفاً شماره تماس خود را وارد کنید.");
+
+    if (!phone) {
+
+        alert(
+            "لطفاً شماره تماس خود را وارد کنید."
+        );
+
         return;
     }
 
-    if(typeof window.isTimeBooked !== "function" ||
-       typeof window.saveAppointment !== "function"){
-        alert("سیستم نوبت‌دهی هنوز آماده نشده است. لطفاً چند ثانیه صبر کنید و دوباره تلاش کنید.");
-        console.error("Firebase booking functions are not ready.");
+
+    /* =========================
+       CHECK FIREBASE
+    ========================= */
+
+    if (
+        typeof window.isTimeBooked !==
+        "function" ||
+
+        typeof window.saveAppointment !==
+        "function"
+    ) {
+
+        alert(
+            "سیستم نوبت‌دهی هنوز آماده نشده است.\n\n" +
+            "لطفاً چند ثانیه صبر کنید و دوباره تلاش کنید."
+        );
+
+
+        console.error(
+            "Firebase booking functions are not ready.",
+            {
+                isTimeBooked:
+                    typeof window.isTimeBooked,
+
+                saveAppointment:
+                    typeof window.saveAppointment
+            }
+        );
+
+
         return;
     }
+
+
+    /* =========================
+       DATE
+    ========================= */
 
     const dateText =
-        persianNumber(selectedDate.day) + " " +
-        months[selectedDate.month - 1] + " " +
-        persianNumber(selectedDate.year);
+
+        persianNumber(
+            selectedDate.day
+        ) +
+
+        " " +
+
+        months[
+            selectedDate.month - 1
+        ] +
+
+        " " +
+
+        persianNumber(
+            selectedDate.year
+        );
+
+
+    /* =========================
+       START
+    ========================= */
 
     bookingInProgress = true;
 
-    if(button){
+
+    if (button) {
+
         button.disabled = true;
-        button.style.opacity = "0.6";
-        button.style.cursor = "not-allowed";
-        button.textContent = "در حال ثبت...";
+
+        button.style.opacity =
+            "0.6";
+
+        button.style.cursor =
+            "not-allowed";
+
+        button.textContent =
+            "در حال ثبت...";
     }
+
 
     try {
 
-        const alreadyBooked = await window.isTimeBooked(
-            dateText,
-            selectedTime,
-            selectedService
+        console.log(
+            "=============================="
         );
 
-        if(alreadyBooked){
-            alert("این ساعت قبلاً رزرو شده است. لطفاً ساعت دیگری انتخاب کنید.");
-            await refreshBookedTimes();
+        console.log(
+            "BOOKING STARTED"
+        );
+
+        console.log(
+            "Booking information:",
+            {
+                service:
+                    selectedService,
+
+                name:
+                    name,
+
+                phone:
+                    phone,
+
+                date:
+                    dateText,
+
+                time:
+                    selectedTime
+            }
+        );
+
+
+        /* =========================
+           CHECK BOOKED TIME
+        ========================= */
+
+        console.log(
+            "Checking booked time..."
+        );
+
+
+        const alreadyBooked =
+            await withTimeout(
+
+                window.isTimeBooked(
+
+                    dateText,
+
+                    selectedTime,
+
+                    selectedService
+
+                ),
+
+                10000
+
+            );
+
+
+        console.log(
+            "isTimeBooked result:",
+            alreadyBooked
+        );
+
+
+        if (alreadyBooked) {
+
+            alert(
+                "این ساعت قبلاً رزرو شده است.\n\n" +
+                "لطفاً ساعت دیگری انتخاب کنید."
+            );
+
+
+            try {
+
+                refreshBookedTimes()
+                    .catch(error => {
+
+                        console.error(
+                            "REFRESH ERROR:",
+                            error
+                        );
+
+                    });
+
+            } catch (error) {
+
+                console.error(
+                    "REFRESH CALL ERROR:",
+                    error
+                );
+
+            }
+
+
             return;
         }
 
-        await window.saveAppointment({
-            service: selectedService,
-            name: name,
-            phone: phone,
-            date: dateText,
-            time: selectedTime,
-            createdAt: new Date().toISOString()
-        });
 
-        document.getElementById("result").innerHTML =
-            "خدمت: <b>" + selectedService + "</b><br>" +
-            "نام: <b>" + name + "</b><br>" +
-            "شماره تماس: <b>" + phone + "</b><br>" +
-            "تاریخ: <b>" + dateText + "</b><br>" +
-            "ساعت: <b>" + selectedTime + "</b><br><br>" +
-            "لطفاً در زمان تعیین‌شده در آرایشگاه حضور داشته باشید.";
+        /* =========================
+           SAVE
+        ========================= */
 
-        document.getElementById("success").style.display = "block";
+        console.log(
+            "Saving appointment to Firebase..."
+        );
 
-        document.getElementById("success").scrollIntoView({
-            behavior: "smooth"
-        });
 
-        await refreshBookedTimes();
+        await withTimeout(
 
-    } catch(error){
+            window.saveAppointment({
 
-        console.error("BOOKING ERROR:", error);
+                service:
+                    selectedService,
 
-        let message = "ثبت نوبت انجام نشد. لطفاً دوباره تلاش کنید.";
+                name:
+                    name,
 
-        if(error && error.code === "permission-denied"){
-            message = "دسترسی به سیستم رزرو امکان‌پذیر نیست. تنظیمات Firebase را بررسی کنید.";
-        }else if(error && error.code === "unavailable"){
-            message = "اتصال به سرور برقرار نشد. اینترنت را بررسی کنید و دوباره تلاش کنید.";
+                phone:
+                    phone,
+
+                date:
+                    dateText,
+
+                time:
+                    selectedTime,
+
+                createdAt:
+                    new Date().toISOString()
+
+            }),
+
+            10000
+
+        );
+
+
+        console.log(
+            "APPOINTMENT SAVED SUCCESSFULLY"
+        );
+
+
+        /* =========================
+           SUCCESS
+        ========================= */
+
+        const result =
+            document.getElementById(
+                "result"
+            );
+
+
+        const success =
+            document.getElementById(
+                "success"
+            );
+
+
+        if (result) {
+
+            result.innerHTML =
+
+                "خدمت: <b>" +
+                selectedService +
+                "</b><br>" +
+
+                "نام: <b>" +
+                name +
+                "</b><br>" +
+
+                "شماره تماس: <b>" +
+                phone +
+                "</b><br>" +
+
+                "تاریخ: <b>" +
+                dateText +
+                "</b><br>" +
+
+                "ساعت: <b>" +
+                selectedTime +
+                "</b><br><br>" +
+
+                "نوبت شما با موفقیت ثبت شد.<br>" +
+
+                "لطفاً در زمان تعیین‌شده " +
+                "در آرایشگاه حضور داشته باشید.";
+
         }
+
+
+        if (success) {
+
+            success.style.display =
+                "block";
+
+
+            success.scrollIntoView({
+
+                behavior:
+                    "smooth"
+
+            });
+
+        }
+
+
+        /* =========================
+           REFRESH
+           نباید جلوی ثبت را بگیرد
+        ========================= */
+
+        try {
+
+            refreshBookedTimes()
+                .catch(error => {
+
+                    console.error(
+                        "REFRESH AFTER BOOKING ERROR:",
+                        error
+                    );
+
+                });
+
+        } catch (error) {
+
+            console.error(
+                "REFRESH CALL ERROR:",
+                error
+            );
+
+        }
+
+
+    } catch (error) {
+
+
+        /* =========================
+           ERROR
+        ========================= */
+
+        console.error(
+            "=============================="
+        );
+
+        console.error(
+            "BOOKING ERROR"
+        );
+
+        console.error(
+            "Error:",
+            error
+        );
+
+        console.error(
+            "Error code:",
+            error?.code
+        );
+
+        console.error(
+            "Error message:",
+            error?.message
+        );
+
+        console.error(
+            "=============================="
+        );
+
+
+        let message =
+            "ثبت نوبت انجام نشد.";
+
+
+        if (
+            error?.code ===
+            "timeout"
+        ) {
+
+            message =
+
+                "ارتباط با سیستم نوبت‌دهی برقرار نشد.\n\n" +
+
+                "لطفاً اینترنت گوشی را بررسی کنید " +
+                "و دوباره تلاش کنید.";
+
+
+        } else if (
+            error?.code ===
+            "permission-denied"
+        ) {
+
+            message =
+
+                "Firebase اجازه ثبت نوبت را نمی‌دهد.\n\n" +
+
+                "خطا: permission-denied";
+
+
+        } else if (
+            error?.code ===
+            "unavailable"
+        ) {
+
+            message =
+
+                "ارتباط با سرور Firebase برقرار نشد.\n\n" +
+
+                "لطفاً اینترنت را بررسی کنید.";
+
+
+        } else if (
+            error?.code ===
+            "failed-precondition"
+        ) {
+
+            message =
+
+                "Firebase آماده ثبت اطلاعات نیست.\n\n" +
+
+                "خطا: failed-precondition";
+
+
+        } else if (
+            error?.message
+        ) {
+
+            message =
+
+                "ثبت نوبت انجام نشد.\n\n" +
+
+                "خطا:\n" +
+
+                error.message;
+
+        }
+
 
         alert(message);
 
+
     } finally {
 
-        bookingInProgress = false;
 
-        if(button){
-            button.disabled = false;
-            button.style.opacity = "";
-            button.style.cursor = "pointer";
-            button.textContent = "ثبت نوبت";
+        /* =========================
+           RESET BUTTON
+        ========================= */
+
+        bookingInProgress =
+            false;
+
+
+                if (button) {
+
+            button.disabled =
+                false;
+
+            button.style.opacity =
+                "";
+
+            button.style.cursor =
+                "pointer";
+
+            button.textContent =
+                "ثبت نوبت";
+
         }
+
     }
-}</script>
 
-    <script type="module">
+}
 
+</script>
+
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 import {
 getFirestore,
