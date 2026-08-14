@@ -1678,51 +1678,107 @@ data
 
 };
 
-window.isTimeBooked = async (date,time,service) => {
+window.isTimeBooked = async (date, time, service) => {
 
-const snapshot =
-await getDocs(
-collection(db,"appointments")
-);
+    const snapshot = await getDocs(
+        collection(db, "appointments")
+    );
 
-const toMinutes = (t) => {
-const [h,m] = t.split(":").map(Number);
-return h * 60 + m;
-};
+    const toMinutes = (value) => {
 
-const currentStart = toMinutes(time);
+        if (!value || typeof value !== "string") {
+            return null;
+        }
 
-let currentEnd =
-service === "اصلاح VIP"
-? currentStart + 60
-: currentStart + 30;
+        const parts = value.trim().split(":");
 
-let booked = false;
+        if (parts.length !== 2) {
+            return null;
+        }
 
-snapshot.forEach((doc)=>{
+        const h = Number(parts[0]);
+        const m = Number(parts[1]);
 
-const item = doc.data();
+        if (
+            !Number.isInteger(h) ||
+            !Number.isInteger(m) ||
+            h < 0 ||
+            h > 23 ||
+            m < 0 ||
+            m > 59
+        ) {
+            return null;
+        }
 
-if(item.date !== date) return;
+        return h * 60 + m;
+    };
 
-const bookedStart =
-toMinutes(item.time);
 
-let bookedEnd =
-item.service === "اصلاح VIP"
-? bookedStart + 60
-: bookedStart + 30;
+    const currentStart = toMinutes(time);
 
-if(
-currentStart < bookedEnd &&
-currentEnd > bookedStart
-){
-booked = true;
-}
+    if (currentStart === null) {
+        return false;
+    }
 
-});
 
-return booked;
+    const currentDuration =
+        service === "اصلاح VIP"
+        ? 60
+        : 30;
+
+
+    const currentEnd =
+        currentStart + currentDuration;
+
+
+    let booked = false;
+
+
+    snapshot.forEach((doc) => {
+
+        const item = doc.data();
+
+
+        /* تاریخ متفاوت است */
+        if (String(item.date).trim() !== String(date).trim()) {
+            return;
+        }
+
+
+        /* ساعت نامعتبر است */
+        const bookedStart =
+            toMinutes(item.time);
+
+        if (bookedStart === null) {
+            return;
+        }
+
+
+        const bookedDuration =
+            item.service === "اصلاح VIP"
+            ? 60
+            : 30;
+
+
+        const bookedEnd =
+            bookedStart + bookedDuration;
+
+
+        /* بررسی تداخل زمانی */
+
+        if (
+            currentStart < bookedEnd &&
+            currentEnd > bookedStart
+        ) {
+
+            booked = true;
+
+        }
+
+    });
+
+
+    return booked;
 
 };
 
