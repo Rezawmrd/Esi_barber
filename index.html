@@ -1529,7 +1529,6 @@ async function bookAppointment(){
     }
 
     const button = document.querySelector(".submit");
-
     const name = document.getElementById("name").value.trim();
     const phone = document.getElementById("phone").value.trim();
 
@@ -1558,22 +1557,17 @@ async function bookAppointment(){
         return;
     }
 
-    if(typeof window.firebaseReady !== "undefined" && !window.firebaseReady){
-        alert("سیستم نوبت‌دهی هنوز آماده نشده است. لطفاً چند ثانیه صبر کنید و دوباره تلاش کنید.");
-        return;
-    }
-
     if(typeof window.isTimeBooked !== "function" ||
        typeof window.saveAppointment !== "function"){
-        alert("سیستم نوبت‌دهی آماده نیست. لطفاً صفحه را دوباره باز کنید.");
+        alert("سیستم نوبت‌دهی هنوز آماده نشده است. لطفاً چند ثانیه صبر کنید و دوباره تلاش کنید.");
         console.error("Firebase booking functions are not ready.");
         return;
     }
 
     const dateText =
-        persianNumber(selectedDate.day)
-        + " " + months[selectedDate.month - 1]
-        + " " + persianNumber(selectedDate.year);
+        persianNumber(selectedDate.day) + " " +
+        months[selectedDate.month - 1] + " " +
+        persianNumber(selectedDate.year);
 
     bookingInProgress = true;
 
@@ -1648,7 +1642,165 @@ async function bookAppointment(){
             button.textContent = "ثبت نوبت";
         }
     }
-}
+}</script>
+
+    <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import {
+getFirestore,
+collection,
+addDoc,
+getDocs
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCqk2vmTUl1iHG2y9tMB2dv_DMEl99zvtU",
+  authDomain: "esibarber-3642b.firebaseapp.com",
+  projectId: "esibarber-3642b",
+  storageBucket: "esibarber-3642b.firebasestorage.app",
+  messagingSenderId: "519319650838",
+  appId: "1:519319650838:web:29cf5bced898093db6eb37",
+  measurementId: "G-TLGZCLZJRL"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.saveAppointment = async (data) => {
+
+await addDoc(
+collection(db,"appointments"),
+data
+);
+
+};
+
+window.isTimeBooked = async (date, time, service) => {
+
+    const snapshot = await getDocs(
+        collection(db, "appointments")
+    );
+
+    const toMinutes = (value) => {
+
+        if (!value || typeof value !== "string") {
+            return null;
+        }
+
+        const parts = value.trim().split(":");
+
+        if (parts.length !== 2) {
+            return null;
+        }
+
+        const h = Number(parts[0]);
+        const m = Number(parts[1]);
+
+        if (
+            !Number.isInteger(h) ||
+            !Number.isInteger(m) ||
+            h < 0 ||
+            h > 23 ||
+            m < 0 ||
+            m > 59
+        ) {
+            return null;
+        }
+
+        return h * 60 + m;
+    };
+
+
+    const currentStart = toMinutes(time);
+
+    if (currentStart === null) {
+        return false;
+    }
+
+
+    const currentDuration =
+        service === "اصلاح VIP"
+        ? 60
+        : 30;
+
+
+    const currentEnd =
+        currentStart + currentDuration;
+
+
+    let booked = false;
+
+
+    snapshot.forEach((doc) => {
+
+        const item = doc.data();
+
+
+        /* تاریخ متفاوت است */
+        if (String(item.date).trim() !== String(date).trim()) {
+            return;
+        }
+
+
+        /* ساعت نامعتبر است */
+        const bookedStart =
+            toMinutes(item.time);
+
+        if (bookedStart === null) {
+            return;
+        }
+
+
+        const bookedDuration =
+            item.service === "اصلاح VIP"
+            ? 60
+            : 30;
+
+
+        const bookedEnd =
+            bookedStart + bookedDuration;
+
+
+        /* بررسی تداخل زمانی */
+
+        if (
+            currentStart < bookedEnd &&
+            currentEnd > bookedStart
+        ) {
+
+            booked = true;
+
+        }
+
+    });
+
+
+    return booked;
+
+};
+
+
+window.loadAppointments = async () => {
+
+const snapshot =
+await getDocs(
+collection(db,"appointments")
+);
+
+const data = [];
+
+snapshot.forEach((doc)=>{
+
+data.push(doc.data());
+
+});
+
+return data;
+
+};
+
+
     </script>
 
 </body>
