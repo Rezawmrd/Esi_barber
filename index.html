@@ -28,8 +28,6 @@ body{
     padding:25px 18px 40px;
 }
 
-/* HEADER */
-
 .header{
     text-align:center;
     padding:35px 10px 25px;
@@ -56,9 +54,6 @@ body{
     margin-top:8px;
 }
 
-
-/* CARD */
-
 .card{
     background:#151515;
     border:1px solid #292929;
@@ -73,9 +68,6 @@ body{
     font-weight:700;
     margin-bottom:15px;
 }
-
-
-/* SERVICES */
 
 .services{
     display:grid;
@@ -106,9 +98,6 @@ body{
     color:#d4af37;
 }
 
-
-/* DATE BUTTON */
-
 .date-button{
     width:100%;
     background:#202020;
@@ -135,9 +124,6 @@ body{
     border-color:#d4af37;
     color:#d4af37;
 }
-
-
-/* CALENDAR */
 
 .calendar{
     display:none;
@@ -230,9 +216,6 @@ body{
     cursor:default;
 }
 
-
-/* SELECTED DATE */
-
 .selected-date{
     margin-top:10px;
     text-align:center;
@@ -244,9 +227,6 @@ body{
     color:#d4af37;
     font-weight:700;
 }
-
-
-/* TIMES */
 
 .times{
     display:grid;
@@ -288,8 +268,13 @@ body{
     box-shadow:0 0 15px rgba(212,175,55,.3);
 }
 
-
-/* INPUT */
+.time.booked{
+    background:#111;
+    color:#666;
+    border-color:#333;
+    cursor:not-allowed;
+    opacity:.5;
+}
 
 label{
     display:block;
@@ -323,9 +308,6 @@ input:focus{
     border-color:#d4af37;
 }
 
-
-/* SUBMIT */
-
 .submit{
     width:100%;
 
@@ -354,9 +336,6 @@ input:focus{
     box-shadow:0 0 20px rgba(212,175,55,.35);
 }
 
-
-/* SUCCESS */
-
 .success{
     display:none;
 
@@ -383,9 +362,6 @@ input:focus{
     line-height:2;
 }
 
-
-/* FOOTER */
-
 .footer{
     text-align:center;
     color:#666;
@@ -393,14 +369,6 @@ input:focus{
     margin-top:25px;
 }
 
-    .time.booked{
-    background:#111;
-    color:#666;
-    border-color:#333;
-    cursor:not-allowed;
-    opacity:.5;
-    }
-    
 </style>
 
 </head>
@@ -425,7 +393,6 @@ alt="ESI BARBER">
 <p>رزرو نوبت آنلاین</p>
 
 </div>
-
 
 
 <!-- SERVICES -->
@@ -470,7 +437,6 @@ onclick="selectService(this,'اصلاح VIP')">
 </div>
 
 </div>
-
 
 
 <!-- DATE AND TIME -->
@@ -537,15 +503,16 @@ id="days">
 
 
 <div class="selected-date">
+
 تاریخ انتخاب شده:
+
 <span id="selectedDateText">
 انتخاب نشده
 </span>
-</div>
-
 
 </div>
 
+</div>
 
 
 <br>
@@ -571,7 +538,6 @@ onclick="selectTime(this,'09:30')">
 09:30
 </div>
 
-
 <div class="time"
 onclick="selectTime(this,'10:00')">
 10:00
@@ -581,7 +547,6 @@ onclick="selectTime(this,'10:00')">
 onclick="selectTime(this,'10:30')">
 10:30
 </div>
-
 
 <div class="time"
 onclick="selectTime(this,'11:00')">
@@ -593,7 +558,6 @@ onclick="selectTime(this,'11:30')">
 11:30
 </div>
 
-
 <div class="time"
 onclick="selectTime(this,'12:00')">
 12:00
@@ -603,7 +567,6 @@ onclick="selectTime(this,'12:00')">
 onclick="selectTime(this,'12:30')">
 12:30
 </div>
-
 
 <div class="time"
 onclick="selectTime(this,'13:00')">
@@ -615,8 +578,6 @@ onclick="selectTime(this,'13:30')">
 13:30
 </div>
 
-
-
 <div class="time"
 onclick="selectTime(this,'16:00')">
 16:00
@@ -626,7 +587,6 @@ onclick="selectTime(this,'16:00')">
 onclick="selectTime(this,'16:30')">
 16:30
 </div>
-
 
 <div class="time"
 onclick="selectTime(this,'17:00')">
@@ -638,7 +598,6 @@ onclick="selectTime(this,'17:30')">
 17:30
 </div>
 
-
 <div class="time"
 onclick="selectTime(this,'18:00')">
 18:00
@@ -648,7 +607,6 @@ onclick="selectTime(this,'18:00')">
 onclick="selectTime(this,'18:30')">
 18:30
 </div>
-
 
 <div class="time"
 onclick="selectTime(this,'19:00')">
@@ -660,7 +618,6 @@ onclick="selectTime(this,'19:30')">
 19:30
 </div>
 
-
 <div class="time"
 onclick="selectTime(this,'20:00')">
 20:00
@@ -671,19 +628,16 @@ onclick="selectTime(this,'20:30')">
 20:30
 </div>
 
-
 <div class="time"
 onclick="selectTime(this,'21:00')">
 21:00
 </div>
-
 
 </div>
 
 <input type="hidden" id="time">
 
 </div>
-
 
 
 <!-- CUSTOMER -->
@@ -718,7 +672,6 @@ placeholder="09xxxxxxxxx">
 </div>
 
 
-
 <!-- SUBMIT -->
 
 <button
@@ -728,7 +681,6 @@ onclick="bookAppointment()">
 ثبت نوبت
 
 </button>
-
 
 
 <!-- SUCCESS -->
@@ -746,14 +698,12 @@ id="success">
 </div>
 
 
-
 <div class="footer">
 ESI BARBER
 </div>
 
 
 </div>
-
 
 
 <script>
@@ -773,6 +723,7 @@ let calendarDate = null;
 /* =========================
    SERVICE
 ========================= */
+
 function selectService(element, service){
 
     document
@@ -788,7 +739,9 @@ function selectService(element, service){
 
     document.getElementById("time").value = "";
 
-    const timesContainer = document.querySelector(".times");
+    const timesContainer =
+        document.querySelector(".times");
+
 
     if(service === "اصلاح"){
 
@@ -837,30 +790,46 @@ function selectService(element, service){
             <div class="time" onclick="selectTime(this,'20:00')">20:00</div>
 
         `;
+
     }
 
+
     if(selectedDate){
-    setTimeout(() => {
-        refreshBookedTimes();
-    }, 100);
+
+        setTimeout(() => {
+
+            refreshBookedTimes();
+
+        },100);
+
+    }
+
 }
-}
+
+
 /* =========================
    TIME
 ========================= */
 
-function selectTime(element, time){
+function selectTime(element,time){
 
     if(element.classList.contains("booked")){
+
         alert("این ساعت قبلاً رزرو شده است.");
+
         return;
+
     }
+
 
     document
     .querySelectorAll(".time")
     .forEach(function(item){
+
         item.classList.remove("selected");
+
     });
+
 
     element.classList.add("selected");
 
@@ -869,10 +838,18 @@ function selectTime(element, time){
     document
     .getElementById("time")
     .value = time;
+
 }
-    async function refreshBookedTimes(){
+
+
+/* =========================
+   REFRESH BOOKED TIMES
+========================= */
+
+async function refreshBookedTimes(){
 
     if(!selectedDate) return;
+
 
     const dateText =
         persianNumber(selectedDate.day)
@@ -881,86 +858,124 @@ function selectTime(element, time){
         + " "
         + persianNumber(selectedDate.year);
 
-    const snapshot = await loadAppointments();
 
-    document.querySelectorAll(".time").forEach(timeBtn => {
+    try{
 
-        const time = timeBtn.textContent.trim();
+        const snapshot =
+            await loadAppointments();
 
-        const toMinutes = (t) => {
-            const [h, m] = t.split(":").map(Number);
-            return h * 60 + m;
-        };
 
-        const currentStart = toMinutes(time);
+        document
+        .querySelectorAll(".time")
+        .forEach(timeBtn => {
 
-        /*
-        مدت زمان سرویس فعلی
-        VIP = 60 دقیقه
-        عادی = 30 دقیقه
-        */
 
-        const currentDuration =
-            selectedService === "اصلاح VIP"
-            ? 60
-            : 30;
+            const time =
+                timeBtn.textContent.trim();
 
-        const currentEnd =
-            currentStart + currentDuration;
 
-        let booked = false;
+            const toMinutes = (t) => {
 
-        snapshot.forEach(item => {
+                const [h,m] =
+                    t.split(":").map(Number);
 
-            // فقط رزروهای همین تاریخ
-            if(item.date !== dateText) return;
+                return h * 60 + m;
 
-            const bookedStart =
-                toMinutes(item.time);
+            };
 
-            const bookedDuration =
-                item.service === "اصلاح VIP"
+
+            const currentStart =
+                toMinutes(time);
+
+
+            const currentDuration =
+                selectedService === "اصلاح VIP"
                 ? 60
                 : 30;
 
-            const bookedEnd =
-                bookedStart + bookedDuration;
 
-            /*
-            بررسی تداخل زمانی
-            */
+            const currentEnd =
+                currentStart + currentDuration;
 
-            if(
-                currentStart < bookedEnd &&
-                currentEnd > bookedStart
-            ){
-                booked = true;
+
+            let booked = false;
+
+
+            snapshot.forEach(item => {
+
+                if(item.date !== dateText)
+                    return;
+
+
+                const bookedStart =
+                    toMinutes(item.time);
+
+
+                const bookedDuration =
+                    item.service === "اصلاح VIP"
+                    ? 60
+                    : 30;
+
+
+                const bookedEnd =
+                    bookedStart + bookedDuration;
+
+
+                if(
+                    currentStart < bookedEnd &&
+                    currentEnd > bookedStart
+                ){
+
+                    booked = true;
+
+                }
+
+            });
+
+
+            if(booked){
+
+                timeBtn.classList.add("booked");
+
+                timeBtn.classList.remove("selected");
+
+                timeBtn.onclick = function(){
+
+                    alert(
+                        "این ساعت قبلاً رزرو شده است."
+                    );
+
+                };
+
+
+            }else{
+
+                timeBtn.classList.remove("booked");
+
+                timeBtn.onclick = function(){
+
+                    selectTime(
+                        this,
+                        time
+                    );
+
+                };
+
             }
 
         });
 
-        if(booked){
+    }catch(error){
 
-            timeBtn.classList.add("booked");
-            timeBtn.classList.remove("selected");
-
-            timeBtn.onclick = null;
-
-        }else{
-
-            timeBtn.classList.remove("booked");
-
-            timeBtn.onclick = function(){
-
-                selectTime(this, time);
-
-            };
-
-        }
-
-    });
+        console.error(
+            "خطا در دریافت نوبت‌ها:",
+            error
+        );
 
     }
+
+}
+
 
 /* =========================
    GREGORIAN → JALALI
@@ -1112,10 +1127,21 @@ days=(days-1)%365;
 let gd=days+1;
 
 let sal_a=[
-0,31,
-((gy%4===0 && gy%100!==0)||gy%400===0)?29:28,
-31,30,31,30,
-31,31,30,31,30,31
+0,
+31,
+((gy%4===0 && gy%100!==0)||gy%400===0)
+?29
+:28,
+31,
+30,
+31,
+30,
+31,
+31,
+30,
+31,
+30,
+31
 ];
 
 let gm=0;
@@ -1164,7 +1190,9 @@ function persianNumber(num){
 return String(num).replace(
     /\d/g,
     function(d){
+
         return "۰۱۲۳۴۵۶۷۸۹"[d];
+
     }
 );
 
@@ -1175,14 +1203,16 @@ return String(num).replace(
    TODAY
 ========================= */
 
-const todayGregorian = new Date();
+const todayGregorian =
+    new Date();
+
 
 const todayJalali =
-gregorianToJalali(
-todayGregorian.getFullYear(),
-todayGregorian.getMonth()+1,
-todayGregorian.getDate()
-);
+    gregorianToJalali(
+        todayGregorian.getFullYear(),
+        todayGregorian.getMonth()+1,
+        todayGregorian.getDate()
+    );
 
 
 /* =========================
@@ -1190,8 +1220,10 @@ todayGregorian.getDate()
 ========================= */
 
 calendarDate={
+
     year:todayJalali[0],
     month:todayJalali[1]
+
 };
 
 
@@ -1201,29 +1233,57 @@ calendarDate={
 
 function toggleCalendar(){
 
-    const calendar = document.getElementById("calendar");
+    const calendar =
+        document.getElementById("calendar");
+
 
     if(!calendarDate){
 
-        const today = new Date();
+        const today =
+            new Date();
 
-        const gy = today.getFullYear();
-        const gm = today.getMonth() + 1;
-        const gd = today.getDate();
 
-        const jalali = gregorianToJalali(gy, gm, gd);
+        const gy =
+            today.getFullYear();
 
-        calendarDate = {
-            year: jalali[0],
-            month: jalali[1]
+
+        const gm =
+            today.getMonth()+1;
+
+
+        const gd =
+            today.getDate();
+
+
+        const jalali =
+            gregorianToJalali(
+                gy,
+                gm,
+                gd
+            );
+
+
+        calendarDate={
+
+            year:jalali[0],
+            month:jalali[1]
+
         };
+
     }
 
-    calendar.classList.toggle("show");
+
+    calendar
+    .classList
+    .toggle("show");
+
 
     if(calendar.classList.contains("show")){
+
         renderCalendar();
+
     }
+
 }
 
 
@@ -1233,63 +1293,52 @@ function toggleCalendar(){
 
 function renderCalendar(){
 
-const year=calendarDate.year;
+const year =
+    calendarDate.year;
 
-const month=calendarDate.month;
+const month =
+    calendarDate.month;
 
-
-/* عنوان */
 
 document
 .getElementById("calendarMonth")
-.textContent=
-months[month-1]
-+
-" "
-+
-persianNumber(year);
+.textContent =
+    months[month-1]
+    +
+    " "
+    +
+    persianNumber(year);
 
 
-/* روزها */
+const daysContainer =
+    document.getElementById("days");
 
-const daysContainer=
-document.getElementById("days");
 
 daysContainer.innerHTML="";
 
 
-/*
-اولین روز ماه شمسی
-*/
-
-const firstGregorian=
-jalaliToGregorian(
-year,
-month,
-1
-);
-
-const firstDate=
-new Date(
-firstGregorian[0],
-firstGregorian[1]-1,
-firstGregorian[2]
-);
+const firstGregorian =
+    jalaliToGregorian(
+        year,
+        month,
+        1
+    );
 
 
-/*
-جا به جایی هفته
-*/
+const firstDate =
+    new Date(
+        firstGregorian[0],
+        firstGregorian[1]-1,
+        firstGregorian[2]
+    );
 
-let startDay=
-(firstDate.getDay()+1)%7;
 
+let startDay =
+    (firstDate.getDay()+1)%7;
 
-/*
-تعداد روزهای ماه
-*/
 
 let daysInMonth;
+
 
 if(month<=6){
 
@@ -1306,39 +1355,48 @@ daysInMonth=30;
 }
 
 
-/* خانه های خالی */
+for(
+    let i=0;
+    i<startDay;
+    i++
+){
 
-for(let i=0;i<startDay;i++){
+const empty =
+    document.createElement("div");
 
-const empty=
-document.createElement("div");
 
-empty.className="day empty";
+empty.className =
+    "day empty";
 
-daysContainer.appendChild(empty);
+
+daysContainer
+    .appendChild(empty);
 
 }
 
 
-/* روزها */
+for(
+    let day=1;
+    day<=daysInMonth;
+    day++
+){
 
-for(let day=1;day<=daysInMonth;day++){
-
-const div=
-document.createElement("div");
-
-div.className="day";
-
-div.textContent=
-persianNumber(day);
+const div =
+    document.createElement("div");
 
 
-/* امروز */
+div.className =
+    "day";
+
+
+div.textContent =
+    persianNumber(day);
+
 
 if(
-year===todayJalali[0] &&
-month===todayJalali[1] &&
-day===todayJalali[2]
+    year===todayJalali[0] &&
+    month===todayJalali[1] &&
+    day===todayJalali[2]
 ){
 
 div.classList.add("today");
@@ -1346,13 +1404,11 @@ div.classList.add("today");
 }
 
 
-/* انتخاب قبلی */
-
 if(
-selectedDate &&
-selectedDate.year===year &&
-selectedDate.month===month &&
-selectedDate.day===day
+    selectedDate &&
+    selectedDate.year===year &&
+    selectedDate.month===month &&
+    selectedDate.day===day
 ){
 
 div.classList.add("selected");
@@ -1360,25 +1416,24 @@ div.classList.add("selected");
 }
 
 
-/* جلوگیری از روزهای قبل */
-
 let isPast=false;
+
 
 if(year<todayJalali[0]){
 
 isPast=true;
 
 }else if(
-year===todayJalali[0] &&
-month<todayJalali[1]
+    year===todayJalali[0] &&
+    month<todayJalali[1]
 ){
 
 isPast=true;
 
 }else if(
-year===todayJalali[0] &&
-month===todayJalali[1] &&
-day<todayJalali[2]
+    year===todayJalali[0] &&
+    month===todayJalali[1] &&
+    day<todayJalali[2]
 ){
 
 isPast=true;
@@ -1389,6 +1444,7 @@ isPast=true;
 if(isPast){
 
 div.style.opacity="0.25";
+
 div.style.cursor="not-allowed";
 
 }else{
@@ -1396,9 +1452,9 @@ div.style.cursor="not-allowed";
 div.onclick=function(){
 
 selectDate(
-year,
-month,
-day
+    year,
+    month,
+    day
 );
 
 };
@@ -1406,7 +1462,8 @@ day
 }
 
 
-daysContainer.appendChild(div);
+daysContainer
+    .appendChild(div);
 
 }
 
@@ -1417,55 +1474,65 @@ daysContainer.appendChild(div);
    SELECT DATE
 ========================= */
 
-function selectDate(year, month, day){
+function selectDate(
+    year,
+    month,
+    day
+){
 
-    selectedDate = {
-        year: year,
-        month: month,
-        day: day
+    selectedDate={
+
+        year:year,
+        month:month,
+        day:day
+
     };
 
+
     const text =
+
         persianNumber(day)
         +
         " "
         +
-        months[month - 1]
+        months[month-1]
         +
         " "
         +
         persianNumber(year);
 
+
     document
         .getElementById("selectedDateText")
-        .textContent = text;
+        .textContent=text;
+
 
     const button =
         document.getElementById("dateButton");
 
-    button.textContent = text;
+
+    button.textContent=text;
 
     button.classList.add("selected");
 
+
     document
         .getElementById("calendar")
-        .classList.remove("show");
+        .classList
+        .remove("show");
 
-    /*
-    =========================
-    بروزرسانی ساعت‌های رزروشده
-    =========================
-    */
 
     if(selectedService){
 
         setTimeout(() => {
+
             refreshBookedTimes();
-        }, 100);
+
+        },100);
 
     }
 
-    }
+}
 
 
 /* =========================
@@ -1475,22 +1542,26 @@ function selectDate(year, month, day){
 function previousMonth(){
 
 if(
-calendarDate.year===todayJalali[0] &&
-calendarDate.month===todayJalali[1]
+    calendarDate.year===todayJalali[0] &&
+    calendarDate.month===todayJalali[1]
 ){
 
 return;
 
 }
 
+
 calendarDate.month--;
+
 
 if(calendarDate.month===0){
 
 calendarDate.month=12;
+
 calendarDate.year--;
 
 }
+
 
 renderCalendar();
 
@@ -1505,12 +1576,15 @@ function nextMonth(){
 
 calendarDate.month++;
 
+
 if(calendarDate.month===13){
 
 calendarDate.month=1;
+
 calendarDate.year++;
 
 }
+
 
 renderCalendar();
 
@@ -1522,288 +1596,428 @@ renderCalendar();
 ========================= */
 
 async function bookAppointment(){
-const name=
-document
-.getElementById("name")
-.value
-.trim();
+
+const name =
+    document
+    .getElementById("name")
+    .value
+    .trim();
 
 
-const phone=
-document
-.getElementById("phone")
-.value
-.trim();
+const phone =
+    document
+    .getElementById("phone")
+    .value
+    .trim();
 
-
-/* SERVICE */
 
 if(!selectedService){
 
-alert("لطفاً یک خدمت انتخاب کنید.");
+alert(
+    "لطفاً یک خدمت انتخاب کنید."
+);
 
 return;
 
 }
 
-
-/* DATE */
 
 if(!selectedDate){
 
-alert("لطفاً تاریخ نوبت را انتخاب کنید.");
+alert(
+    "لطفاً تاریخ نوبت را انتخاب کنید."
+);
 
 return;
 
 }
 
-
-/* TIME */
 
 if(!selectedTime){
 
-alert("لطفاً ساعت نوبت را انتخاب کنید.");
+alert(
+    "لطفاً ساعت نوبت را انتخاب کنید."
+);
 
 return;
 
 }
 
-
-/* NAME */
 
 if(!name){
 
-alert("لطفاً نام خود را وارد کنید.");
+alert(
+    "لطفاً نام خود را وارد کنید."
+);
 
 return;
 
 }
 
-
-/* PHONE */
 
 if(!phone){
 
-alert("لطفاً شماره تماس را وارد کنید.");
-
-return;
-
-}
-
-
-/* DATE TEXT */
-
-const dateText=
-
-persianNumber(selectedDate.day)
-+
-" "
-+
-months[selectedDate.month-1]
-+
-" "
-+
-persianNumber(selectedDate.year);
-
-
-/* RESULT */
-
-document
-.getElementById("result")
-.innerHTML=
-
-"خدمت: <b>"
-+
-selectedService
-+
-"</b><br>"
-
-+
-
-"نام: <b>"
-+
-name
-+
-"</b><br>"
-
-+
-
-"شماره تماس: <b>"
-+
-phone
-+
-"</b><br>"
-
-+
-
-"تاریخ: <b>"
-+
-dateText
-+
-"</b><br>"
-
-+
-
-"ساعت: <b>"
-+
-selectedTime
-+
-"</b><br><br>"
-
-+
-
-"لطفاً در زمان تعیین‌شده در آرایشگاه حضور داشته باشید.";
-
-const alreadyBooked =
-await isTimeBooked(
-dateText,
-selectedTime,
-selectedService
+alert(
+    "لطفاً شماره تماس را وارد کنید."
 );
 
-if(alreadyBooked){
-
-alert("این ساعت قبلاً رزرو شده است.");
-
 return;
 
 }
-    
+
+
+const dateText =
+
+    persianNumber(selectedDate.day)
+    +
+    " "
+    +
+    months[selectedDate.month-1]
+    +
+    " "
+    +
+    persianNumber(selectedDate.year);
+
+
+/*
+اول بررسی می‌کنیم ساعت قبلاً رزرو نشده باشد
+*/
+
+try{
+
+    const alreadyBooked =
+        await isTimeBooked(
+            dateText,
+            selectedTime,
+            selectedService
+        );
+
+
+    if(alreadyBooked){
+
+        alert(
+            "این ساعت قبلاً رزرو شده است."
+        );
+
+        await refreshBookedTimes();
+
+        return;
+
+    }
+
+
+    /*
+    ذخیره نوبت
+    */
+
     await saveAppointment({
 
-service: selectedService,
+        service:selectedService,
 
-name: name,
+        name:name,
 
-phone: phone,
+        phone:phone,
 
-date: dateText,
+        date:dateText,
 
-time: selectedTime,
+        time:selectedTime,
 
-createdAt: new Date().toISOString()
+        createdAt:
+            new Date().toISOString()
 
-});
-
-/* SHOW */
-
-document
-.getElementById("success")
-.style.display="block";
+    });
 
 
-document
-.getElementById("success")
-.scrollIntoView({
-behavior:"smooth"
-});
+    /*
+    نمایش نتیجه
+    */
+
+    document
+    .getElementById("result")
+    .innerHTML =
+
+        "خدمت: <b>"
+        +
+        selectedService
+        +
+        "</b><br>"
+
+        +
+
+        "نام: <b>"
+        +
+        name
+        +
+        "</b><br>"
+
+        +
+
+        "شماره تماس: <b>"
+        +
+        phone
+        +
+        "</b><br>"
+
+        +
+
+        "تاریخ: <b>"
+        +
+        dateText
+        +
+        "</b><br>"
+
+        +
+
+        "ساعت: <b>"
+        +
+        selectedTime
+        +
+        "</b><br><br>"
+
+        +
+
+        "لطفاً در زمان تعیین‌شده در آرایشگاه حضور داشته باشید.";
+
+
+    document
+    .getElementById("success")
+    .style.display="block";
+
+
+    document
+    .getElementById("success")
+    .scrollIntoView({
+
+        behavior:"smooth"
+
+    });
+
+
+    await refreshBookedTimes();
+
+
+}catch(error){
+
+    console.error(
+        "خطا در ثبت نوبت:",
+        error
+    );
+
+
+    alert(
+        "ثبت نوبت انجام نشد. لطفاً دوباره تلاش کنید."
+    );
+
+}
 
 }
 
 </script>
 
-    <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script type="module">
+
 import {
-getFirestore,
-collection,
-addDoc,
-getDocs
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCqk2vmTUl1iHG2y9tMB2dv_DMEl99zvtU",
-  authDomain: "esibarber-3642b.firebaseapp.com",
-  projectId: "esibarber-3642b",
-  storageBucket: "esibarber-3642b.firebasestorage.app",
-  messagingSenderId: "519319650838",
-  appId: "1:519319650838:web:29cf5bced898093db6eb37",
-  measurementId: "G-TLGZCLZJRL"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-window.saveAppointment = async (data) => {
-
-await addDoc(
-collection(db,"appointments"),
-data
-);
-
-};
-
-window.isTimeBooked = async (date,time,service) => {
-
-const snapshot =
-await getDocs(
-collection(db,"appointments")
-);
-
-const toMinutes = (t) => {
-const [h,m] = t.split(":").map(Number);
-return h * 60 + m;
-};
-
-const currentStart = toMinutes(time);
-
-let currentEnd =
-service === "اصلاح VIP"
-? currentStart + 60
-: currentStart + 30;
-
-let booked = false;
-
-snapshot.forEach((doc)=>{
-
-const item = doc.data();
-
-if(item.date !== date) return;
-
-const bookedStart =
-toMinutes(item.time);
-
-let bookedEnd =
-item.service === "اصلاح VIP"
-? bookedStart + 60
-: bookedStart + 30;
-
-if(
-currentStart < bookedEnd &&
-currentEnd > bookedStart
-){
-booked = true;
+    createClient
 }
+from
+"https://esm.sh/@supabase/supabase-js@2";
 
-});
 
-return booked;
+const SUPABASE_URL =
+"https://zyhcplznilkhfjeocoet.supabase.co";
+
+
+const SUPABASE_KEY =
+"sb_publishable_jB4eqptL-Egyagl9u0r8wA_wnVoWLkf";
+
+
+const supabase =
+    createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================
+   SAVE APPOINTMENT
+========================= */
+
+window.saveAppointment =
+async function(data){
+
+    const {
+        error
+    } =
+    await supabase
+    .from("appointments")
+    .insert([data]);
+
+
+    if(error){
+
+        console.error(
+            "Supabase save error:",
+            error
+        );
+
+        throw error;
+
+    }
 
 };
 
 
-window.loadAppointments = async () => {
+/* =========================
+   CHECK BOOKED TIME
+========================= */
 
-const snapshot =
-await getDocs(
-collection(db,"appointments")
-);
+window.isTimeBooked =
+async function(
+    date,
+    time,
+    service
+){
 
-const data = [];
+    const {
+        data,
+        error
+    } =
+    await supabase
+    .from("appointments")
+    .select(
+        "date,time,service"
+    )
+    .eq(
+        "date",
+        date
+    );
 
-snapshot.forEach((doc)=>{
 
-data.push(doc.data());
+    if(error){
 
-});
+        console.error(
+            "Supabase read error:",
+            error
+        );
 
-return data;
+        throw error;
+
+    }
+
+
+    const toMinutes =
+    function(t){
+
+        const [h,m] =
+            t
+            .split(":")
+            .map(Number);
+
+
+        return h*60+m;
+
+    };
+
+
+    const currentStart =
+        toMinutes(time);
+
+
+    const currentDuration =
+        service === "اصلاح VIP"
+        ? 60
+        : 30;
+
+
+    const currentEnd =
+        currentStart
+        +
+        currentDuration;
+
+
+    let booked=false;
+
+
+    (data || []).forEach(
+        function(item){
+
+            const bookedStart =
+                toMinutes(
+                    item.time
+                );
+
+
+            const bookedDuration =
+                item.service === "اصلاح VIP"
+                ? 60
+                : 30;
+
+
+            const bookedEnd =
+                bookedStart
+                +
+                bookedDuration;
+
+
+            if(
+                currentStart < bookedEnd &&
+                currentEnd > bookedStart
+            ){
+
+                booked=true;
+
+            }
+
+        }
+    );
+
+
+    return booked;
 
 };
 
 
-    </script>
+/* =========================
+   LOAD APPOINTMENTS
+========================= */
+
+window.loadAppointments =
+async function(){
+
+    const {
+        data,
+        error
+    } =
+    await supabase
+    .from("appointments")
+    .select(
+        "date,time,service"
+    );
+
+
+    if(error){
+
+        console.error(
+            "Supabase load error:",
+            error
+        );
+
+        throw error;
+
+    }
+
+
+    return data || [];
+
+};
+
+</script>
+
 
 </body>
 
