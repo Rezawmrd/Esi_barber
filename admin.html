@@ -74,8 +74,6 @@ body{
     margin-bottom:15px;
 }
 
-/* LOGIN */
-
 #loginPage{
     max-width:400px;
     margin:auto;
@@ -132,7 +130,10 @@ button{
     box-shadow:0 0 18px rgba(212,175,55,.3);
 }
 
-/* DATE */
+.gold-btn:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
 
 .date-box{
     display:flex;
@@ -159,8 +160,6 @@ button{
     flex:1;
     min-height:45px;
 }
-
-/* CALENDAR */
 
 .admin-calendar{
     display:none;
@@ -240,8 +239,6 @@ button{
     cursor:default;
 }
 
-/* STATS */
-
 .stats{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -268,8 +265,6 @@ button{
     font-size:12px;
     margin-top:5px;
 }
-
-/* APPOINTMENT */
 
 .appointment{
     background:#1b1b1b;
@@ -355,7 +350,10 @@ button{
     font-family:inherit;
 }
 
-/* EMPTY */
+.delete-btn:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
 
 .empty{
     text-align:center;
@@ -363,15 +361,11 @@ button{
     color:#666;
 }
 
-/* LOADING */
-
 .loading{
     text-align:center;
     color:#888;
     padding:20px;
 }
-
-/* LOGOUT */
 
 .logout{
     width:100%;
@@ -383,6 +377,27 @@ button{
     color:#888;
     cursor:pointer;
     font-family:inherit;
+}
+
+.error-box{
+    background:#301818;
+    border:1px solid #522222;
+    color:#ff9999;
+    border-radius:10px;
+    padding:12px;
+    margin-top:10px;
+    font-size:13px;
+    line-height:1.8;
+}
+
+.success-box{
+    background:#172617;
+    border:1px solid #315a31;
+    color:#9ddd9d;
+    border-radius:10px;
+    padding:12px;
+    margin-top:10px;
+    font-size:13px;
 }
 
 @media(max-width:450px){
@@ -403,7 +418,10 @@ button{
 
 <body>
 
-<!-- LOGIN -->
+
+<!-- =========================
+     LOGIN
+========================= -->
 
 <div id="loginPage">
 
@@ -424,15 +442,23 @@ button{
         <h2>🔐 ورود مدیر</h2>
 
         <p style="color:#777;font-size:13px;">
-            برای مشاهده نوبت‌ها رمز مدیریت را وارد کنید
+            ایمیل و رمز مدیر را وارد کنید
         </p>
+
+        <input
+        type="email"
+        id="adminEmail"
+        placeholder="ایمیل مدیر"
+        autocomplete="username">
 
         <input
         type="password"
         id="adminPassword"
-        placeholder="رمز مدیریت">
+        placeholder="رمز مدیریت"
+        autocomplete="current-password">
 
         <button
+        id="loginButton"
         class="gold-btn"
         onclick="login()">
 
@@ -440,23 +466,26 @@ button{
 
         </button>
 
-        <p
-        id="loginError"
-        style="color:#e66;font-size:13px;">
-        </p>
+        <div
+        id="loginError">
+        </div>
 
     </div>
 
 </div>
 
 
-<!-- ADMIN -->
+
+<!-- =========================
+     ADMIN
+========================= -->
 
 <div
 id="adminPage"
 style="display:none;">
 
 <div class="container">
+
 
 <div class="header">
 
@@ -469,6 +498,7 @@ src="esi_barber_1994_14050522_200959787.jpg">
 <p>پنل مدیریت نوبت‌ها</p>
 
 </div>
+
 
 
 <!-- DATE -->
@@ -502,7 +532,6 @@ onclick="changeDate(1)">
 
 </div>
 
-
 <div
 id="adminCalendar"
 class="admin-calendar">
@@ -528,7 +557,6 @@ class="admin-calendar">
 
     </div>
 
-
     <div class="admin-weekdays">
 
         <span>ش</span>
@@ -541,7 +569,6 @@ class="admin-calendar">
 
     </div>
 
-
     <div
     id="adminCalendarDays"
     class="admin-days">
@@ -549,12 +576,12 @@ class="admin-calendar">
 
 </div>
 
-
 <input
 type="hidden"
 id="datePicker">
 
 </div>
+
 
 
 <!-- STATS -->
@@ -575,7 +602,6 @@ id="totalCount">
 
 </div>
 
-
 <div class="stat">
 
 <div
@@ -589,7 +615,6 @@ id="normalCount">
 </div>
 
 </div>
-
 
 <div class="stat">
 
@@ -606,6 +631,7 @@ VIP
 </div>
 
 </div>
+
 
 
 <!-- APPOINTMENTS -->
@@ -626,6 +652,7 @@ id="appointments">
 </div>
 
 </div>
+
 
 
 <button
@@ -663,124 +690,39 @@ ESI BARBER
 </div>
 
 
+
 <script type="module">
 
-/* =====================================================
+/* =========================
    SUPABASE
-===================================================== */
+========================= */
+
+import {
+    createClient
+}
+from
+"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
 
 const SUPABASE_URL =
 "https://zyhcplznilkhfjeocoet.supabase.co";
 
-const SUPABASE_KEY =
+
+const SUPABASE_ANON_KEY =
 "sb_publishable_jB4eqptL-Egyagl9u0r8wA_wnVoWLkf";
 
 
-/* =====================================================
-   SUPABASE REQUEST
-===================================================== */
-
-async function supabaseRequest(
-    endpoint,
-    options={}
-){
-
-    const response =
-        await fetch(
-            SUPABASE_URL + endpoint,
-            {
-
-                ...options,
-
-                headers:{
-                    "apikey":
-                        SUPABASE_KEY,
-
-                    "Authorization":
-                        "Bearer " +
-                        SUPABASE_KEY,
-
-                    "Content-Type":
-                        "application/json",
-
-                    ...(options.headers || {})
-                }
-
-            }
-        );
+const supabase =
+createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
 
 
-    const text =
-        await response.text();
 
-
-    let data = null;
-
-
-    if(text){
-
-        try{
-
-            data =
-                JSON.parse(text);
-
-        }catch{
-
-            data = text;
-
-        }
-
-    }
-
-
-    if(!response.ok){
-
-        let message =
-            "خطا در ارتباط با Supabase";
-
-
-        if(data){
-
-            if(data.message){
-
-                message =
-                    data.message;
-
-            }else if(data.error){
-
-                message =
-                    data.error;
-
-            }else if(data.hint){
-
-                message =
-                    data.hint;
-
-            }else if(
-                typeof data === "string"
-            ){
-
-                message =
-                    data;
-
-            }
-
-        }
-
-
-        throw new Error(message);
-
-    }
-
-
-    return data;
-
-}
-
-
-/* =====================================================
+/* =========================
    MONTHS
-===================================================== */
+========================= */
 
 const months=[
 
@@ -800,26 +742,12 @@ const months=[
 ];
 
 
-/* =====================================================
-   JALALI VARIABLES
-===================================================== */
 
-let todayJalali;
+/* =========================
+   JALALI
+========================= */
 
-let selectedAdminDate;
-
-let adminCalendarDate;
-
-
-/* =====================================================
-   GREGORIAN → JALALI
-===================================================== */
-
-function gregorianToJalali(
-    gy,
-    gm,
-    gd
-){
+function gregorianToJalali(gy,gm,gd){
 
 let gdm=[
 0,31,59,90,120,151,
@@ -831,23 +759,16 @@ let jy;
 if(gy>1600){
 
 jy=979;
-
 gy-=1600;
 
 }else{
 
 jy=0;
-
 gy-=621;
 
 }
 
-let gy2=
-(gm>2)
-?
-gy+1
-:
-gy;
+let gy2=(gm>2)?gy+1:gy;
 
 let days=
 365*gy
@@ -864,77 +785,48 @@ gd
 +
 gdm[gm-1];
 
-jy+=
-33*
-Math.floor(days/12053);
+jy+=33*Math.floor(days/12053);
 
 days%=12053;
 
-jy+=
-4*
-Math.floor(days/1461);
+jy+=4*Math.floor(days/1461);
 
 days%=1461;
 
 if(days>365){
 
-jy+=
-Math.floor((days-1)/365);
+jy+=Math.floor((days-1)/365);
 
-days=
-(days-1)%365;
+days=(days-1)%365;
 
 }
 
 let jm;
-
 let jd;
 
 if(days<186){
 
-jm=
-1+
-Math.floor(days/31);
+jm=1+Math.floor(days/31);
 
-jd=
-1+
-(days%31);
+jd=1+(days%31);
 
 }else{
 
-jm=
-7+
-Math.floor((days-186)/30);
+jm=7+Math.floor((days-186)/30);
 
-jd=
-1+
-((days-186)%30);
+jd=1+((days-186)%30);
 
 }
 
-return [
-    jy,
-    jm,
-    jd
-];
+return [jy,jm,jd];
 
 }
 
 
-/* =====================================================
-   JALALI → GREGORIAN
-===================================================== */
-
-function jalaliToGregorian(
-    jy,
-    jm,
-    jd
-){
+function jalaliToGregorian(jy,jm,jd){
 
 jy=parseInt(jy);
-
 jm=parseInt(jm);
-
 jd=parseInt(jd);
 
 let gy;
@@ -942,7 +834,6 @@ let gy;
 if(jy>979){
 
 gy=1600;
-
 jy-=979;
 
 }else{
@@ -970,17 +861,13 @@ jm<7
 (((jm-7)*30)+186)
 );
 
-gy+=
-400*
-Math.floor(days/146097);
+gy+=400*Math.floor(days/146097);
 
 days%=146097;
 
 if(days>36524){
 
-gy+=
-100*
-Math.floor(--days/36524);
+gy+=100*Math.floor(--days/36524);
 
 days%=36524;
 
@@ -989,38 +876,24 @@ days++;
 
 }
 
-gy+=
-4*
-Math.floor(days/1461);
+gy+=4*Math.floor(days/1461);
 
 days%=1461;
 
 if(days>365){
 
-gy+=
-Math.floor((days-1)/365);
+gy+=Math.floor((days-1)/365);
 
-days=
-(days-1)%365;
+days=(days-1)%365;
 
 }
 
-let gd=
-days+1;
+let gd=days+1;
 
 let sal_a=[
 0,
 31,
-(
-(gy%4===0 &&
-gy%100!==0)
-||
-gy%400===0
-)
-?
-29
-:
-28,
+((gy%4===0 && gy%100!==0)||gy%400===0)?29:28,
 31,
 30,
 31,
@@ -1035,9 +908,7 @@ gy%400===0
 
 let gm=0;
 
-while(
-gd>sal_a[gm]
-){
+while(gd>sal_a[gm]){
 
 gd-=sal_a[gm];
 
@@ -1045,189 +916,171 @@ gm++;
 
 }
 
-return [
-    gy,
-    gm,
-    gd
-];
+return [gy,gm,gd];
 
 }
 
-
-/* =====================================================
-   PERSIAN NUMBER
-===================================================== */
 
 function persianNumber(num){
 
 return String(num).replace(
-    /\d/g,
-    d=>"۰۱۲۳۴۵۶۷۸۹"[d]
+/\d/g,
+d=>"۰۱۲۳۴۵۶۷۸۹"[d]
 );
 
 }
 
 
-/* =====================================================
+
+/* =========================
    TODAY
-===================================================== */
+========================= */
 
-const now =
-new Date();
+const now=new Date();
 
-todayJalali =
+const todayJalali=
 gregorianToJalali(
-    now.getFullYear(),
-    now.getMonth()+1,
-    now.getDate()
+now.getFullYear(),
+now.getMonth()+1,
+now.getDate()
 );
 
 
-selectedAdminDate={
+let selectedAdminDate={
 
-    year:
-        todayJalali[0],
-
-    month:
-        todayJalali[1],
-
-    day:
-        todayJalali[2]
+    year:todayJalali[0],
+    month:todayJalali[1],
+    day:todayJalali[2]
 
 };
 
 
-adminCalendarDate={
+let adminCalendarDate={
 
-    year:
-        todayJalali[0],
-
-    month:
-        todayJalali[1]
+    year:todayJalali[0],
+    month:todayJalali[1]
 
 };
 
 
-/* =====================================================
-   GET APPOINTMENTS
-===================================================== */
 
-async function getAppointments(){
-
-    const data =
-        await supabaseRequest(
-            "/rest/v1/appointments" +
-            "?select=*"
-        );
-
-
-    return data || [];
-
-}
-
-
-/* =====================================================
+/* =========================
    DATE TEXT
-===================================================== */
+========================= */
 
 function getSelectedDateText(){
 
 return (
 
-persianNumber(
-    selectedAdminDate.day
-)
-
+persianNumber(selectedAdminDate.day)
 +
 " "
-
 +
-months[
-    selectedAdminDate.month-1
-]
-
+months[selectedAdminDate.month-1]
 +
 " "
-
 +
-persianNumber(
-    selectedAdminDate.year
-)
+persianNumber(selectedAdminDate.year)
 
 );
 
 }
 
-
-/* =====================================================
-   DATE BUTTON
-===================================================== */
 
 function updateDateButton(){
 
-const text =
-    getSelectedDateText();
-
-
-document
-.getElementById(
-    "jalaliDateButton"
-)
-.textContent =
-    text;
-
+const text=
+getSelectedDateText();
 
 document
-.getElementById(
-    "datePicker"
-)
-.value =
+.getElementById("jalaliDateButton")
+.textContent=text;
 
-`${selectedAdminDate.year}-${
-String(selectedAdminDate.month)
-.padStart(2,"0")
-}-${
-String(selectedAdminDate.day)
-.padStart(2,"0")
-}`;
+document
+.getElementById("datePicker")
+.value=
+`${selectedAdminDate.year}-${String(selectedAdminDate.month).padStart(2,"0")}-${String(selectedAdminDate.day).padStart(2,"0")}`;
 
 }
 
 
-/* =====================================================
-   CALENDAR TOGGLE
-===================================================== */
 
-window.toggleAdminCalendar =
-function(){
+/* =========================
+   SUPABASE DATE
+========================= */
 
-const calendar =
-    document.getElementById(
-        "adminCalendar"
-    );
+function getGregorianDateString(){
 
-
-calendar.classList.toggle(
-    "show"
+const g=
+jalaliToGregorian(
+selectedAdminDate.year,
+selectedAdminDate.month,
+selectedAdminDate.day
 );
 
+return (
+String(g[0]).padStart(4,"0")
++
+"-"
++
+String(g[1]).padStart(2,"0")
++
+"-"
++
+String(g[2]).padStart(2,"0")
+);
 
-if(
-    calendar.classList.contains(
-        "show"
-    )
-){
+}
+
+
+
+/* =========================
+   LOAD APPOINTMENTS
+========================= */
+
+async function getAppointments(){
+
+const {
+    data,
+    error
+} =
+await supabase
+    .from("appointments")
+    .select("*")
+    .order("appointment_time",{ascending:true});
+
+
+if(error){
+
+throw error;
+
+}
+
+return data || [];
+
+}
+
+
+
+/* =========================
+   CALENDAR
+========================= */
+
+window.toggleAdminCalendar=function(){
+
+const calendar=
+document.getElementById("adminCalendar");
+
+calendar.classList.toggle("show");
+
+if(calendar.classList.contains("show")){
 
 adminCalendarDate={
 
-    year:
-        selectedAdminDate.year,
-
-    month:
-        selectedAdminDate.month
+    year:selectedAdminDate.year,
+    month:selectedAdminDate.month
 
 };
-
 
 renderAdminCalendar();
 
@@ -1236,25 +1089,19 @@ renderAdminCalendar();
 };
 
 
-/* =====================================================
-   RENDER CALENDAR
-===================================================== */
 
 function renderAdminCalendar(){
 
-const year =
-    adminCalendarDate.year;
+const year=
+adminCalendarDate.year;
 
-const month =
-    adminCalendarDate.month;
+const month=
+adminCalendarDate.month;
 
 
 document
-.getElementById(
-    "adminCalendarMonth"
-)
-.textContent =
-
+.getElementById("adminCalendarMonth")
+.textContent=
 months[month-1]
 +
 " "
@@ -1262,40 +1109,33 @@ months[month-1]
 persianNumber(year);
 
 
-const daysContainer =
-    document.getElementById(
-        "adminCalendarDays"
-    );
+const daysContainer=
+document.getElementById("adminCalendarDays");
+
+daysContainer.innerHTML="";
 
 
-daysContainer.innerHTML =
-    "";
+const firstGregorian=
+jalaliToGregorian(
+year,
+month,
+1
+);
 
 
-const firstGregorian =
-    jalaliToGregorian(
-        year,
-        month,
-        1
-    );
+const firstDate=
+new Date(
+firstGregorian[0],
+firstGregorian[1]-1,
+firstGregorian[2]
+);
 
 
-const firstDate =
-    new Date(
-        firstGregorian[0],
-        firstGregorian[1]-1,
-        firstGregorian[2]
-    );
-
-
-const startDay =
-    (
-        firstDate.getDay()+1
-    ) % 7;
+const startDay=
+(firstDate.getDay()+1)%7;
 
 
 let daysInMonth;
-
 
 if(month<=6){
 
@@ -1312,122 +1152,87 @@ daysInMonth=30;
 }
 
 
-/* EMPTY */
+for(
+let i=0;
+i<startDay;
+i++
+){
+
+const empty=
+document.createElement("div");
+
+empty.className=
+"admin-day empty";
+
+daysContainer.appendChild(empty);
+
+}
+
 
 for(
-    let i=0;
-    i<startDay;
-    i++
+let day=1;
+day<=daysInMonth;
+day++
 ){
 
-const empty =
-    document.createElement(
-        "div"
-    );
+const div=
+document.createElement("div");
 
-empty.className =
-    "admin-day empty";
+div.className=
+"admin-day";
 
-daysContainer.appendChild(
-    empty
-);
+div.textContent=
+persianNumber(day);
 
-}
-
-
-/* DAYS */
-
-for(
-    let day=1;
-    day<=daysInMonth;
-    day++
-){
-
-const div =
-    document.createElement(
-        "div"
-    );
-
-
-div.className =
-    "admin-day";
-
-
-div.textContent =
-    persianNumber(day);
-
-
-/* TODAY */
 
 if(
-    year===todayJalali[0] &&
-    month===todayJalali[1] &&
-    day===todayJalali[2]
+year===todayJalali[0] &&
+month===todayJalali[1] &&
+day===todayJalali[2]
 ){
 
-div.classList.add(
-    "today"
-);
+div.classList.add("today");
 
 }
 
-
-/* SELECTED */
 
 if(
-    year===selectedAdminDate.year &&
-    month===selectedAdminDate.month &&
-    day===selectedAdminDate.day
+year===selectedAdminDate.year &&
+month===selectedAdminDate.month &&
+day===selectedAdminDate.day
 ){
 
-div.classList.add(
-    "selected"
-);
+div.classList.add("selected");
 
 }
 
 
-div.onclick =
-function(){
+div.onclick=function(){
 
 selectAdminDate(
-    year,
-    month,
-    day
+year,
+month,
+day
 );
 
 };
 
 
-daysContainer.appendChild(
-    div
-);
+daysContainer.appendChild(div);
 
 }
 
 }
 
 
-/* =====================================================
-   SELECT DATE
-===================================================== */
 
-function selectAdminDate(
-    year,
-    month,
-    day
-){
+function selectAdminDate(year,month,day){
 
 selectedAdminDate={
 
-    year:
-        year,
-
-    month:
-        month,
-
-    day:
-        day
+    year:year,
+    month:month,
+    day:day
 
 };
 
@@ -1436,12 +1241,8 @@ updateDateButton();
 
 
 document
-.getElementById(
-    "adminCalendar"
-)
-.classList.remove(
-    "show"
-);
+.getElementById("adminCalendar")
+.classList.remove("show");
 
 
 loadForSelectedDate();
@@ -1449,104 +1250,77 @@ loadForSelectedDate();
 }
 
 
-/* =====================================================
-   PREVIOUS MONTH
-===================================================== */
 
-window.adminPreviousMonth =
-function(){
+window.adminPreviousMonth=function(){
 
 adminCalendarDate.month--;
 
-
-if(
-    adminCalendarDate.month<1
-){
+if(adminCalendarDate.month<1){
 
 adminCalendarDate.month=12;
-
 adminCalendarDate.year--;
 
 }
 
-
 renderAdminCalendar();
 
 };
 
 
-/* =====================================================
-   NEXT MONTH
-===================================================== */
 
-window.adminNextMonth =
-function(){
+window.adminNextMonth=function(){
 
 adminCalendarDate.month++;
 
-
-if(
-    adminCalendarDate.month>12
-){
+if(adminCalendarDate.month>12){
 
 adminCalendarDate.month=1;
-
 adminCalendarDate.year++;
 
 }
 
-
 renderAdminCalendar();
 
 };
 
 
-/* =====================================================
-   CHANGE DAY
-===================================================== */
 
-window.changeDate =
-function(direction){
+window.changeDate=function(direction){
 
-let gregorian =
-    jalaliToGregorian(
-        selectedAdminDate.year,
-        selectedAdminDate.month,
-        selectedAdminDate.day
-    );
-
-
-const date =
-    new Date(
-        gregorian[0],
-        gregorian[1]-1,
-        gregorian[2]
-    );
-
-
-date.setDate(
-    date.getDate()+direction
+let gregorian=
+jalaliToGregorian(
+selectedAdminDate.year,
+selectedAdminDate.month,
+selectedAdminDate.day
 );
 
 
-const jalali =
-    gregorianToJalali(
-        date.getFullYear(),
-        date.getMonth()+1,
-        date.getDate()
-    );
+const date=
+new Date(
+gregorian[0],
+gregorian[1]-1,
+gregorian[2]
+);
+
+
+date.setDate(
+date.getDate()+direction
+);
+
+
+const jalali=
+gregorianToJalali(
+date.getFullYear(),
+date.getMonth()+1,
+date.getDate()
+);
 
 
 selectedAdminDate={
 
-    year:
-        jalali[0],
-
-    month:
-        jalali[1],
-
-    day:
-        jalali[2]
+    year:jalali[0],
+    month:jalali[1],
+    day:jalali[2]
 
 };
 
@@ -1559,20 +1333,74 @@ loadForSelectedDate();
 };
 
 
-/* =====================================================
-   LOAD SELECTED DATE
-===================================================== */
 
-window.loadForSelectedDate =
+/* =========================
+   TIME
+========================= */
+
+function timeToMinutes(time){
+
+if(!time) return 0;
+
+const cleanTime=
+String(time).substring(0,5);
+
+const [h,m]=
+cleanTime.split(":").map(Number);
+
+return h*60+m;
+
+}
+
+
+function minutesToTime(minutes){
+
+let h=
+Math.floor(minutes/60);
+
+let m=
+minutes%60;
+
+
+return String(h).padStart(2,"0")
++
+":"
++
+String(m).padStart(2,"0");
+
+}
+
+
+
+/* =========================
+   ESCAPE
+========================= */
+
+function escapeHtml(text){
+
+return String(text ?? "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+
+/* =========================
+   LOAD SELECTED DATE
+========================= */
+
+window.loadForSelectedDate=
 async function(){
 
-const container =
-    document.getElementById(
-        "appointments"
-    );
+const container=
+document.getElementById("appointments");
 
 
-container.innerHTML =
+container.innerHTML=
 `
 <div class="loading">
 در حال دریافت نوبت‌ها...
@@ -1582,86 +1410,100 @@ container.innerHTML =
 
 try{
 
-const dateText =
-    getSelectedDateText();
+const all=
+await getAppointments();
 
 
-const all =
-    await getAppointments();
+const selectedDateGregorian=
+getGregorianDateString();
 
 
-const list =
-    all.filter(
-        item =>
-            normalizeDate(
-                item.appointment_date
-            )
-            ===
-            dateText
-    );
+const selectedDateText=
+getSelectedDateText();
+
+
+/*
+اول بر اساس appointment_date
+فیلتر می‌کنیم.
+*/
+
+const list=
+all.filter(item=>{
+
+/*
+اگر appointment_date
+در دیتابیس به صورت YYYY-MM-DD باشد
+*/
+
+if(item.appointment_date){
+
+return String(
+item.appointment_date
+).substring(0,10)
+===
+selectedDateGregorian;
+
+}
+
+
+/*
+سازگاری با نسخه قبلی
+*/
+
+if(item.date){
+
+return item.date===selectedDateText;
+
+}
+
+return false;
+
+});
 
 
 /* SORT */
 
 list.sort(
-    (a,b) =>
-        timeToMinutes(
-            normalizeTime(
-                a.appointment_time
-            )
-        )
-        -
-        timeToMinutes(
-            normalizeTime(
-                b.appointment_time
-            )
-        )
+(a,b)=>
+timeToMinutes(
+a.appointment_time || a.time
+)
+-
+timeToMinutes(
+b.appointment_time || b.time
+)
 );
 
 
 /* STATS */
 
 document
-.getElementById(
-    "totalCount"
-)
-.textContent =
-    list.length;
+.getElementById("totalCount")
+.textContent=
+list.length;
 
 
 document
-.getElementById(
-    "normalCount"
-)
-.textContent =
-
+.getElementById("normalCount")
+.textContent=
 list.filter(
-    x =>
-        x.service ===
-        "اصلاح"
+x=>x.service==="اصلاح"
 ).length;
 
 
 document
-.getElementById(
-    "vipCount"
-)
-.textContent =
-
+.getElementById("vipCount")
+.textContent=
 list.filter(
-    x =>
-        x.service ===
-        "اصلاح VIP"
+x=>x.service==="اصلاح VIP"
 ).length;
 
 
 /* EMPTY */
 
-if(
-    list.length===0
-){
+if(list.length===0){
 
-container.innerHTML =
+container.innerHTML=
 `
 <div class="empty">
 
@@ -1681,104 +1523,93 @@ return;
 
 /* RENDER */
 
-container.innerHTML =
-    "";
+container.innerHTML="";
 
 
-list.forEach(
-    item => {
+list.forEach(item=>{
 
-const vip =
-    item.service ===
-    "اصلاح VIP";
+const vip=
+item.service==="اصلاح VIP";
 
 
-const duration =
-    Number(
-        item.duration_minutes
-    )
-    ||
-    (
-        vip
-        ?
-        60
-        :
-        30
-    );
+const startTime=
+item.appointment_time
+?
+String(item.appointment_time).substring(0,5)
+:
+item.time;
 
 
-const time =
-    normalizeTime(
-        item.appointment_time
-    );
+const duration=
+Number(
+item.duration_minutes
+)
+||
+(
+vip
+?
+60
+:
+30
+);
 
 
-const end =
-    minutesToTime(
-        timeToMinutes(time)
-        +
-        duration
-    );
+const end=
+minutesToTime(
+timeToMinutes(startTime)+duration
+);
 
 
-const div =
-    document.createElement(
-        "div"
-    );
+const div=
+document.createElement("div");
 
 
-div.className =
-    "appointment"
-    +
-    (
-        vip
-        ?
-        " vip"
-        :
-        ""
-    );
+div.className=
+"appointment"
++
+(vip ? " vip" : "");
 
 
-div.innerHTML = `
+div.innerHTML=`
 
 <div class="appointment-time">
-${escapeHtml(time)}
+
+${escapeHtml(startTime || "--:--")}
+
 </div>
 
 
 <div class="service-name">
-${
-    vip
-    ?
-    "👑 اصلاح VIP"
-    :
-    "✂️ اصلاح"
-}
+
+${vip ? "👑 اصلاح VIP" : "✂️ اصلاح"}
+
 </div>
 
 
 <div class="customer">
-👤 ${
-    escapeHtml(
-        item.name ||
-        "بدون نام"
-    )
-}
+
+👤 ${escapeHtml(
+item.name || "بدون نام"
+)}
+
 </div>
 
 
 <div class="phone">
-📱 ${
-    escapeHtml(
-        item.phone ||
-        "-"
-    )
-}
+
+📱 ${escapeHtml(
+item.phone || "-"
+)}
+
 </div>
 
 
 <div class="duration">
-⏱ ${escapeHtml(time)} تا ${escapeHtml(end)}
+
+⏱ ${escapeHtml(startTime || "--:--")}
+تا
+${escapeHtml(end)}
+
 </div>
 
 
@@ -1786,14 +1617,16 @@ ${
 
 <a
 class="call-btn"
-href="tel:${encodeURIComponent(item.phone || "")}">
+href="tel:${escapeHtml(item.phone || "")}">
+
 📞 تماس
+
 </a>
 
 
 <button
 class="delete-btn"
-onclick="deleteAppointment('${item.id}')">
+onclick="deleteAppointment('${escapeHtml(item.id)}')">
 
 🗑 حذف رزرو
 
@@ -1804,9 +1637,7 @@ onclick="deleteAppointment('${item.id}')">
 `;
 
 
-container.appendChild(
-    div
-);
+container.appendChild(div);
 
 });
 
@@ -1816,17 +1647,15 @@ container.appendChild(
 console.error(error);
 
 
-container.innerHTML =
+container.innerHTML=
 `
-<div class="empty">
+<div class="error-box">
 
 ❌ خطا در دریافت اطلاعات
 
 <br><br>
 
-${escapeHtml(
-    error.message
-)}
+${escapeHtml(error.message)}
 
 </div>
 `;
@@ -1836,150 +1665,30 @@ ${escapeHtml(
 };
 
 
-/* =====================================================
-   NORMALIZE DATE
-===================================================== */
 
-function normalizeDate(date){
+/* =========================
+   DELETE APPOINTMENT
+========================= */
 
-if(!date){
-
-return "";
-
-}
-
-
-/*
-اگر Supabase تاریخ را به صورت
-YYYY-MM-DD برگرداند،
-آن را به تاریخ شمسی تبدیل می‌کنیم.
-*/
-
-if(
-    /^\d{4}-\d{2}-\d{2}$/.test(date)
-){
-
-const parts =
-    date.split("-");
-
-
-const jalali =
-    gregorianToJalali(
-        Number(parts[0]),
-        Number(parts[1]),
-        Number(parts[2])
-    );
-
-
-return (
-    persianNumber(
-        jalali[2]
-    )
-    +
-    " "
-    +
-    months[
-        jalali[1]-1
-    ]
-    +
-    " "
-    +
-    persianNumber(
-        jalali[0]
-    )
-);
-
-}
-
-
-return String(date);
-
-}
-
-
-/* =====================================================
-   NORMALIZE TIME
-===================================================== */
-
-function normalizeTime(time){
-
-if(!time){
-
-return "";
-
-}
-
-
-/*
-مثلاً:
-
-09:00:00+00
-09:00:00
-09:00
-*/
-
-return String(time)
-    .substring(0,5);
-
-}
-
-
-/* =====================================================
-   TIME
-===================================================== */
-
-function timeToMinutes(time){
-
-const parts =
-    time
-    .split(":")
-    .map(Number);
-
-
-return (
-    parts[0]*60
-    +
-    parts[1]
-);
-
-}
-
-
-function minutesToTime(minutes){
-
-let h =
-    Math.floor(
-        minutes/60
-    );
-
-
-let m =
-    minutes%60;
-
-
-return String(h)
-    .padStart(2,"0")
-+
-":"
-+
-String(m)
-    .padStart(2,"0");
-
-}
-
-
-/* =====================================================
-   DELETE
-===================================================== */
-
-window.deleteAppointment =
+window.deleteAppointment=
 async function(id){
 
-if(
-    !confirm(
-        "آیا از حذف این رزرو مطمئن هستید؟"
-    )
-){
+if(!id){
+
+alert("شناسه نوبت پیدا نشد.");
+
+return;
+
+}
+
+
+const confirmed=
+confirm(
+"آیا از حذف این رزرو مطمئن هستید؟"
+);
+
+
+if(!confirmed){
 
 return;
 
@@ -1988,27 +1697,26 @@ return;
 
 try{
 
-await supabaseRequest(
-    "/rest/v1/appointments?id=eq." +
-    encodeURIComponent(id),
-    {
-        method:
-            "DELETE",
-
-        headers:{
-            "Prefer":
-                "return=minimal"
-        }
-    }
-);
+const {
+    error
+} =
+await supabase
+    .from("appointments")
+    .delete()
+    .eq("id",id);
 
 
-alert(
-    "رزرو حذف شد."
-);
+if(error){
+
+throw error;
+
+}
 
 
-loadForSelectedDate();
+alert("رزرو با موفقیت حذف شد.");
+
+
+await loadForSelectedDate();
 
 
 }catch(error){
@@ -2017,9 +1725,9 @@ console.error(error);
 
 
 alert(
-    "خطا در حذف رزرو: "
-    +
-    error.message
+"خطا در حذف رزرو:\n"
++
+error.message
 );
 
 }
@@ -2027,166 +1735,249 @@ alert(
 };
 
 
-/* =====================================================
-   ESCAPE
-===================================================== */
 
-function escapeHtml(text){
+/* =========================
+   LOGIN
+========================= */
 
-return String(text)
-.replace(
-    /&/g,
-    "&amp;"
-)
-.replace(
-    /</g,
-    "&lt;"
-)
-.replace(
-    />/g,
-    "&gt;"
-)
-.replace(
-    /"/g,
-    "&quot;"
-)
-.replace(
-    /'/g,
-    "&#039;"
+window.login=
+async function(){
+
+const email=
+document
+.getElementById("adminEmail")
+.value
+.trim();
+
+
+const password=
+document
+.getElementById("adminPassword")
+.value;
+
+
+const button=
+document
+.getElementById("loginButton");
+
+
+const errorBox=
+document
+.getElementById("loginError");
+
+
+errorBox.innerHTML="";
+
+
+if(!email){
+
+errorBox.innerHTML=
+`
+<div class="error-box">
+لطفاً ایمیل مدیر را وارد کنید.
+</div>
+`;
+
+return;
+
+}
+
+
+if(!password){
+
+errorBox.innerHTML=
+`
+<div class="error-box">
+لطفاً رمز مدیریت را وارد کنید.
+</div>
+`;
+
+return;
+
+}
+
+
+button.disabled=true;
+
+button.textContent=
+"در حال ورود...";
+
+
+try{
+
+const {
+    data,
+    error
+} =
+await supabase.auth.signInWithPassword({
+
+    email:email,
+
+    password:password
+
+});
+
+
+if(error){
+
+throw error;
+
+}
+
+
+if(!data.session){
+
+throw new Error(
+"ورود انجام نشد."
 );
 
 }
 
 
-/* =====================================================
-   LOGIN
-===================================================== */
-
-window.login =
-function(){
-
-const password =
-    document
-    .getElementById(
-        "adminPassword"
-    )
-    .value;
-
-
-if(
-    password ===
-    "1994"
-){
-
 sessionStorage.setItem(
-    "esiAdmin",
-    "true"
+"esiAdmin",
+"true"
 );
 
 
 showAdmin();
 
-}else{
 
-document
-.getElementById(
-    "loginError"
-)
-.textContent =
-    "❌ رمز عبور اشتباه است";
+}catch(error){
+
+console.error(error);
+
+
+errorBox.innerHTML=
+`
+<div class="error-box">
+
+❌ ورود ناموفق بود
+
+<br>
+
+${escapeHtml(error.message)}
+
+</div>
+`;
+
+}finally{
+
+button.disabled=false;
+
+button.textContent=
+"ورود به پنل";
 
 }
 
 };
 
 
-/* =====================================================
+
+/* =========================
    SHOW ADMIN
-===================================================== */
+========================= */
 
-function showAdmin(){
+async function showAdmin(){
 
 document
-.getElementById(
-    "loginPage"
-)
-.style.display =
-    "none";
+.getElementById("loginPage")
+.style.display="none";
 
 
 document
-.getElementById(
-    "adminPage"
-)
-.style.display =
-    "block";
+.getElementById("adminPage")
+.style.display="block";
 
 
 updateDateButton();
 
 
-loadForSelectedDate();
+await loadForSelectedDate();
 
 }
 
 
-/* =====================================================
-   LOGOUT
-===================================================== */
 
-window.logout =
-function(){
+/* =========================
+   LOGOUT
+========================= */
+
+window.logout=
+async function(){
+
+await supabase.auth.signOut();
 
 sessionStorage.removeItem(
-    "esiAdmin"
+"esiAdmin"
 );
-
 
 location.reload();
 
 };
 
 
-/* =====================================================
-   ENTER KEY
-===================================================== */
+
+/* =========================
+   ENTER LOGIN
+========================= */
 
 document
-.getElementById(
-    "adminPassword"
-)
+.getElementById("adminPassword")
 .addEventListener(
-    "keydown",
-    function(event){
+"keydown",
+function(event){
 
-        if(
-            event.key ===
-            "Enter"
-        ){
+if(event.key==="Enter"){
 
-            login();
+login();
 
-        }
+}
 
-    }
+}
 );
 
 
-/* =====================================================
-   CHECK LOGIN
-===================================================== */
 
-if(
-    sessionStorage.getItem(
-        "esiAdmin"
-    )
-    ===
-    "true"
-){
+/* =========================
+   START
+========================= */
 
-showAdmin();
+async function start(){
+
+const {
+    data
+} =
+await supabase.auth.getSession();
+
+
+if(data.session){
+
+sessionStorage.setItem(
+"esiAdmin",
+"true"
+);
+
+
+await showAdmin();
+
+}else{
+
+document
+.getElementById("loginPage")
+.style.display="block";
+
+
+document
+.getElementById("adminPage")
+.style.display="none";
 
 }
+
+}
+
+
+start();
 
 </script>
 
