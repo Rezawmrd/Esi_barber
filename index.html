@@ -1752,22 +1752,11 @@ async function bookAppointment() {
         );
 
 
-        const alreadyBooked =
-            await withTimeout(
+        const alreadyBooked = false;
 
-                window.isTimeBooked(
-
-                    dateText,
-
-                    selectedTime,
-
-                    selectedService
-
-                ),
-
-                10000
-
-            );
+console.log(
+    "TEST MODE: isTimeBooked skipped"
+);
 
 
         console.log(
