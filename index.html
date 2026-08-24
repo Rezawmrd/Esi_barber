@@ -1700,6 +1700,48 @@ function(timeBtn){
 const time =
 timeBtn.textContent.trim();
 
+    // بستن ساعت‌های گذشته در روز جاری
+const now = new Date();
+
+const today =
+gregorianToJalali(
+    now.getFullYear(),
+    now.getMonth()+1,
+    now.getDate()
+);
+
+
+if(
+selectedDate.year === today[0] &&
+selectedDate.month === today[1] &&
+selectedDate.day === today[2]
+){
+
+const currentMinutes =
+now.getHours()*60 +
+now.getMinutes();
+
+const selectedMinutes =
+timeToMinutes(time);
+
+
+if(selectedMinutes <= currentMinutes){
+
+timeBtn.classList.add("booked");
+
+timeBtn.onclick =
+function(){
+
+alert("این ساعت گذشته است.");
+
+};
+
+return;
+
+}
+
+}
+
 
 const currentStart =
 timeToMinutes(time);
