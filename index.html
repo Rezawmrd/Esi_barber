@@ -900,6 +900,32 @@ autocomplete="tel">
 
 </div>
 
+    <div class="card" id="verifyBox" style="display:none">
+
+<div class="title">
+🔐 تایید شماره موبایل
+</div>
+
+<p>
+کد ارسال شده به شماره شما را وارد کنید
+</p>
+
+<input
+type="tel"
+id="verifyCode"
+placeholder="کد ۶ رقمی"
+maxlength="6">
+
+<button
+type="button"
+class="submit"
+onclick="verifyCode()">
+
+تایید کد و ثبت نوبت
+
+</button>
+
+    </div>
 
 <!-- SUBMIT -->
 
@@ -907,12 +933,11 @@ autocomplete="tel">
 type="button"
 class="submit"
 id="submitButton"
-onclick="bookAppointment()">
+onclick="sendVerificationCode()">
 
-ثبت نوبت
+ارسال کد تأیید
 
 </button>
-
 
 <!-- SUCCESS -->
 
@@ -2357,7 +2382,43 @@ throw error;
 
 }
 
+window.sendVerificationCode =
+function(){
 
+const phone =
+document
+.getElementById("phone")
+.value
+.trim();
+
+
+if(!phone){
+
+alert("لطفاً شماره تماس را وارد کنید.");
+
+return;
+
+}
+
+
+// نمایش بخش کد
+
+document
+.getElementById("verifyBox")
+.style.display =
+"block";
+
+
+// تغییر متن دکمه
+
+document
+.getElementById("submitButton")
+.style.display =
+"none";
+
+
+};
+    
 /* =========================================================
    BOOK APPOINTMENT
 ========================================================= */
