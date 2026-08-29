@@ -1742,144 +1742,121 @@ renderCalendar();
    SEND OTP
 ========================================================= */
 
-window.sendVerificationCode =
-async function(){
 
-const phone =
-document
-.getElementById("phone")
-.value
-.trim();
+window.sendVerificationCode = async function(){
 
-if(!selectedService){
+    const phone =
+        document.getElementById("phone").value.trim();
 
-alert("لطفاً ابتدا خدمت را انتخاب کنید.");
+    if(!selectedService){
+        alert("لطفاً ابتدا خدمت را انتخاب کنید.");
+        return;
+    }
 
-return;
+    if(!selectedDate){
+        alert("لطفاً تاریخ نوبت را انتخاب کنید.");
+        return;
+    }
 
-}
+    if(!selectedTime){
+        alert("لطفاً ساعت نوبت را انتخاب کنید.");
+        return;
+    }
 
-if(!selectedDate){
+    if(!phone){
+        alert("لطفاً شماره تماس را وارد کنید.");
+        return;
+    }
 
-alert("لطفاً تاریخ نوبت را انتخاب کنید.");
+    if(!/^09\d{9}$/.test(phone)){
+        alert("لطفاً شماره موبایل معتبر وارد کنید.");
+        return;
+    }
 
-return;
+    const button =
+        document.getElementById("sendOtpButton");
 
-}
+    button.disabled = true;
+    button.textContent = "در حال ارسال...";
 
-if(!selectedTime){
+    try{
 
-alert("لطفاً ساعت نوبت را انتخاب کنید.");
+        const response = await fetch(
+            SUPABASE_URL + "/functions/v1/send_otp",
+            {
+                method: "POST",
 
-return;
+                headers: {
+                    "Content-Type": "application/json",
+                    "apikey": SUPABASE_KEY
+                },
 
-}
+                body: JSON.stringify({
+                    phone: phone
+                })
+            }
+        );
 
-if(!phone){
+        const data = await response.json();
 
-alert("لطفاً شماره تماس را وارد کنید.");
+        console.log("SEND OTP RESPONSE:", data);
 
-return;
+        if(!response.ok){
 
-}
+            throw new Error(
+                data.message ||
+                "خطا در ارتباط با سرور."
+            );
 
-if(!/^09\d{9}$/.test(phone)){
+        }
 
-alert("لطفاً شماره موبایل معتبر وارد کنید.");
+        if(!data.success){
 
-return;
+            throw new Error(
+                data.message ||
+                "ارسال کد انجام نشد."
+            );
 
-}
+        }
 
-const button =
-document.getElementById("sendOtpButton");
+        phoneVerified = false;
 
-button.disabled=true;
+        document
+            .getElementById("verifyBox")
+            .style.display = "block";
 
-button.textContent=
-"در حال ارسال...";
+        document
+            .getElementById("verifyCode")
+            .value = "";
 
-try{
+        document
+            .getElementById("verifyCode")
+            .focus();
 
-const {
-data,
-error
-} =
-await supabase.functions.invoke(
-"send_otp",
-{
-body:{
-phone:phone
-}
-}
-);
+        alert(
+            "کد تأیید برای شماره شما ارسال شد."
+        );
 
-if(error){
+    }catch(error){
 
-console.error(
-"SEND OTP FUNCTION ERROR:",
-error
-);
+        console.error(
+            "SEND OTP ERROR:",
+            error
+        );
 
-throw error;
+        alert(
+            error.message ||
+            "ارسال کد تأیید انجام نشد."
+        );
 
-}
+    }finally{
 
-if(!data){
+        button.disabled = false;
 
-throw new Error(
-"پاسخی از سرور دریافت نشد."
-);
+        button.textContent =
+            "ارسال مجدد کد";
 
-}
-
-if(!data.success){
-
-throw new Error(
-data.message ||
-"ارسال کد انجام نشد."
-);
-
-}
-
-phoneVerified=false;
-
-document
-.getElementById("verifyBox")
-.style.display="block";
-
-document
-.getElementById("verifyCode")
-.value="";
-
-document
-.getElementById("verifyCode")
-.focus();
-
-alert(
-"کد تأیید برای شماره شما ارسال شد."
-);
-
-}catch(error){
-
-console.error(
-"SEND OTP ERROR:",
-error
-);
-
-alert(
-error.message ||
-"ارسال کد تأیید انجام نشد."
-);
-
-}finally{
-
-button.disabled=false;
-
-button.textContent=
-"ارسال مجدد کد";
-
-}
+    }
 
 };
 
@@ -1888,120 +1865,130 @@ button.textContent=
    VERIFY OTP
 ========================================================= */
 
-window.verifyCode =
-async function(){
 
-const phone =
-document
-.getElementById("phone")
-.value
-.trim();
+window.verifyCode = async function(){
 
-const code =
-document
-.getElementById("verifyCode")
-.value
-.trim();
+    const phone =
+        document
+            .getElementById("phone")
+            .value
+            .trim();
 
-if(!phone){
+    const code =
+        document
+            .getElementById("verifyCode")
+            .value
+            .trim();
 
-alert(
-"شماره موبایل وارد نشده است."
-);
+    if(!phone){
 
-return;
+        alert(
+            "شماره موبایل وارد نشده است."
+        );
 
-}
+        return;
 
-if(!/^\d{6}$/.test(code)){
+    }
 
-alert(
-"کد تأیید باید ۶ رقمی باشد."
-);
+    if(!/^09\d{9}$/.test(phone)){
 
-return;
+        alert(
+            "شماره موبایل معتبر نیست."
+        );
 
-}
+        return;
 
-const button =
-document.getElementById("verifyButton");
+    }
 
-button.disabled=true;
+    if(!/^\d{6}$/.test(code)){
 
-button.textContent=
-"در حال بررسی...";
+        alert(
+            "کد تأیید باید ۶ رقمی باشد."
+        );
 
-try{
+        return;
 
-const {
-data,
-error
-} =
-await supabase.functions.invoke(
-"verify_otp",
-{
-body:{
-phone:phone,
-code:code
-}
-}
-);
+    }
 
-if(error){
+    const button =
+        document.getElementById("verifyButton");
 
-console.error(
-"VERIFY OTP FUNCTION ERROR:",
-error
-);
+    button.disabled = true;
 
-throw error;
+    button.textContent =
+        "در حال بررسی...";
 
-}
+    try{
 
-if(!data){
+        const response = await fetch(
+            SUPABASE_URL + "/functions/v1/verify_otp",
+            {
+                method: "POST",
 
-throw new Error(
-"پاسخی از سرور دریافت نشد."
-);
+                headers: {
+                    "Content-Type": "application/json",
+                    "apikey": SUPABASE_KEY
+                },
 
-}
+                body: JSON.stringify({
+                    phone: phone,
+                    code: code
+                })
+            }
+        );
 
-if(!data.success){
+        const data =
+            await response.json();
 
-throw new Error(
-data.message ||
-"کد تأیید صحیح نیست."
-);
+        console.log(
+            "VERIFY OTP RESPONSE:",
+            data
+        );
 
-}
+        if(!response.ok){
 
-phoneVerified=true;
+            throw new Error(
+                data.message ||
+                "خطا در ارتباط با سرور."
+            );
 
-await bookAppointment();
+        }
 
-}catch(error){
+        if(!data.success){
 
-console.error(
-"VERIFY ERROR:",
-error
-);
+            throw new Error(
+                data.message ||
+                "کد تأیید صحیح نیست."
+            );
 
-alert(
-error.message ||
-"تأیید کد انجام نشد."
-);
+        }
 
-}finally{
+        phoneVerified = true;
 
-button.disabled=false;
+        await bookAppointment();
 
-button.textContent=
-"تأیید کد و ثبت نوبت";
+    }catch(error){
 
-}
+        console.error(
+            "VERIFY OTP ERROR:",
+            error
+        );
+
+        alert(
+            error.message ||
+            "تأیید کد انجام نشد."
+        );
+
+    }finally{
+
+        button.disabled = false;
+
+        button.textContent =
+            "تأیید کد و ثبت نوبت";
+
+    }
 
 };
-
 
 /* =========================================================
    SAVE APPOINTMENT
