@@ -72,6 +72,12 @@ padding:11px 18px;
 border-radius:12px;
 text-decoration:none;
 font-size:14px;
+transition:.3s;
+}
+
+.btn:hover{
+border-color:#aaa;
+color:#fff;
 }
 
 .card{
@@ -124,6 +130,10 @@ color:#d4af37;
 font-weight:700;
 }
 
+.service.selected small{
+color:#ccc !important;
+}
+
 .service-price{
 color:#aaa;
 }
@@ -138,6 +148,10 @@ border-radius:14px;
 font-family:inherit;
 font-size:15px;
 cursor:pointer;
+}
+
+.date-button:hover{
+border-color:#aaa;
 }
 
 .date-button.selected{
@@ -210,6 +224,10 @@ cursor:pointer;
 font-size:13px;
 }
 
+.day:hover{
+border-color:#aaa;
+}
+
 .day.today{
 border-color:#aaa;
 }
@@ -252,6 +270,10 @@ border-radius:12px;
 text-align:center;
 cursor:pointer;
 transition:.2s;
+}
+
+.time:hover{
+border-color:#aaa;
 }
 
 .time:active{
@@ -312,16 +334,21 @@ cursor:pointer;
 transition:.3s;
 }
 
+.submit:hover{
+background:#ddd;
+box-shadow:0 0 25px rgba(255,255,255,.15);
+}
+
 .submit:disabled{
 opacity:.5;
 cursor:not-allowed;
 }
 
-.verify-info{
-color:#aaa;
-font-size:13px;
-line-height:2;
-margin-bottom:15px;
+.secondary{
+background:#181818;
+color:#fff;
+border-color:#333;
+margin-top:8px;
 }
 
 .success{
@@ -350,12 +377,25 @@ font-size:12px;
 margin-top:30px;
 }
 
+.otp-info{
+color:#999;
+font-size:13px;
+line-height:2;
+margin-top:-5px;
+}
+
+#verifyBox{
+display:none;
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="container">
+
+<!-- HEADER -->
 
 <div class="header">
 
@@ -466,7 +506,6 @@ onclick="toggleCalendar()">
 
 </button>
 
-
 <div
 class="calendar"
 id="calendar">
@@ -492,7 +531,6 @@ onclick="nextMonth()">
 
 </div>
 
-
 <div class="weekdays">
 
 <div class="weekday">ش</div>
@@ -505,12 +543,10 @@ onclick="nextMonth()">
 
 </div>
 
-
 <div
 class="days"
 id="days">
 </div>
-
 
 <div class="selected-date">
 
@@ -524,7 +560,6 @@ id="days">
 
 </div>
 
-
 <br>
 
 <label>
@@ -534,6 +569,29 @@ id="days">
 <div
 class="times"
 id="times">
+
+<div class="time" onclick="selectTime(this,'09:00')">09:00</div>
+<div class="time" onclick="selectTime(this,'09:30')">09:30</div>
+<div class="time" onclick="selectTime(this,'10:00')">10:00</div>
+<div class="time" onclick="selectTime(this,'10:30')">10:30</div>
+<div class="time" onclick="selectTime(this,'11:00')">11:00</div>
+<div class="time" onclick="selectTime(this,'11:30')">11:30</div>
+<div class="time" onclick="selectTime(this,'12:00')">12:00</div>
+<div class="time" onclick="selectTime(this,'12:30')">12:30</div>
+<div class="time" onclick="selectTime(this,'13:00')">13:00</div>
+<div class="time" onclick="selectTime(this,'13:30')">13:30</div>
+<div class="time" onclick="selectTime(this,'16:00')">16:00</div>
+<div class="time" onclick="selectTime(this,'16:30')">16:30</div>
+<div class="time" onclick="selectTime(this,'17:00')">17:00</div>
+<div class="time" onclick="selectTime(this,'17:30')">17:30</div>
+<div class="time" onclick="selectTime(this,'18:00')">18:00</div>
+<div class="time" onclick="selectTime(this,'18:30')">18:30</div>
+<div class="time" onclick="selectTime(this,'19:00')">19:00</div>
+<div class="time" onclick="selectTime(this,'19:30')">19:30</div>
+<div class="time" onclick="selectTime(this,'20:00')">20:00</div>
+<div class="time" onclick="selectTime(this,'20:30')">20:30</div>
+<div class="time" onclick="selectTime(this,'21:00')">21:00</div>
+
 </div>
 
 </div>
@@ -557,7 +615,6 @@ id="name"
 placeholder="مثلاً علی رضایی"
 autocomplete="name">
 
-
 <label>
 شماره تماس
 </label>
@@ -568,6 +625,16 @@ id="phone"
 placeholder="09xxxxxxxxx"
 autocomplete="tel">
 
+<button
+type="button"
+class="submit"
+id="sendOtpButton"
+onclick="sendVerificationCode()">
+
+ارسال کد تأیید
+
+</button>
+
 </div>
 
 
@@ -575,17 +642,14 @@ autocomplete="tel">
 
 <div
 class="card"
-id="verifyBox"
-style="display:none">
+id="verifyBox">
 
 <div class="title">
 🔐 تایید شماره موبایل
 </div>
 
-<p class="verify-info">
-کد تأیید برای شماره شما ارسال شد.
-<br>
-کد ۶ رقمی را وارد کنید.
+<p class="otp-info">
+کد ۶ رقمی ارسال‌شده به شماره موبایل خود را وارد کنید.
 </p>
 
 <input
@@ -593,7 +657,8 @@ type="tel"
 id="verifyCode"
 placeholder="کد ۶ رقمی"
 maxlength="6"
-inputmode="numeric">
+inputmode="numeric"
+autocomplete="one-time-code">
 
 <button
 type="button"
@@ -601,24 +666,21 @@ class="submit"
 id="verifyButton"
 onclick="verifyCode()">
 
-تایید کد و ثبت نوبت
+تأیید کد و ثبت نوبت
+
+</button>
+
+<button
+type="button"
+class="submit secondary"
+id="resendButton"
+onclick="sendVerificationCode()">
+
+ارسال مجدد کد
 
 </button>
 
 </div>
-
-
-<!-- SEND OTP -->
-
-<button
-type="button"
-class="submit"
-id="submitButton"
-onclick="sendVerificationCode()">
-
-ارسال کد تأیید
-
-</button>
 
 
 <!-- SUCCESS -->
@@ -645,10 +707,6 @@ ESI BARBER
 
 <script type="module">
 
-/* =========================================================
-   SUPABASE
-========================================================= */
-
 import {
 createClient
 }
@@ -656,13 +714,15 @@ from
 "https://esm.sh/@supabase/supabase-js@2";
 
 
+/* =========================================================
+   SUPABASE
+========================================================= */
+
 const SUPABASE_URL =
 "https://zyhcplznilkhfjeocoet.supabase.co";
 
-
 const SUPABASE_KEY =
 "sb_publishable_jB4eqptL-Egyagl9u0r8wA_wnVoWLkf";
-
 
 const supabase =
 createClient(
@@ -679,8 +739,7 @@ let selectedService = "";
 let selectedTime = "";
 let selectedDate = null;
 let calendarDate = null;
-
-let verificationSent = false;
+let phoneVerified = false;
 
 
 /* =========================================================
@@ -688,7 +747,6 @@ let verificationSent = false;
 ========================================================= */
 
 const months = [
-
 "فروردین",
 "اردیبهشت",
 "خرداد",
@@ -701,7 +759,6 @@ const months = [
 "دی",
 "بهمن",
 "اسفند"
-
 ];
 
 
@@ -725,7 +782,11 @@ return "۰۱۲۳۴۵۶۷۸۹"[d];
    GREGORIAN → JALALI
 ========================================================= */
 
-function gregorianToJalali(gy,gm,gd){
+function gregorianToJalali(
+gy,
+gm,
+gd
+){
 
 let gdm=[
 0,31,59,90,120,151,
@@ -767,14 +828,12 @@ gd
 gdm[gm-1];
 
 jy +=
-33 *
-Math.floor(days/12053);
+33*Math.floor(days/12053);
 
 days %= 12053;
 
 jy +=
-4 *
-Math.floor(days/1461);
+4*Math.floor(days/1461);
 
 days %= 1461;
 
@@ -794,22 +853,18 @@ let jd;
 if(days<186){
 
 jm =
-1+
-Math.floor(days/31);
+1+Math.floor(days/31);
 
 jd =
-1+
-(days%31);
+1+(days%31);
 
 }else{
 
 jm =
-7+
-Math.floor((days-186)/30);
+7+Math.floor((days-186)/30);
 
 jd =
-1+
-((days-186)%30);
+1+((days-186)%30);
 
 }
 
@@ -826,7 +881,11 @@ jd
    JALALI → GREGORIAN
 ========================================================= */
 
-function jalaliToGregorian(jy,jm,jd){
+function jalaliToGregorian(
+jy,
+jm,
+jd
+){
 
 jy=parseInt(jy);
 jm=parseInt(jm);
@@ -865,18 +924,16 @@ jm<7
 );
 
 gy +=
-400 *
-Math.floor(days/146097);
+400*Math.floor(days/146097);
 
-days %=146097;
+days %= 146097;
 
 if(days>36524){
 
 gy +=
-100 *
-Math.floor(--days/36524);
+100*Math.floor(--days/36524);
 
-days %=36524;
+days %= 36524;
 
 if(days>=365)
 days++;
@@ -884,10 +941,9 @@ days++;
 }
 
 gy +=
-4 *
-Math.floor(days/1461);
+4*Math.floor(days/1461);
 
-days %=1461;
+days %= 1461;
 
 if(days>365){
 
@@ -906,20 +962,29 @@ let sal_a=[
 0,
 31,
 (
-(gy%4===0 &&
-gy%100!==0)
+(gy%4===0 && gy%100!==0)
 ||
 gy%400===0
 )
 ?29
 :28,
-31,30,31,30,
-31,31,30,31,30,31
+31,
+30,
+31,
+30,
+31,
+31,
+30,
+31,
+30,
+31
 ];
 
 let gm=0;
 
-while(gd>sal_a[gm]){
+while(
+gd>sal_a[gm]
+){
 
 gd -=
 sal_a[gm];
@@ -952,13 +1017,8 @@ todayGregorian.getDate()
 );
 
 calendarDate = {
-
-year:
-todayJalali[0],
-
-month:
-todayJalali[1]
-
+year:todayJalali[0],
+month:todayJalali[1]
 };
 
 
@@ -967,12 +1027,17 @@ todayJalali[1]
 ========================================================= */
 
 window.selectService =
-function(element,service){
+function(
+element,
+service
+){
 
 document
 .querySelectorAll(".service")
-.forEach(item =>
-item.classList.remove("selected")
+.forEach(
+function(item){
+item.classList.remove("selected");
+}
 );
 
 element.classList.add("selected");
@@ -984,25 +1049,20 @@ selectedTime =
 "";
 
 document
-.getElementById("time");
+.getElementById("time")
+?.setAttribute("value","");
 
 if(service==="اصلاح"){
-
 renderNormalTimes();
-
 }else{
-
 renderVipTimes();
-
 }
 
 if(selectedDate){
-
 setTimeout(
 refreshBookedTimes,
 100
 );
-
 }
 
 };
@@ -1014,10 +1074,7 @@ refreshBookedTimes,
 
 function renderNormalTimes(){
 
-const container =
-document.getElementById("times");
-
-container.innerHTML = `
+document.getElementById("times").innerHTML = `
 
 <div class="time" onclick="selectTime(this,'08:30')">08:30</div>
 <div class="time" onclick="selectTime(this,'09:00')">09:00</div>
@@ -1030,6 +1087,7 @@ container.innerHTML = `
 <div class="time" onclick="selectTime(this,'12:30')">12:30</div>
 <div class="time" onclick="selectTime(this,'13:00')">13:00</div>
 <div class="time" onclick="selectTime(this,'13:30')">13:30</div>
+
 <div class="time" onclick="selectTime(this,'16:00')">16:00</div>
 <div class="time" onclick="selectTime(this,'16:30')">16:30</div>
 <div class="time" onclick="selectTime(this,'17:00')">17:00</div>
@@ -1049,16 +1107,14 @@ container.innerHTML = `
 
 function renderVipTimes(){
 
-const container =
-document.getElementById("times");
-
-container.innerHTML = `
+document.getElementById("times").innerHTML = `
 
 <div class="time" onclick="selectTime(this,'08:30')">08:30</div>
 <div class="time" onclick="selectTime(this,'09:30')">09:30</div>
 <div class="time" onclick="selectTime(this,'10:30')">10:30</div>
 <div class="time" onclick="selectTime(this,'11:30')">11:30</div>
 <div class="time" onclick="selectTime(this,'12:30')">12:30</div>
+
 <div class="time" onclick="selectTime(this,'16:00')">16:00</div>
 <div class="time" onclick="selectTime(this,'17:00')">17:00</div>
 <div class="time" onclick="selectTime(this,'18:00')">18:00</div>
@@ -1075,7 +1131,10 @@ container.innerHTML = `
 ========================================================= */
 
 window.selectTime =
-function(element,time){
+function(
+element,
+time
+){
 
 if(
 element.classList.contains("booked")
@@ -1091,8 +1150,10 @@ return;
 
 document
 .querySelectorAll(".time")
-.forEach(item =>
-item.classList.remove("selected")
+.forEach(
+function(item){
+item.classList.remove("selected");
+}
 );
 
 element.classList.add("selected");
@@ -1104,7 +1165,7 @@ time;
 
 
 /* =========================================================
-   TIME MINUTES
+   TIME TO MINUTES
 ========================================================= */
 
 function timeToMinutes(time){
@@ -1113,7 +1174,8 @@ const parts =
 time.split(":");
 
 return (
-Number(parts[0])*60+
+Number(parts[0])*60
++
 Number(parts[1])
 );
 
@@ -1136,8 +1198,13 @@ await supabase
 "service,appointment_date,appointment_time,appointment_minute,duration_minutes"
 );
 
-if(error)
+if(error){
+console.error(
+"SUPABASE LOAD ERROR:",
+error
+);
 throw error;
+}
 
 return data || [];
 
@@ -1145,7 +1212,7 @@ return data || [];
 
 
 /* =========================================================
-   CHECK TIME
+   CHECK BOOKED
 ========================================================= */
 
 async function isTimeBooked(
@@ -1161,15 +1228,16 @@ error
 await supabase
 .from("appointments")
 .select(
-"service,appointment_time,appointment_minute,duration_minutes"
+"service,appointment_date,appointment_time,appointment_minute,duration_minutes"
 )
 .eq(
 "appointment_date",
 date
 );
 
-if(error)
+if(error){
 throw error;
+}
 
 const currentStart =
 timeToMinutes(time);
@@ -1183,7 +1251,9 @@ const currentEnd =
 currentStart+
 currentDuration;
 
-for(const item of data || []){
+for(
+const item of (data || [])
+){
 
 const bookedStart =
 timeToMinutes(
@@ -1206,7 +1276,8 @@ bookedStart+
 bookedDuration;
 
 if(
-currentStart<bookedEnd &&
+currentStart<bookedEnd
+&&
 currentEnd>bookedStart
 ){
 
@@ -1253,10 +1324,10 @@ String(gregorian[1]).padStart(2,"0")
 +
 String(gregorian[2]).padStart(2,"0");
 
-
 document
 .querySelectorAll(".time")
-.forEach(function(timeBtn){
+.forEach(
+function(timeBtn){
 
 const time =
 timeBtn.textContent.trim();
@@ -1272,8 +1343,10 @@ now.getDate()
 );
 
 if(
-selectedDate.year===today[0] &&
-selectedDate.month===today[1] &&
+selectedDate.year===today[0]
+&&
+selectedDate.month===today[1]
+&&
 selectedDate.day===today[2]
 ){
 
@@ -1281,8 +1354,11 @@ const currentMinutes =
 now.getHours()*60+
 now.getMinutes();
 
+const selectedMinutes =
+timeToMinutes(time);
+
 if(
-timeToMinutes(time)<=currentMinutes
+selectedMinutes<=currentMinutes
 ){
 
 timeBtn.classList.add("booked");
@@ -1312,12 +1388,15 @@ currentDuration;
 
 let booked=false;
 
-appointments.forEach(function(item){
+appointments.forEach(
+function(item){
 
 if(
-item.appointment_date!==selectedDateISO
-)
+item.appointment_date !==
+selectedDateISO
+){
 return;
+}
 
 const bookedStart =
 timeToMinutes(
@@ -1340,7 +1419,8 @@ bookedStart+
 bookedDuration;
 
 if(
-currentStart<bookedEnd &&
+currentStart<bookedEnd
+&&
 currentEnd>bookedStart
 ){
 
@@ -1350,16 +1430,13 @@ booked=true;
 
 });
 
-
 if(booked){
 
 timeBtn.classList.add("booked");
 timeBtn.classList.remove("selected");
 
 if(selectedTime===time){
-
 selectedTime="";
-
 }
 
 timeBtn.onclick =
@@ -1407,9 +1484,7 @@ calendar.classList.toggle("show");
 if(
 calendar.classList.contains("show")
 ){
-
 renderCalendar();
-
 }
 
 };
@@ -1457,13 +1532,9 @@ const startDay =
 let daysInMonth;
 
 if(month<=6){
-
 daysInMonth=31;
-
 }else if(month<=11){
-
 daysInMonth=30;
-
 }else{
 
 daysInMonth=30;
@@ -1500,8 +1571,10 @@ div.textContent =
 persianNumber(day);
 
 if(
-year===todayJalali[0] &&
-month===todayJalali[1] &&
+year===todayJalali[0]
+&&
+month===todayJalali[1]
+&&
 day===todayJalali[2]
 ){
 
@@ -1510,9 +1583,12 @@ div.classList.add("today");
 }
 
 if(
-selectedDate &&
-selectedDate.year===year &&
-selectedDate.month===month &&
+selectedDate
+&&
+selectedDate.year===year
+&&
+selectedDate.month===month
+&&
 selectedDate.day===day
 ){
 
@@ -1523,42 +1599,39 @@ div.classList.add("selected");
 let isPast=false;
 
 if(year<todayJalali[0]){
-
 isPast=true;
-
-}else if(
-year===todayJalali[0] &&
+}
+else if(
+year===todayJalali[0]
+&&
 month<todayJalali[1]
 ){
-
 isPast=true;
-
-}else if(
-year===todayJalali[0] &&
-month===todayJalali[1] &&
+}
+else if(
+year===todayJalali[0]
+&&
+month===todayJalali[1]
+&&
 day<todayJalali[2]
 ){
-
 isPast=true;
-
 }
 
 if(isPast){
 
-div.style.opacity=".25";
+div.style.opacity="0.25";
 div.style.cursor="not-allowed";
 
 }else{
 
 div.onclick =
 function(){
-
 selectDate(
 year,
 month,
 day
 );
-
 };
 
 }
@@ -1571,12 +1644,16 @@ daysContainer.appendChild(div);
 
 
 window.selectDate =
-function(year,month,day){
-
-selectedDate={
+function(
 year,
 month,
 day
+){
+
+selectedDate={
+year:year,
+month:month,
+day:day
 };
 
 const text =
@@ -1623,12 +1700,11 @@ window.previousMonth =
 function(){
 
 if(
-calendarDate.year===todayJalali[0] &&
+calendarDate.year===todayJalali[0]
+&&
 calendarDate.month===todayJalali[1]
 ){
-
 return;
-
 }
 
 calendarDate.month--;
@@ -1663,67 +1739,11 @@ renderCalendar();
 
 
 /* =========================================================
-   SAVE APPOINTMENT
-========================================================= */
-
-async function saveAppointment(data){
-
-const minutes =
-data.service==="اصلاح VIP"
-?60
-:30;
-
-const {
-error
-} =
-await supabase
-.from("appointments")
-.insert({
-
-service:
-data.service,
-
-name:
-data.name,
-
-phone:
-data.phone,
-
-appointment_date:
-data.date,
-
-appointment_time:
-data.time,
-
-appointment_minute:
-minutes,
-
-duration_minutes:
-minutes,
-
-created_at:
-new Date().toISOString()
-
-});
-
-if(error)
-throw error;
-
-}
-
-
-/* =========================================================
-   SEND VERIFICATION CODE
+   SEND OTP
 ========================================================= */
 
 window.sendVerificationCode =
 async function(){
-
-const name =
-document
-.getElementById("name")
-.value
-.trim();
 
 const phone =
 document
@@ -1731,15 +1751,13 @@ document
 .value
 .trim();
 
-
 if(!selectedService){
 
-alert("لطفاً یک خدمت انتخاب کنید.");
+alert("لطفاً ابتدا خدمت را انتخاب کنید.");
 
 return;
 
 }
-
 
 if(!selectedDate){
 
@@ -1749,7 +1767,6 @@ return;
 
 }
 
-
 if(!selectedTime){
 
 alert("لطفاً ساعت نوبت را انتخاب کنید.");
@@ -1758,42 +1775,31 @@ return;
 
 }
 
+if(!phone){
 
-if(!name){
-
-alert("لطفاً نام خود را وارد کنید.");
+alert("لطفاً شماره تماس را وارد کنید.");
 
 return;
 
 }
-
 
 if(!/^09\d{9}$/.test(phone)){
 
-alert(
-"شماره موبایل را به صورت 09xxxxxxxxx وارد کنید."
-);
+alert("لطفاً شماره موبایل معتبر وارد کنید.");
 
 return;
 
 }
 
-
 const button =
-document.getElementById("submitButton");
+document.getElementById("sendOtpButton");
 
 button.disabled=true;
 
 button.textContent=
-"در حال ارسال کد...";
-
+"در حال ارسال...";
 
 try{
-
-/*
-   ارسال درخواست به Edge Function
-   نام تابع: send_otp
-*/
 
 const {
 data,
@@ -1808,22 +1814,26 @@ phone:phone
 }
 );
 
-
 if(error){
+
+console.error(
+"SEND OTP FUNCTION ERROR:",
+error
+);
 
 throw error;
 
 }
 
+if(!data){
 
-/*
-   اگر Edge Function پاسخ success=false بدهد
-*/
+throw new Error(
+"پاسخی از سرور دریافت نشد."
+);
 
-if(
-data &&
-data.success===false
-){
+}
+
+if(!data.success){
 
 throw new Error(
 data.message ||
@@ -1832,50 +1842,34 @@ data.message ||
 
 }
 
-
-verificationSent=true;
-
-
-/* نمایش بخش تایید */
+phoneVerified=false;
 
 document
 .getElementById("verifyBox")
 .style.display="block";
 
-
-button.style.display="none";
-
+document
+.getElementById("verifyCode")
+.value="";
 
 document
 .getElementById("verifyCode")
 .focus();
 
-
-document
-.getElementById("verifyBox")
-.scrollIntoView({
-behavior:"smooth"
-});
-
-
 alert(
 "کد تأیید برای شماره شما ارسال شد."
 );
 
-
 }catch(error){
 
 console.error(
-"OTP ERROR:",
+"SEND OTP ERROR:",
 error
 );
 
 alert(
-"ارسال کد تأیید انجام نشد.\n\n"+
-(
 error.message ||
-"خطای نامشخص"
-)
+"ارسال کد تأیید انجام نشد."
 );
 
 }finally{
@@ -1883,7 +1877,7 @@ error.message ||
 button.disabled=false;
 
 button.textContent=
-"ارسال کد تأیید";
+"ارسال مجدد کد";
 
 }
 
@@ -1891,21 +1885,17 @@ button.textContent=
 
 
 /* =========================================================
-   VERIFY CODE
+   VERIFY OTP
 ========================================================= */
 
 window.verifyCode =
 async function(){
 
-if(!verificationSent){
-
-alert(
-"ابتدا کد تأیید را دریافت کنید."
-);
-
-return;
-
-}
+const phone =
+document
+.getElementById("phone")
+.value
+.trim();
 
 const code =
 document
@@ -1913,6 +1903,15 @@ document
 .value
 .trim();
 
+if(!phone){
+
+alert(
+"شماره موبایل وارد نشده است."
+);
+
+return;
+
+}
 
 if(!/^\d{6}$/.test(code)){
 
@@ -1924,57 +1923,50 @@ return;
 
 }
 
+const button =
+document.getElementById("verifyButton");
 
-const phone =
-document
-.getElementById("phone")
-.value
-.trim();
+button.disabled=true;
 
-
-const verifyButton =
-document
-.getElementById("verifyButton");
-
-verifyButton.disabled=true;
-
-verifyButton.textContent=
+button.textContent=
 "در حال بررسی...";
 
-
 try{
-
-/*
-   بررسی کد توسط Edge Function
-*/
 
 const {
 data,
 error
 } =
 await supabase.functions.invoke(
-"send_otp",
+"verify_otp",
 {
 body:{
 phone:phone,
-code:code,
-action:"verify"
+code:code
 }
 }
 );
 
-
 if(error){
+
+console.error(
+"VERIFY OTP FUNCTION ERROR:",
+error
+);
 
 throw error;
 
 }
 
+if(!data){
 
-if(
-data &&
-data.success===false
-){
+throw new Error(
+"پاسخی از سرور دریافت نشد."
+);
+
+}
+
+if(!data.success){
 
 throw new Error(
 data.message ||
@@ -1983,16 +1975,9 @@ data.message ||
 
 }
 
-
-/*
-   اگر تابع شما پاسخ متفاوتی دارد،
-   فقط این قسمت را با پاسخ واقعی
-   Edge Function هماهنگ می‌کنیم.
-*/
-
+phoneVerified=true;
 
 await bookAppointment();
-
 
 }catch(error){
 
@@ -2002,19 +1987,16 @@ error
 );
 
 alert(
-"تأیید کد انجام نشد.\n\n"+
-(
 error.message ||
-"کد وارد شده صحیح نیست."
-)
+"تأیید کد انجام نشد."
 );
 
 }finally{
 
-verifyButton.disabled=false;
+button.disabled=false;
 
-verifyButton.textContent=
-"تایید کد و ثبت نوبت";
+button.textContent=
+"تأیید کد و ثبت نوبت";
 
 }
 
@@ -2022,10 +2004,61 @@ verifyButton.textContent=
 
 
 /* =========================================================
+   SAVE APPOINTMENT
+========================================================= */
+
+async function saveAppointment(data){
+
+const appointmentMinutes =
+data.service==="اصلاح VIP"
+?60
+:30;
+
+const {
+error
+} =
+await supabase
+.from("appointments")
+.insert({
+
+service:data.service,
+name:data.name,
+phone:data.phone,
+appointment_date:data.date,
+appointment_time:data.time,
+appointment_minute:appointmentMinutes,
+duration_minutes:appointmentMinutes,
+created_at:data.createdAt
+
+});
+
+if(error){
+
+console.error(
+"SUPABASE INSERT ERROR:",
+error
+);
+
+throw error;
+
+}
+
+}
+
+
+/* =========================================================
    BOOK APPOINTMENT
 ========================================================= */
 
 async function bookAppointment(){
+
+if(!phoneVerified){
+
+throw new Error(
+"شماره موبایل هنوز تأیید نشده است."
+);
+
+}
 
 const name =
 document
@@ -2039,6 +2072,40 @@ document
 .value
 .trim();
 
+if(!name){
+
+throw new Error(
+"لطفاً نام خود را وارد کنید."
+);
+
+}
+
+if(!selectedService){
+
+throw new Error(
+"لطفاً یک خدمت انتخاب کنید."
+);
+
+}
+
+if(!selectedDate){
+
+throw new Error(
+"لطفاً تاریخ نوبت را انتخاب کنید."
+);
+
+}
+
+if(!selectedTime){
+
+throw new Error(
+"لطفاً ساعت نوبت را انتخاب کنید."
+);
+
+}
+
+
+/* DATE */
 
 const gregorian =
 jalaliToGregorian(
@@ -2046,7 +2113,6 @@ selectedDate.year,
 selectedDate.month,
 selectedDate.day
 );
-
 
 const appointmentDate =
 gregorian[0]
@@ -2072,6 +2138,8 @@ months[selectedDate.month-1]
 persianNumber(selectedDate.year);
 
 
+/* دوباره بررسی نوبت */
+
 const alreadyBooked =
 await isTimeBooked(
 appointmentDate,
@@ -2079,75 +2147,78 @@ selectedTime,
 selectedService
 );
 
-
 if(alreadyBooked){
-
-alert(
-"این ساعت در همین لحظه توسط شخص دیگری رزرو شده است."
-);
 
 await refreshBookedTimes();
 
-return;
+throw new Error(
+"این ساعت در همین لحظه توسط شخص دیگری رزرو شده است."
+);
 
 }
 
 
+/* SAVE */
+
 await saveAppointment({
 
-service:
-selectedService,
-
-name:
-name,
-
-phone:
-phone,
-
-date:
-appointmentDate,
-
-time:
-selectedTime
+service:selectedService,
+name:name,
+phone:phone,
+date:appointmentDate,
+time:selectedTime,
+createdAt:new Date().toISOString()
 
 });
 
+
+/* SUCCESS */
 
 document
 .getElementById("result")
 .innerHTML =
 
-"خدمت: <b>"+
-escapeHtml(selectedService)+
+"خدمت: <b>"
++
+escapeHtml(selectedService)
++
 "</b><br>"
 
 +
 
-"نام: <b>"+
-escapeHtml(name)+
+"نام: <b>"
++
+escapeHtml(name)
++
 "</b><br>"
 
 +
 
-"شماره تماس: <b>"+
-escapeHtml(phone)+
+"شماره تماس: <b>"
++
+escapeHtml(phone)
++
 "</b><br>"
 
 +
 
-"تاریخ: <b>"+
-dateText+
+"تاریخ: <b>"
++
+dateText
++
 "</b><br>"
 
 +
 
-"ساعت: <b>"+
-escapeHtml(selectedTime)+
+"ساعت: <b>"
++
+escapeHtml(selectedTime)
++
 "</b><br><br>"
 
 +
 
-"لطفاً در زمان تعیین‌شده در آرایشگاه حضور داشته باشید.";
+"شماره موبایل شما با موفقیت تأیید شد و نوبت ثبت گردید.";
 
 
 document
@@ -2157,6 +2228,11 @@ document
 
 document
 .getElementById("verifyBox")
+.style.display="none";
+
+
+document
+.getElementById("sendOtpButton")
 .style.display="none";
 
 
@@ -2179,40 +2255,13 @@ await refreshBookedTimes();
 function escapeHtml(text){
 
 return String(text)
-
-.replace(
-/&/g,
-"&amp;"
-)
-
-.replace(
-/</g,
-"&lt;"
-)
-
-.replace(
-/>/g,
-"&gt;"
-)
-
-.replace(
-/"/g,
-"&quot;"
-)
-
-.replace(
-/'/g,
-"&#039;"
-);
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
-
-
-/* =========================================================
-   INITIAL TIMES
-========================================================= */
-
-renderNormalTimes();
 
 </script>
 
