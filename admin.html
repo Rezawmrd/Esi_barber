@@ -632,7 +632,131 @@ VIP
 
 </div>
 
+<!-- =========================
+     MANUAL APPOINTMENT
+========================= -->
 
+<div class="card">
+
+<div class="title">
+➕ ثبت نوبت دستی
+</div>
+
+<label>
+نام مشتری
+</label>
+
+<input
+type="text"
+id="manualName"
+placeholder="مثلاً علی رضایی">
+
+
+<label>
+شماره تماس
+</label>
+
+<input
+type="tel"
+id="manualPhone"
+placeholder="09xxxxxxxxx">
+
+
+<label>
+نوع خدمت
+</label>
+
+<select
+id="manualService"
+style="
+width:100%;
+padding:14px;
+margin-bottom:12px;
+background:#0e0e0e;
+border:1px solid #333;
+border-radius:10px;
+color:white;
+font-family:inherit;
+font-size:15px;
+outline:none;
+">
+
+<option value="اصلاح">
+✂️ اصلاح - ۳۰ دقیقه
+</option>
+
+<option value="اصلاح VIP">
+👑 اصلاح VIP - ۶۰ دقیقه
+</option>
+
+</select>
+
+
+<label>
+ساعت نوبت
+</label>
+
+<select
+id="manualTime"
+style="
+width:100%;
+padding:14px;
+margin-bottom:15px;
+background:#0e0e0e;
+border:1px solid #333;
+border-radius:10px;
+color:white;
+font-family:inherit;
+font-size:15px;
+outline:none;
+">
+
+<option value="">
+انتخاب ساعت
+</option>
+
+<option value="08:30">08:30</option>
+<option value="09:00">09:00</option>
+<option value="09:30">09:30</option>
+<option value="10:00">10:00</option>
+<option value="10:30">10:30</option>
+<option value="11:00">11:00</option>
+<option value="11:30">11:30</option>
+<option value="12:00">12:00</option>
+<option value="12:30">12:30</option>
+<option value="13:00">13:00</option>
+<option value="13:30">13:30</option>
+
+<option value="16:00">16:00</option>
+<option value="16:30">16:30</option>
+<option value="17:00">17:00</option>
+<option value="17:30">17:30</option>
+<option value="18:00">18:00</option>
+<option value="18:30">18:30</option>
+<option value="19:00">19:00</option>
+<option value="19:30">19:30</option>
+<option value="20:00">20:00</option>
+<option value="20:30">20:30</option>
+<option value="21:00">21:00</option>
+
+</select>
+
+
+<button
+id="manualAppointmentButton"
+class="gold-btn"
+onclick="createManualAppointment()">
+
+➕ ثبت نوبت
+
+</button>
+
+
+<div
+id="manualAppointmentMessage">
+</div>
+
+</div>
 
 <!-- APPOINTMENTS -->
 
@@ -1735,7 +1859,368 @@ error.message
 };
 
 
+/* =========================
+   MANUAL APPOINTMENT
+========================= */
 
+window.createManualAppointment =
+async function(){
+
+const name =
+document
+.getElementById("manualName")
+.value
+.trim();
+
+
+const phone =
+document
+.getElementById("manualPhone")
+.value
+.trim();
+
+
+const service =
+document
+.getElementById("manualService")
+.value;
+
+
+const time =
+document
+.getElementById("manualTime")
+.value;
+
+
+const button =
+document
+.getElementById("manualAppointmentButton");
+
+
+const messageBox =
+document
+.getElementById("manualAppointmentMessage");
+
+
+messageBox.innerHTML="";
+
+
+if(!name){
+
+messageBox.innerHTML=
+`
+<div class="error-box">
+لطفاً نام مشتری را وارد کنید.
+</div>
+`;
+
+return;
+
+}
+
+
+if(!phone){
+
+messageBox.innerHTML=
+`
+<div class="error-box">
+لطفاً شماره تماس مشتری را وارد کنید.
+</div>
+`;
+
+return;
+
+}
+
+
+if(!/^09\d{9}$/.test(phone)){
+
+messageBox.innerHTML=
+`
+<div class="error-box">
+شماره موبایل معتبر نیست.
+</div>
+`;
+
+return;
+
+}
+
+
+if(!time){
+
+messageBox.innerHTML=
+`
+<div class="error-box">
+لطفاً ساعت نوبت را انتخاب کنید.
+</div>
+`;
+
+return;
+
+}
+
+
+const appointmentDate =
+getGregorianDateString();
+
+
+const duration =
+service==="اصلاح VIP"
+?60
+:30;
+
+
+const newStart =
+timeToMinutes(time);
+
+
+const newEnd =
+newStart+
+duration;
+
+
+button.disabled=true;
+
+button.textContent=
+"در حال بررسی...";
+
+
+try{
+
+
+/* =========================
+   CHECK CONFLICT
+========================= */
+
+const {
+data:appointments,
+error:loadError
+}
+=
+await supabase
+.from("appointments")
+.select("*")
+.eq(
+"appointment_date",
+appointmentDate
+);
+
+
+if(loadError){
+
+throw loadError;
+
+}
+
+
+let conflict=false;
+
+
+(appointments || [])
+.forEach(item=>{
+
+
+const bookedTime =
+String(
+item.appointment_time || ""
+).substring(0,5);
+
+
+if(!bookedTime){
+
+return;
+
+}
+
+
+const bookedStart =
+timeToMinutes(
+bookedTime
+);
+
+
+const bookedDuration =
+Number(
+item.duration_minutes
+)
+||
+Number(
+item.appointment_minute
+)
+||
+(
+item.service==="اصلاح VIP"
+?60
+:30
+);
+
+
+const bookedEnd =
+bookedStart+
+bookedDuration;
+
+
+/*
+بررسی تداخل ساعت
+*/
+
+if(
+
+newStart < bookedEnd
+
+&&
+
+newEnd > bookedStart
+
+){
+
+conflict=true;
+
+}
+
+
+});
+
+
+if(conflict){
+
+throw new Error(
+"این ساعت با یک نوبت دیگر تداخل دارد."
+);
+
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+
+button.textContent=
+"در حال ثبت نوبت...";
+
+
+const {
+error
+}
+=
+await supabase
+.from("appointments")
+.insert({
+
+service:service,
+
+name:name,
+
+phone:phone,
+
+appointment_date:
+appointmentDate,
+
+appointment_time:
+time,
+
+appointment_minute:
+duration,
+
+duration_minutes:
+duration,
+
+created_at:
+new Date().toISOString()
+
+});
+
+
+if(error){
+
+throw error;
+
+}
+
+
+/* =========================
+   SUCCESS
+========================= */
+
+
+messageBox.innerHTML=
+`
+<div class="success-box">
+
+✅ نوبت با موفقیت ثبت شد.
+
+<br>
+
+${escapeHtml(name)}
+
+-
+
+${escapeHtml(time)}
+
+</div>
+`;
+
+
+/* پاک کردن فرم */
+
+document
+.getElementById("manualName")
+.value="";
+
+
+document
+.getElementById("manualPhone")
+.value="";
+
+
+document
+.getElementById("manualTime")
+.value="";
+
+
+/* بروزرسانی لیست */
+
+await loadForSelectedDate();
+
+
+}catch(error){
+
+console.error(
+"MANUAL APPOINTMENT ERROR:",
+error
+);
+
+
+messageBox.innerHTML=
+`
+<div class="error-box">
+
+❌ خطا در ثبت نوبت
+
+<br>
+
+${escapeHtml(
+error.message
+)}
+
+</div>
+`;
+
+
+}finally{
+
+
+button.disabled=false;
+
+button.textContent=
+"➕ ثبت نوبت";
+
+
+}
+
+};
 /* =========================
    LOGIN
 ========================= */
