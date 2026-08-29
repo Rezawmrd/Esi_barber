@@ -2,11 +2,8 @@
 <html lang="fa" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>ESI BARBER | پنل مدیریت</title>
 
@@ -17,571 +14,560 @@ rel="stylesheet">
 <style>
 
 *{
-    box-sizing:border-box;
+box-sizing:border-box;
 }
 
 body{
-    margin:0;
-    font-family:'Vazirmatn',sans-serif;
-    background:#090909;
-    color:#fff;
+margin:0;
+font-family:'Vazirmatn',sans-serif;
+background:#090909;
+color:#fff;
 }
 
 .container{
-    max-width:650px;
-    margin:auto;
-    padding:20px 15px 50px;
+max-width:650px;
+margin:auto;
+padding:20px 15px 50px;
 }
 
 .header{
-    text-align:center;
-    padding:25px 10px;
+text-align:center;
+padding:25px 10px;
 }
 
 .logo{
-    width:80px;
-    height:80px;
-    border-radius:50%;
-    object-fit:cover;
-    border:2px solid #d4af37;
-    margin-bottom:12px;
+width:80px;
+height:80px;
+border-radius:50%;
+object-fit:cover;
+border:2px solid #d4af37;
+margin-bottom:12px;
 }
 
 .header h1{
-    margin:0;
-    color:#d4af37;
-    font-size:26px;
-    letter-spacing:2px;
+margin:0;
+color:#d4af37;
+font-size:26px;
+letter-spacing:2px;
 }
 
 .header p{
-    color:#777;
-    margin-top:8px;
+color:#777;
+margin-top:8px;
 }
 
 .card{
-    background:#151515;
-    border:1px solid #292929;
-    border-radius:16px;
-    padding:18px;
-    margin-bottom:15px;
+background:#151515;
+border:1px solid #292929;
+border-radius:16px;
+padding:18px;
+margin-bottom:15px;
 }
 
 .title{
-    color:#d4af37;
-    font-size:18px;
-    font-weight:800;
-    margin-bottom:15px;
+color:#d4af37;
+font-size:18px;
+font-weight:800;
+margin-bottom:15px;
 }
 
-/* =========================
-   LOGIN
-========================= */
+/* LOGIN */
 
 #loginPage{
-    max-width:400px;
-    margin:auto;
-    padding:40px 20px;
+max-width:400px;
+margin:auto;
+padding:40px 20px;
 }
 
 .login-box{
-    background:#151515;
-    border:1px solid #292929;
-    border-radius:18px;
-    padding:25px;
-    text-align:center;
+background:#151515;
+border:1px solid #292929;
+border-radius:18px;
+padding:25px;
+text-align:center;
 }
 
 .login-box h2{
-    color:#d4af37;
-    margin-top:0;
+color:#d4af37;
+margin-top:0;
 }
 
-input,
-select{
-    width:100%;
-    padding:14px;
-    margin-bottom:12px;
-    background:#0e0e0e;
-    border:1px solid #333;
-    border-radius:10px;
-    color:white;
-    font-family:inherit;
-    font-size:15px;
-    outline:none;
+/* INPUT */
+
+input{
+width:100%;
+padding:14px;
+margin-bottom:12px;
+background:#0e0e0e;
+border:1px solid #333;
+border-radius:10px;
+color:white;
+font-family:inherit;
+font-size:15px;
+outline:none;
 }
 
-select{
-    appearance:auto;
+input:focus{
+border-color:#d4af37;
 }
 
-input:focus,
-select:focus{
-    border-color:#d4af37;
+/* BUTTON */
+
+button{
+font-family:inherit;
 }
 
 .gold-btn{
-    width:100%;
-    padding:13px;
-    border:0;
-    border-radius:10px;
-    background:#d4af37;
-    color:#000;
-    font-weight:800;
-    font-size:15px;
-    cursor:pointer;
+width:100%;
+padding:13px;
+border:0;
+border-radius:10px;
+background:#d4af37;
+color:#000;
+font-weight:800;
+font-size:15px;
+cursor:pointer;
 }
 
 .gold-btn:hover{
-    box-shadow:0 0 18px rgba(212,175,55,.3);
+box-shadow:0 0 18px rgba(212,175,55,.3);
 }
 
 .gold-btn:disabled{
-    opacity:.5;
-    cursor:not-allowed;
+opacity:.5;
+cursor:not-allowed;
 }
 
-/* =========================
-   TABS
-========================= */
+/* TABS */
 
 .tabs{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-    margin-bottom:15px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-bottom:15px;
 }
 
 .tab-btn{
-    padding:14px 10px;
-    border-radius:11px;
-    border:1px solid #333;
-    background:#171717;
-    color:#888;
-    font-family:inherit;
-    font-size:14px;
-    font-weight:800;
-    cursor:pointer;
+padding:14px;
+border-radius:12px;
+border:1px solid #333;
+background:#151515;
+color:#888;
+font-family:inherit;
+font-size:14px;
+font-weight:700;
+cursor:pointer;
 }
 
 .tab-btn.active{
-    background:#d4af37;
-    border-color:#d4af37;
-    color:#000;
+background:#d4af37;
+color:#000;
+border-color:#d4af37;
 }
 
-/* =========================
-   DATE
-========================= */
+/* DATE */
 
 .date-box{
-    display:flex;
-    gap:10px;
-    align-items:center;
+display:flex;
+gap:10px;
+align-items:center;
 }
 
 .small-btn{
-    width:45px;
-    height:45px;
-    border-radius:10px;
-    border:1px solid #444;
-    background:#202020;
-    color:#d4af37;
-    font-size:20px;
-    cursor:pointer;
+width:45px;
+height:45px;
+border-radius:10px;
+border:1px solid #444;
+background:#202020;
+color:#d4af37;
+font-size:20px;
+cursor:pointer;
 }
 
 .small-btn:hover{
-    border-color:#d4af37;
+border-color:#d4af37;
 }
 
-#jalaliDateButton,
-#manualDateButton{
-    flex:1;
-    min-height:45px;
+#jalaliDateButton{
+flex:1;
+min-height:45px;
 }
+
+/* CALENDAR */
 
 .admin-calendar{
-    display:none;
-    margin-top:15px;
-    background:#101010;
-    border:1px solid #333;
-    border-radius:14px;
-    padding:15px;
+display:none;
+margin-top:15px;
+background:#101010;
+border:1px solid #333;
+border-radius:14px;
+padding:15px;
 }
 
 .admin-calendar.show{
-    display:block;
+display:block;
 }
 
 .admin-calendar-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:15px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:15px;
 }
 
 .calendar-title{
-    color:#d4af37;
-    font-weight:800;
+color:#d4af37;
+font-weight:800;
 }
 
 .admin-weekdays,
 .admin-days{
-    display:grid;
-    grid-template-columns:repeat(7,1fr);
-    gap:6px;
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:6px;
 }
 
 .admin-weekdays{
-    margin-bottom:7px;
+margin-bottom:7px;
 }
 
 .admin-weekdays span{
-    text-align:center;
-    color:#777;
-    font-size:12px;
-    padding:5px 0;
+text-align:center;
+color:#777;
+font-size:12px;
+padding:5px 0;
 }
 
 .admin-day{
-    min-height:40px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#202020;
-    border:1px solid #292929;
-    border-radius:8px;
-    cursor:pointer;
-    color:#fff;
-    font-size:13px;
-    transition:.2s;
+min-height:40px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#202020;
+border:1px solid #292929;
+border-radius:8px;
+cursor:pointer;
+color:#fff;
+font-size:13px;
 }
 
 .admin-day:hover{
-    border-color:#d4af37;
+border-color:#d4af37;
 }
 
 .admin-day.today{
-    border-color:#d4af37;
+border-color:#d4af37;
 }
 
 .admin-day.selected{
-    background:#d4af37;
-    color:#000;
-    border-color:#d4af37;
-    font-weight:800;
+background:#d4af37;
+color:#000;
+border-color:#d4af37;
+font-weight:800;
 }
 
 .admin-day.empty{
-    background:transparent;
-    border:0;
-    cursor:default;
+background:transparent;
+border:0;
+cursor:default;
 }
 
-/* =========================
-   STATS
-========================= */
+/* STATS */
 
 .stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    margin-bottom:15px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-bottom:15px;
 }
 
 .stat{
-    background:#202020;
-    border:1px solid #333;
-    border-radius:12px;
-    padding:15px 5px;
-    text-align:center;
+background:#202020;
+border:1px solid #333;
+border-radius:12px;
+padding:15px 5px;
+text-align:center;
 }
 
 .stat-number{
-    color:#d4af37;
-    font-size:24px;
-    font-weight:800;
+color:#d4af37;
+font-size:24px;
+font-weight:800;
 }
 
 .stat-label{
-    color:#888;
-    font-size:12px;
-    margin-top:5px;
+color:#888;
+font-size:12px;
+margin-top:5px;
 }
 
-/* =========================
-   APPOINTMENT
-========================= */
+/* APPOINTMENT */
 
 .appointment{
-    background:#1b1b1b;
-    border:1px solid #333;
-    border-radius:14px;
-    padding:15px;
-    margin-bottom:10px;
-    position:relative;
+background:#1b1b1b;
+border:1px solid #333;
+border-radius:14px;
+padding:15px;
+margin-bottom:10px;
+position:relative;
 }
 
 .appointment.vip{
-    border-color:#d4af37;
-    background:#211e13;
+border-color:#d4af37;
+background:#211e13;
 }
 
 .appointment-time{
-    font-size:24px;
-    font-weight:800;
-    color:#d4af37;
-    margin-bottom:8px;
+font-size:24px;
+font-weight:800;
+color:#d4af37;
+margin-bottom:8px;
 }
 
 .service-name{
-    display:inline-block;
-    padding:5px 9px;
-    border-radius:7px;
-    background:#292929;
-    color:#ccc;
-    font-size:12px;
-    margin-bottom:10px;
+display:inline-block;
+padding:5px 9px;
+border-radius:7px;
+background:#292929;
+color:#ccc;
+font-size:12px;
+margin-bottom:10px;
 }
 
 .vip .service-name{
-    background:#d4af37;
-    color:#000;
-    font-weight:800;
+background:#d4af37;
+color:#000;
+font-weight:800;
 }
 
 .customer{
-    font-size:15px;
-    margin-bottom:5px;
+font-size:15px;
+margin-bottom:5px;
 }
 
 .phone{
-    color:#999;
-    font-size:13px;
-    direction:ltr;
-    text-align:right;
+color:#999;
+font-size:13px;
+direction:ltr;
+text-align:right;
 }
 
 .duration{
-    color:#777;
-    font-size:12px;
-    margin-top:8px;
+color:#777;
+font-size:12px;
+margin-top:8px;
 }
 
 .actions{
-    display:flex;
-    gap:8px;
-    margin-top:12px;
+display:flex;
+gap:8px;
+margin-top:12px;
+}
+
+.call-btn,
+.delete-btn{
+flex:1;
+text-align:center;
+padding:10px;
+border-radius:9px;
+font-family:inherit;
+font-size:13px;
 }
 
 .call-btn{
-    flex:1;
-    text-decoration:none;
-    text-align:center;
-    padding:10px;
-    border-radius:9px;
-    background:#202020;
-    border:1px solid #444;
-    color:#d4af37;
-    font-size:13px;
+text-decoration:none;
+background:#202020;
+border:1px solid #444;
+color:#d4af37;
 }
 
 .delete-btn{
-    flex:1;
-    padding:10px;
-    border-radius:9px;
-    background:#301818;
-    border:1px solid #522222;
-    color:#ff7777;
-    cursor:pointer;
-    font-family:inherit;
+background:#301818;
+border:1px solid #522222;
+color:#ff7777;
+cursor:pointer;
 }
 
-.delete-btn:disabled{
-    opacity:.5;
-    cursor:not-allowed;
-}
-
-/* =========================
-   MANUAL BOOKING
-========================= */
+/* MANUAL */
 
 .manual-service{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-bottom:12px;
+display:grid;
+gap:10px;
+margin-bottom:15px;
 }
 
-.service-option{
-    position:relative;
+.manual-service button{
+padding:14px;
+border-radius:11px;
+border:1px solid #333;
+background:#202020;
+color:#ccc;
+cursor:pointer;
+font-family:inherit;
 }
 
-.service-option input{
-    position:absolute;
-    opacity:0;
-    pointer-events:none;
+.manual-service button.active{
+background:#d4af37;
+color:#000;
+border-color:#d4af37;
+font-weight:800;
 }
 
-.service-option label{
-    display:block;
-    padding:14px 8px;
-    text-align:center;
-    background:#202020;
-    border:1px solid #333;
-    border-radius:10px;
-    cursor:pointer;
-    color:#aaa;
-    font-size:13px;
+.manual-times{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:9px;
+margin-top:10px;
 }
 
-.service-option input:checked + label{
-    background:#d4af37;
-    border-color:#d4af37;
-    color:#000;
-    font-weight:800;
+.manual-time{
+background:#202020;
+border:1px solid #333;
+color:#fff;
+padding:12px 5px;
+border-radius:10px;
+text-align:center;
+cursor:pointer;
 }
 
-.manual-info{
-    background:#101010;
-    border:1px solid #292929;
-    border-radius:10px;
-    padding:12px;
-    color:#777;
-    font-size:12px;
-    line-height:2;
-    margin-bottom:12px;
+.manual-time.active{
+background:#d4af37;
+color:#000;
+border-color:#d4af37;
+font-weight:800;
 }
 
-.success-box{
-    background:#172617;
-    border:1px solid #315a31;
-    color:#9ddd9d;
-    border-radius:10px;
-    padding:12px;
-    margin-top:10px;
-    font-size:13px;
-}
-
-.error-box{
-    background:#301818;
-    border:1px solid #522222;
-    color:#ff9999;
-    border-radius:10px;
-    padding:12px;
-    margin-top:10px;
-    font-size:13px;
-    line-height:1.8;
+.manual-time.booked{
+background:#090909;
+color:#555;
+border-color:#222;
+opacity:.5;
+cursor:not-allowed;
 }
 
 .empty{
-    text-align:center;
-    padding:30px 10px;
-    color:#666;
+text-align:center;
+padding:30px 10px;
+color:#666;
 }
 
 .loading{
-    text-align:center;
-    color:#888;
-    padding:20px;
+text-align:center;
+color:#888;
+padding:20px;
 }
 
 .logout{
-    width:100%;
-    margin-top:10px;
-    padding:12px;
-    border-radius:10px;
-    border:1px solid #333;
-    background:#171717;
-    color:#888;
-    cursor:pointer;
-    font-family:inherit;
+width:100%;
+margin-top:10px;
+padding:12px;
+border-radius:10px;
+border:1px solid #333;
+background:#171717;
+color:#888;
+cursor:pointer;
+font-family:inherit;
+}
+
+.error-box{
+background:#301818;
+border:1px solid #522222;
+color:#ff9999;
+border-radius:10px;
+padding:12px;
+margin-top:10px;
+font-size:13px;
+line-height:1.8;
+}
+
+.success-box{
+background:#172617;
+border:1px solid #315a31;
+color:#9ddd9d;
+border-radius:10px;
+padding:12px;
+margin-top:10px;
+font-size:13px;
+}
+
+.hidden{
+display:none;
 }
 
 @media(max-width:450px){
 
-    .stats{
-        grid-template-columns:repeat(3,1fr);
-    }
+.stats{
+grid-template-columns:repeat(3,1fr);
+}
 
-    .stat-number{
-        font-size:20px;
-    }
+.stat-number{
+font-size:20px;
+}
 
 }
 
 </style>
-
 </head>
 
 <body>
 
-
-<!-- =========================
-     LOGIN
-========================= -->
+<!-- LOGIN -->
 
 <div id="loginPage">
 
-    <div class="header">
+<div class="header">
 
-        <img
-        class="logo"
-        src="esi_barber_1994_14050522_200959787.jpg">
+<img
+class="logo"
+src="esi_barber_1994_14050522_200959787.jpg">
 
-        <h1>ESI BARBER</h1>
+<h1>ESI BARBER</h1>
 
-        <p>پنل مدیریت</p>
+<p>پنل مدیریت</p>
 
-    </div>
+</div>
 
-    <div class="login-box">
+<div class="login-box">
 
-        <h2>🔐 ورود مدیر</h2>
+<h2>🔐 ورود مدیر</h2>
 
-        <p style="color:#777;font-size:13px;">
-            ایمیل و رمز مدیر را وارد کنید
-        </p>
+<p style="color:#777;font-size:13px;">
+ایمیل و رمز مدیر را وارد کنید
+</p>
 
-        <input
-        type="email"
-        id="adminEmail"
-        placeholder="ایمیل مدیر"
-        autocomplete="username">
+<input
+type="email"
+id="adminEmail"
+placeholder="ایمیل مدیر">
 
-        <input
-        type="password"
-        id="adminPassword"
-        placeholder="رمز مدیریت"
-        autocomplete="current-password">
+<input
+type="password"
+id="adminPassword"
+placeholder="رمز مدیریت">
 
-        <button
-        id="loginButton"
-        class="gold-btn"
-        onclick="login()">
+<button
+id="loginButton"
+class="gold-btn"
+onclick="login()">
 
-        ورود به پنل
+ورود به پنل
 
-        </button>
+</button>
 
-        <div id="loginError"></div>
+<div id="loginError"></div>
 
-    </div>
+</div>
 
 </div>
 
 
-<!-- =========================
-     ADMIN
-========================= -->
+<!-- ADMIN -->
 
 <div
 id="adminPage"
 style="display:none;">
 
 <div class="container">
-
 
 <div class="header">
 
@@ -596,18 +582,16 @@ src="esi_barber_1994_14050522_200959787.jpg">
 </div>
 
 
-<!-- =========================
-     TABS
-========================= -->
+<!-- TABS -->
 
 <div class="tabs">
 
 <button
-id="bookingsTab"
+id="reservationsTab"
 class="tab-btn active"
-onclick="showTab('bookings')">
+onclick="showTab('reservations')">
 
-📋 رزروها
+📋 نوبت‌ها
 
 </button>
 
@@ -624,11 +608,13 @@ onclick="showTab('manual')">
 
 
 <!-- =========================
-     BOOKINGS TAB
+     RESERVATIONS TAB
 ========================= -->
 
-<div id="bookingsSection">
+<div id="reservationsTabContent">
 
+
+<!-- DATE -->
 
 <div class="card">
 
@@ -648,7 +634,9 @@ onclick="changeDate(-1)">
 id="jalaliDateButton"
 class="gold-btn"
 onclick="toggleAdminCalendar()">
+
 انتخاب تاریخ
+
 </button>
 
 <button
@@ -767,8 +755,7 @@ VIP
 📋 نوبت‌های روز
 </div>
 
-<div
-id="appointments">
+<div id="appointments">
 
 <div class="loading">
 در حال دریافت نوبت‌ها...
@@ -777,7 +764,6 @@ id="appointments">
 </div>
 
 </div>
-
 
 <button
 class="gold-btn"
@@ -795,9 +781,8 @@ onclick="loadForSelectedDate()">
 ========================= -->
 
 <div
-id="manualSection"
-style="display:none;">
-
+id="manualTabContent"
+class="hidden">
 
 <div class="card">
 
@@ -805,45 +790,19 @@ style="display:none;">
 ➕ ثبت رزرو دستی
 </div>
 
-
-<div class="manual-info">
-
-رزرو تلفنی یا رزروی که خودت می‌خواهی برای مشتری ثبت کنی را از این قسمت وارد کن.
-
-</div>
-
-
-<div class="title"
-style="font-size:15px;">
-
-📅 تاریخ رزرو
-
-</div>
-
-
-<div class="date-box">
+<label>
+تاریخ رزرو
+</label>
 
 <button
-class="small-btn"
-onclick="changeManualDate(-1)">
-‹
-</button>
-
-<button
+type="button"
 id="manualDateButton"
 class="gold-btn"
 onclick="toggleManualCalendar()">
+
 انتخاب تاریخ
+
 </button>
-
-<button
-class="small-btn"
-onclick="changeManualDate(1)">
-›
-</button>
-
-</div>
-
 
 <div
 id="manualCalendar"
@@ -889,102 +848,74 @@ class="admin-days">
 
 </div>
 
-
 <br>
 
-
-<div class="title"
-style="font-size:15px;">
-
-⏰ ساعت
-
-</div>
-
-
-<select id="manualTime">
-
-<option value="">انتخاب ساعت</option>
-
-</select>
-
-
-<div class="title"
-style="font-size:15px;">
-
-✂️ نوع سرویس
-
-</div>
-
+<label>
+نوع خدمت
+</label>
 
 <div class="manual-service">
 
-
-<div class="service-option">
-
-<input
-type="radio"
-name="manualService"
-id="normalService"
-value="اصلاح"
-checked>
-
-<label for="normalService">
-
-✂️ اصلاح
-<br>
-30 دقیقه
-
-</label>
-
-</div>
-
-
-<div class="service-option">
-
-<input
-type="radio"
-name="manualService"
-id="vipService"
-value="اصلاح VIP">
-
-<label for="vipService">
-
-👑 اصلاح VIP
-<br>
-60 دقیقه
-
-</label>
-
-</div>
-
-</div>
-
-
-<input
-type="text"
-id="manualName"
-placeholder="نام مشتری">
-
-
-<input
-type="tel"
-id="manualPhone"
-placeholder="شماره موبایل"
-inputmode="tel">
-
-
 <button
-id="manualSubmit"
-class="gold-btn"
-onclick="createManualAppointment()">
+id="manualNormalBtn"
+onclick="selectManualService('اصلاح')">
 
-➕ ثبت رزرو دستی
+✂️ اصلاح — ۳۰ دقیقه
 
 </button>
 
+<button
+id="manualVipBtn"
+onclick="selectManualService('اصلاح VIP')">
 
-<div id="manualMessage"></div>
+👑 اصلاح VIP — ۶۰ دقیقه
 
+</button>
+
+</div>
+
+<label>
+ساعت نوبت
+</label>
+
+<div
+id="manualTimes"
+class="manual-times">
+</div>
+
+<br>
+
+<label>
+نام مشتری
+</label>
+
+<input
+id="manualName"
+type="text"
+placeholder="نام و نام خانوادگی">
+
+<label>
+شماره تماس
+</label>
+
+<input
+id="manualPhone"
+type="tel"
+placeholder="09xxxxxxxxx"
+inputmode="numeric">
+
+<button
+id="manualSaveButton"
+class="gold-btn"
+onclick="saveManualAppointment()">
+
+ثبت رزرو دستی
+
+</button>
+
+<div
+id="manualMessage">
+</div>
 
 </div>
 
@@ -999,7 +930,6 @@ onclick="logout()">
 
 </button>
 
-
 <div
 style="
 text-align:center;
@@ -1013,19 +943,17 @@ ESI BARBER
 </div>
 
 </div>
-
 </div>
 
 
 <script type="module">
 
-
-/* =========================
+/* =========================================================
    SUPABASE
-========================= */
+========================================================= */
 
 import {
-    createClient
+createClient
 }
 from
 "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
@@ -1034,21 +962,32 @@ from
 const SUPABASE_URL =
 "https://zyhcplznilkhfjeocoet.supabase.co";
 
-
 const SUPABASE_ANON_KEY =
 "sb_publishable_jB4eqptL-Egyagl9u0r8wA_wnVoWLkf";
 
-
 const supabase =
 createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
+SUPABASE_URL,
+SUPABASE_ANON_KEY
 );
 
 
-/* =========================
-   MONTHS
-========================= */
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let selectedAdminDate;
+
+let adminCalendarDate;
+
+let manualDate;
+
+let manualCalendarDate;
+
+let manualService="";
+
+let manualTime="";
+
 
 const months=[
 
@@ -1068,9 +1007,23 @@ const months=[
 ];
 
 
-/* =========================
-   JALALI
-========================= */
+/* =========================================================
+   PERSIAN NUMBER
+========================================================= */
+
+function persianNumber(num){
+
+return String(num).replace(
+/\d/g,
+d=>"۰۱۲۳۴۵۶۷۸۹"[d]
+);
+
+}
+
+
+/* =========================================================
+   GREGORIAN → JALALI
+========================================================= */
 
 function gregorianToJalali(gy,gm,gd){
 
@@ -1093,21 +1046,18 @@ gy-=621;
 
 }
 
-let gy2=(gm>2)?gy+1:gy;
+let gy2=
+gm>2
+?gy+1
+:gy;
 
 let days=
-365*gy
-+
-Math.floor((gy2+3)/4)
--
-Math.floor((gy2+99)/100)
-+
-Math.floor((gy2+399)/400)
--
-80
-+
-gd
-+
+365*gy+
+Math.floor((gy2+3)/4)-
+Math.floor((gy2+99)/100)+
+Math.floor((gy2+399)/400)-
+80+
+gd+
 gdm[gm-1];
 
 jy+=33*Math.floor(days/12053);
@@ -1132,13 +1082,11 @@ let jd;
 if(days<186){
 
 jm=1+Math.floor(days/31);
-
 jd=1+(days%31);
 
 }else{
 
 jm=7+Math.floor((days-186)/30);
-
 jd=1+((days-186)%30);
 
 }
@@ -1147,6 +1095,10 @@ return [jy,jm,jd];
 
 }
 
+
+/* =========================================================
+   JALALI → GREGORIAN
+========================================================= */
 
 function jalaliToGregorian(jy,jm,jd){
 
@@ -1168,16 +1120,11 @@ gy=621;
 }
 
 let days=
-365*jy
-+
-Math.floor(jy/33)*8
-+
-Math.floor(((jy%33)+3)/4)
-+
-78
-+
-jd
-+
+365*jy+
+Math.floor(jy/33)*8+
+Math.floor(((jy%33)+3)/4)+
+78+
+jd+
 (
 jm<7
 ?
@@ -1218,17 +1165,8 @@ let gd=days+1;
 let sal_a=[
 0,
 31,
-((gy%4===0 && gy%100!==0)||gy%400===0)?29:28,
-31,
-30,
-31,
-30,
-31,
-31,
-30,
-31,
-30,
-31
+((gy%4===0&&gy%100!==0)||gy%400===0)?29:28,
+31,30,31,30,31,31,30,31,30,31
 ];
 
 let gm=0;
@@ -1236,7 +1174,6 @@ let gm=0;
 while(gd>sal_a[gm]){
 
 gd-=sal_a[gm];
-
 gm++;
 
 }
@@ -1246,19 +1183,9 @@ return [gy,gm,gd];
 }
 
 
-function persianNumber(num){
-
-return String(num).replace(
-/\d/g,
-d=>"۰۱۲۳۴۵۶۷۸۹"[d]
-);
-
-}
-
-
-/* =========================
+/* =========================================================
    TODAY
-========================= */
+========================================================= */
 
 const now=new Date();
 
@@ -1270,48 +1197,36 @@ now.getDate()
 );
 
 
-let selectedAdminDate={
-
+selectedAdminDate={
 year:todayJalali[0],
 month:todayJalali[1],
 day:todayJalali[2]
-
 };
 
-
-let adminCalendarDate={
-
+adminCalendarDate={
 year:todayJalali[0],
 month:todayJalali[1]
-
 };
 
-
-let manualDate={
-
+manualDate={
 year:todayJalali[0],
 month:todayJalali[1],
 day:todayJalali[2]
-
 };
 
-
-let manualCalendarDate={
-
+manualCalendarDate={
 year:todayJalali[0],
 month:todayJalali[1]
-
 };
 
 
-/* =========================
-   DATE TEXT
-========================= */
+/* =========================================================
+   DATE HELPERS
+========================================================= */
 
-function getDateText(date){
+function jalaliText(date){
 
 return (
-
 persianNumber(date.day)
 +
 " "
@@ -1321,42 +1236,12 @@ months[date.month-1]
 " "
 +
 persianNumber(date.year)
-
 );
 
 }
 
 
-function updateDateButton(){
-
-document
-.getElementById("jalaliDateButton")
-.textContent=
-getDateText(selectedAdminDate);
-
-document
-.getElementById("datePicker")
-.value=
-`${selectedAdminDate.year}-${String(selectedAdminDate.month).padStart(2,"0")}-${String(selectedAdminDate.day).padStart(2,"0")}`;
-
-}
-
-
-function updateManualDateButton(){
-
-document
-.getElementById("manualDateButton")
-.textContent=
-getDateText(manualDate);
-
-}
-
-
-/* =========================
-   GREGORIAN DATE
-========================= */
-
-function getGregorianDate(date){
+function jalaliISO(date){
 
 const g=
 jalaliToGregorian(
@@ -1368,169 +1253,51 @@ date.day
 return (
 String(g[0]).padStart(4,"0")
 +
-"-"
-+
+"-"+
 String(g[1]).padStart(2,"0")
 +
-"-"
-+
+"-"+
 String(g[2]).padStart(2,"0")
 );
 
 }
 
 
-function getGregorianDateString(){
+/* =========================================================
+   ADMIN DATE
+========================================================= */
 
-return getGregorianDate(
-selectedAdminDate
-);
+function updateAdminDate(){
 
-}
+document
+.getElementById("jalaliDateButton")
+.textContent=
+jalaliText(selectedAdminDate);
 
-
-/* =========================
-   TIME
-========================= */
-
-function timeToMinutes(time){
-
-if(!time) return 0;
-
-const cleanTime=
-String(time).substring(0,5);
-
-const [h,m]=
-cleanTime.split(":").map(Number);
-
-return h*60+m;
+document
+.getElementById("datePicker")
+.value=
+jalaliISO(selectedAdminDate);
 
 }
 
 
-function minutesToTime(minutes){
-
-let h=
-Math.floor(minutes/60);
-
-let m=
-minutes%60;
-
-return String(h).padStart(2,"0")
-+
-":"
-+
-String(m).padStart(2,"0");
-
-}
-
-
-/* =========================
-   ESCAPE
-========================= */
-
-function escapeHtml(text){
-
-return String(text ?? "")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-
-}
-
-
-/* =========================
-   GET APPOINTMENTS
-========================= */
-
-async function getAppointments(){
-
-const {
-    data,
-    error
-} =
-await supabase
-.from("appointments")
-.select("*")
-.order("appointment_time",{ascending:true});
-
-if(error){
-
-throw error;
-
-}
-
-return data || [];
-
-}
-
-
-/* =========================
-   TABS
-========================= */
-
-window.showTab=function(tab){
-
-const bookings=
-document.getElementById("bookingsSection");
-
-const manual=
-document.getElementById("manualSection");
-
-const bookingsTab=
-document.getElementById("bookingsTab");
-
-const manualTab=
-document.getElementById("manualTab");
-
-
-if(tab==="manual"){
-
-bookings.style.display="none";
-manual.style.display="block";
-
-bookingsTab.classList.remove("active");
-manualTab.classList.add("active");
-
-renderManualCalendar();
-updateManualDateButton();
-loadManualTimes();
-
-}else{
-
-bookings.style.display="block";
-manual.style.display="none";
-
-bookingsTab.classList.add("active");
-manualTab.classList.remove("active");
-
-loadForSelectedDate();
-
-}
-
-};
-
-
-/* =========================
+/* =========================================================
    ADMIN CALENDAR
-========================= */
+========================================================= */
 
 window.toggleAdminCalendar=function(){
 
-const calendar=
+const el=
 document.getElementById("adminCalendar");
 
-calendar.classList.toggle("show");
+el.classList.toggle("show");
 
-if(calendar.classList.contains("show")){
+if(el.classList.contains("show")){
 
 adminCalendarDate={
-
 year:selectedAdminDate.year,
 month:selectedAdminDate.month
-
 };
 
 renderAdminCalendar();
@@ -1542,84 +1309,58 @@ renderAdminCalendar();
 
 function renderAdminCalendar(){
 
-const year=
-adminCalendarDate.year;
-
-const month=
-adminCalendarDate.month;
+const year=adminCalendarDate.year;
+const month=adminCalendarDate.month;
 
 document
 .getElementById("adminCalendarMonth")
 .textContent=
-months[month-1]
-+
-" "
-+
-persianNumber(year);
+months[month-1]+" "+persianNumber(year);
 
-const daysContainer=
+const container=
 document.getElementById("adminCalendarDays");
 
-daysContainer.innerHTML="";
+container.innerHTML="";
 
-const firstGregorian=
+const first=
 jalaliToGregorian(
 year,
 month,
 1
 );
 
-const firstDate=
+const date=
 new Date(
-firstGregorian[0],
-firstGregorian[1]-1,
-firstGregorian[2]
+first[0],
+first[1]-1,
+first[2]
 );
 
 const startDay=
-(firstDate.getDay()+1)%7;
+(date.getDay()+1)%7;
 
-let daysInMonth;
+let days;
 
-if(month<=6){
+if(month<=6)
+days=31;
+else if(month<=11)
+days=30;
+else
+days=30;
 
-daysInMonth=31;
+for(let i=0;i<startDay;i++){
 
-}else if(month<=11){
+const empty=document.createElement("div");
 
-daysInMonth=30;
+empty.className="admin-day empty";
 
-}else{
-
-daysInMonth=30;
-
-}
-
-for(
-let i=0;
-i<startDay;
-i++
-){
-
-const empty=
-document.createElement("div");
-
-empty.className=
-"admin-day empty";
-
-daysContainer.appendChild(empty);
+container.appendChild(empty);
 
 }
 
+for(let day=1;day<=days;day++){
 
-for(
-let day=1;
-day<=daysInMonth;
-day++
-){
-
-const div=
-document.createElement("div");
+const div=document.createElement("div");
 
 div.className="admin-day";
 
@@ -1648,38 +1389,25 @@ div.classList.add("selected");
 
 div.onclick=function(){
 
-selectAdminDate(
-year,
-month,
-day
-);
-
-};
-
-daysContainer.appendChild(div);
-
-}
-
-}
-
-
-function selectAdminDate(year,month,day){
-
 selectedAdminDate={
-
 year:year,
 month:month,
 day:day
-
 };
 
-updateDateButton();
+updateAdminDate();
 
 document
 .getElementById("adminCalendar")
 .classList.remove("show");
 
 loadForSelectedDate();
+
+};
+
+container.appendChild(div);
+
+}
 
 }
 
@@ -1718,49 +1446,201 @@ renderAdminCalendar();
 
 window.changeDate=function(direction){
 
-let gregorian=
+const g=
 jalaliToGregorian(
 selectedAdminDate.year,
 selectedAdminDate.month,
 selectedAdminDate.day
 );
 
-const date=
+const d=
 new Date(
-gregorian[0],
-gregorian[1]-1,
-gregorian[2]
+g[0],
+g[1]-1,
+g[2]
 );
 
-date.setDate(
-date.getDate()+direction
+d.setDate(
+d.getDate()+direction
 );
 
-const jalali=
+const j=
 gregorianToJalali(
-date.getFullYear(),
-date.getMonth()+1,
-date.getDate()
+d.getFullYear(),
+d.getMonth()+1,
+d.getDate()
 );
 
 selectedAdminDate={
-
-year:jalali[0],
-month:jalali[1],
-day:jalali[2]
-
+year:j[0],
+month:j[1],
+day:j[2]
 };
 
-updateDateButton();
+updateAdminDate();
 
 loadForSelectedDate();
 
 };
 
 
-/* =========================
-   LOAD BOOKINGS
-========================= */
+/* =========================================================
+   TIME
+========================================================= */
+
+function timeToMinutes(time){
+
+if(!time)
+return 0;
+
+const clean=
+String(time).substring(0,5);
+
+const parts=
+clean.split(":");
+
+return Number(parts[0])*60+
+Number(parts[1]);
+
+}
+
+
+function minutesToTime(minutes){
+
+const h=
+Math.floor(minutes/60);
+
+const m=
+minutes%60;
+
+return String(h).padStart(2,"0")
++
+":"
++
+String(m).padStart(2,"0");
+
+}
+
+
+/* =========================================================
+   EXACT SITE TIMES
+========================================================= */
+
+const NORMAL_TIMES=[
+
+"08:30",
+"09:00",
+"09:30",
+"10:00",
+"10:30",
+"11:00",
+"11:30",
+"12:00",
+"12:30",
+"13:00",
+"13:30",
+
+"16:00",
+"16:30",
+"17:00",
+"17:30",
+"18:00",
+"18:30",
+"19:00",
+"19:30",
+"20:00",
+"20:30",
+"21:00"
+
+];
+
+
+const VIP_TIMES=[
+
+"08:30",
+"09:30",
+"10:30",
+"11:30",
+"12:30",
+
+"16:00",
+"17:00",
+"18:00",
+"19:00",
+"20:00"
+
+];
+
+
+/* =========================================================
+   LOAD APPOINTMENTS
+========================================================= */
+
+async function getAppointments(){
+
+const {
+data,
+error
+}=
+await supabase
+.from("appointments")
+.select("*")
+.order(
+"appointment_time",
+{ascending:true}
+);
+
+if(error)
+throw error;
+
+return data||[];
+
+}
+
+
+/* =========================================================
+   CHECK OVERLAP
+========================================================= */
+
+function appointmentOverlaps(
+start,
+duration,
+item
+){
+
+const bookedStart=
+timeToMinutes(
+item.appointment_time
+);
+
+const bookedDuration=
+Number(item.appointment_minute)
+||
+Number(item.duration_minutes)
+||
+(
+item.service==="اصلاح VIP"
+?60
+:30
+);
+
+const bookedEnd=
+bookedStart+bookedDuration;
+
+const currentEnd=
+start+duration;
+
+return (
+start<bookedEnd &&
+currentEnd>bookedStart
+);
+
+}
+
+
+/* =========================================================
+   RENDER APPOINTMENTS
+========================================================= */
 
 window.loadForSelectedDate=
 async function(){
@@ -1780,47 +1660,22 @@ try{
 const all=
 await getAppointments();
 
-const selectedDateGregorian=
-getGregorianDateString();
-
-const selectedDateText=
-getDateText(selectedAdminDate);
+const date=
+jalaliISO(selectedAdminDate);
 
 const list=
-all.filter(item=>{
-
-if(item.appointment_date){
-
-return String(
-item.appointment_date
-).substring(0,10)
-===
-selectedDateGregorian;
-
-}
-
-if(item.date){
-
-return item.date===selectedDateText;
-
-}
-
-return false;
-
-});
-
+all.filter(
+item=>
+String(item.appointment_date)
+.substring(0,10)===date
+);
 
 list.sort(
 (a,b)=>
-timeToMinutes(
-a.appointment_time || a.time
-)
+timeToMinutes(a.appointment_time)
 -
-timeToMinutes(
-b.appointment_time || b.time
-)
+timeToMinutes(b.appointment_time)
 );
-
 
 document
 .getElementById("totalCount")
@@ -1840,19 +1695,14 @@ list.filter(
 x=>x.service==="اصلاح VIP"
 ).length;
 
-
-if(list.length===0){
+if(!list.length){
 
 container.innerHTML=
 `
 <div class="empty">
-
 📭
-
 <br><br>
-
 برای این تاریخ نوبتی ثبت نشده
-
 </div>
 `;
 
@@ -1860,110 +1710,81 @@ return;
 
 }
 
-
 container.innerHTML="";
-
 
 list.forEach(item=>{
 
 const vip=
 item.service==="اصلاح VIP";
 
-const startTime=
-item.appointment_time
-?
-String(item.appointment_time).substring(0,5)
-:
-item.time;
+const start=
+String(
+item.appointment_time||""
+).substring(0,5);
 
 const duration=
 Number(item.duration_minutes)
 ||
-(
-vip
-?
-60
-:
-30
-);
+Number(item.appointment_minute)
+||
+(vip?60:30);
 
 const end=
 minutesToTime(
-timeToMinutes(startTime)+duration
+timeToMinutes(start)+duration
 );
 
 const div=
 document.createElement("div");
 
 div.className=
-"appointment"
-+
-(vip ? " vip" : "");
+"appointment"+
+(vip?" vip":"");
 
 div.innerHTML=`
 
 <div class="appointment-time">
-
-${escapeHtml(startTime || "--:--")}
-
+${escapeHtml(start)}
 </div>
 
 <div class="service-name">
-
-${vip ? "👑 اصلاح VIP" : "✂️ اصلاح"}
-
+${vip?"👑 اصلاح VIP":"✂️ اصلاح"}
 </div>
 
 <div class="customer">
-
-👤 ${escapeHtml(
-item.name || "بدون نام"
-)}
-
+👤 ${escapeHtml(item.name||"بدون نام")}
 </div>
 
 <div class="phone">
-
-📱 ${escapeHtml(
-item.phone || "-"
-)}
-
+📱 ${escapeHtml(item.phone||"-")}
 </div>
 
 <div class="duration">
-
-⏱ ${escapeHtml(startTime || "--:--")}
-تا
-${escapeHtml(end)}
-
+⏱ ${escapeHtml(start)}
+ تا
+ ${escapeHtml(end)}
 </div>
 
 <div class="actions">
 
 <a
 class="call-btn"
-href="tel:${escapeHtml(item.phone || "")}">
-
+href="tel:${escapeHtml(item.phone||"")}">
 📞 تماس
-
 </a>
 
 <button
 class="delete-btn"
 onclick="deleteAppointment('${escapeHtml(item.id)}')">
-
 🗑 حذف رزرو
-
 </button>
 
 </div>
-
 `;
 
 container.appendChild(div);
 
 });
-
 
 }catch(error){
 
@@ -1972,13 +1793,9 @@ console.error(error);
 container.innerHTML=
 `
 <div class="error-box">
-
 ❌ خطا در دریافت اطلاعات
-
 <br><br>
-
 ${escapeHtml(error.message)}
-
 </div>
 `;
 
@@ -1987,9 +1804,9 @@ ${escapeHtml(error.message)}
 };
 
 
-/* =========================
+/* =========================================================
    DELETE
-========================= */
+========================================================= */
 
 window.deleteAppointment=
 async function(id){
@@ -2002,12 +1819,11 @@ return;
 
 }
 
-const confirmed=
-confirm(
+if(
+!confirm(
 "آیا از حذف این رزرو مطمئن هستید؟"
-);
-
-if(!confirmed){
+)
+){
 
 return;
 
@@ -2017,17 +1833,14 @@ try{
 
 const {
 error
-} =
+}=
 await supabase
 .from("appointments")
 .delete()
 .eq("id",id);
 
-if(error){
-
+if(error)
 throw error;
-
-}
 
 alert("رزرو با موفقیت حذف شد.");
 
@@ -2035,11 +1848,8 @@ await loadForSelectedDate();
 
 }catch(error){
 
-console.error(error);
-
 alert(
-"خطا در حذف رزرو:\n"
-+
+"خطا در حذف رزرو:\n"+
 error.message
 );
 
@@ -2048,24 +1858,85 @@ error.message
 };
 
 
-/* =========================
-   MANUAL CALENDAR
-========================= */
+/* =========================================================
+   TABS
+========================================================= */
+
+window.showTab=function(tab){
+
+const reservations=
+document.getElementById(
+"reservationsTabContent"
+);
+
+const manual=
+document.getElementById(
+"manualTabContent"
+);
+
+const rtab=
+document.getElementById(
+"reservationsTab"
+);
+
+const mtab=
+document.getElementById(
+"manualTab"
+);
+
+if(tab==="reservations"){
+
+reservations.classList.remove("hidden");
+manual.classList.add("hidden");
+
+rtab.classList.add("active");
+mtab.classList.remove("active");
+
+loadForSelectedDate();
+
+}else{
+
+reservations.classList.add("hidden");
+manual.classList.remove("hidden");
+
+rtab.classList.remove("active");
+mtab.classList.add("active");
+
+updateManualDate();
+
+renderManualTimes();
+
+}
+
+};
+
+
+/* =========================================================
+   MANUAL DATE
+========================================================= */
+
+function updateManualDate(){
+
+document
+.getElementById("manualDateButton")
+.textContent=
+jalaliText(manualDate);
+
+}
+
 
 window.toggleManualCalendar=function(){
 
-const calendar=
+const el=
 document.getElementById("manualCalendar");
 
-calendar.classList.toggle("show");
+el.classList.toggle("show");
 
-if(calendar.classList.contains("show")){
+if(el.classList.contains("show")){
 
 manualCalendarDate={
-
 year:manualDate.year,
 month:manualDate.month
-
 };
 
 renderManualCalendar();
@@ -2077,82 +1948,57 @@ renderManualCalendar();
 
 function renderManualCalendar(){
 
-const year=
-manualCalendarDate.year;
-
-const month=
-manualCalendarDate.month;
+const year=manualCalendarDate.year;
+const month=manualCalendarDate.month;
 
 document
 .getElementById("manualCalendarMonth")
 .textContent=
-months[month-1]
-+
-" "
-+
-persianNumber(year);
+months[month-1]+" "+persianNumber(year);
 
-const daysContainer=
+const container=
 document.getElementById("manualCalendarDays");
 
-daysContainer.innerHTML="";
+container.innerHTML="";
 
-const firstGregorian=
+const first=
 jalaliToGregorian(
 year,
 month,
 1
 );
 
-const firstDate=
+const date=
 new Date(
-firstGregorian[0],
-firstGregorian[1]-1,
-firstGregorian[2]
+first[0],
+first[1]-1,
+first[2]
 );
 
 const startDay=
-(firstDate.getDay()+1)%7;
+(date.getDay()+1)%7;
 
-let daysInMonth;
+let days;
 
-if(month<=6){
+if(month<=6)
+days=31;
+else if(month<=11)
+days=30;
+else
+days=30;
 
-daysInMonth=31;
-
-}else if(month<=11){
-
-daysInMonth=30;
-
-}else{
-
-daysInMonth=30;
-
-}
-
-
-for(
-let i=0;
-i<startDay;
-i++
-){
+for(let i=0;i<startDay;i++){
 
 const empty=
 document.createElement("div");
 
-empty.className=
-"admin-day empty";
+empty.className="admin-day empty";
 
-daysContainer.appendChild(empty);
+container.appendChild(empty);
 
 }
 
-
-for(
-let day=1;
-day<=daysInMonth;
-day++
-){
+for(let day=1;day<=days;day++){
 
 const div=
 document.createElement("div");
@@ -2182,40 +2028,54 @@ div.classList.add("selected");
 
 }
 
+let past=false;
+
+if(year<todayJalali[0])
+past=true;
+
+else if(
+year===todayJalali[0] &&
+month<todayJalali[1]
+)
+past=true;
+
+else if(
+year===todayJalali[0] &&
+month===todayJalali[1] &&
+day<todayJalali[2]
+)
+past=true;
+
+if(past){
+
+div.style.opacity=".25";
+div.style.cursor="not-allowed";
+
+}else{
+
 div.onclick=function(){
 
-selectManualDate(
-year,
-month,
-day
-);
-
-};
-
-daysContainer.appendChild(div);
-
-}
-
-}
-
-
-function selectManualDate(year,month,day){
-
 manualDate={
-
 year:year,
 month:month,
 day:day
-
 };
 
-updateManualDateButton();
+updateManualDate();
 
 document
 .getElementById("manualCalendar")
 .classList.remove("show");
 
-loadManualTimes();
+renderManualTimes();
+
+};
+
+}
+
+container.appendChild(div);
+
+}
 
 }
 
@@ -2252,264 +2112,157 @@ renderManualCalendar();
 };
 
 
-window.changeManualDate=function(direction){
+/* =========================================================
+   MANUAL SERVICE
+========================================================= */
 
-let gregorian=
-jalaliToGregorian(
-manualDate.year,
-manualDate.month,
-manualDate.day
+window.selectManualService=function(service){
+
+manualService=service;
+manualTime="";
+
+document
+.getElementById("manualNormalBtn")
+.classList.toggle(
+"active",
+service==="اصلاح"
 );
 
-const date=
-new Date(
-gregorian[0],
-gregorian[1]-1,
-gregorian[2]
+document
+.getElementById("manualVipBtn")
+.classList.toggle(
+"active",
+service==="اصلاح VIP"
 );
 
-date.setDate(
-date.getDate()+direction
-);
-
-const jalali=
-gregorianToJalali(
-date.getFullYear(),
-date.getMonth()+1,
-date.getDate()
-);
-
-manualDate={
-
-year:jalali[0],
-month:jalali[1],
-day:jalali[2]
-
-};
-
-updateManualDateButton();
-
-loadManualTimes();
+renderManualTimes();
 
 };
 
 
-/* =========================
+/* =========================================================
    MANUAL TIMES
-========================= */
+========================================================= */
 
-async function loadManualTimes(){
+async function renderManualTimes(){
 
-const select=
-document.getElementById("manualTime");
+const container=
+document.getElementById("manualTimes");
 
-select.innerHTML=
+if(!manualService){
+
+container.innerHTML=
 `
-<option value="">
-در حال دریافت ساعت‌ها...
-</option>
+<div
+style="
+grid-column:1/-1;
+text-align:center;
+color:#666;
+padding:15px;">
+ابتدا نوع خدمت را انتخاب کنید
+</div>
 `;
+
+return;
+
+}
+
+const times=
+manualService==="اصلاح"
+?NORMAL_TIMES
+:VIP_TIMES;
+
+container.innerHTML="";
+
+let appointments=[];
 
 try{
 
-const all=
+appointments=
 await getAppointments();
-
-const selectedDate=
-getGregorianDate(manualDate);
-
-const booked=
-all.filter(item=>{
-
-if(!item.appointment_date){
-
-return false;
-
-}
-
-return String(item.appointment_date)
-.substring(0,10)
-===
-selectedDate;
-
-});
-
-
-const selectedService=
-document.querySelector(
-'input[name="manualService"]:checked'
-)?.value
-||
-"اصلاح";
-
-
-const duration=
-selectedService==="اصلاح VIP"
-?
-60
-:
-30;
-
-
-/*
-ساعت‌های استاندارد ESI BARBER
-*/
-
-let times=[];
-
-
-/*
-اصلاح معمولی
-08:30 تا 21:00
-*/
-
-if(selectedService==="اصلاح"){
-
-for(
-let minutes=8*60+30;
-minutes<=21*60;
-minutes+=30
-){
-
-times.push(
-minutesToTime(minutes)
-);
-
-}
-
-}else{
-
-
-/*
-VIP
-هر 60 دقیقه
-از 08:30 تا 20:00
-*/
-
-for(
-let minutes=8*60+30;
-minutes<=20*60;
-minutes+=60
-){
-
-times.push(
-minutesToTime(minutes)
-);
-
-}
-
-}
-
-
-select.innerHTML=
-`
-<option value="">
-انتخاب ساعت
-</option>
-`;
-
-
-times.forEach(time=>{
-
-const start=
-timeToMinutes(time);
-
-const conflict=
-booked.some(item=>{
-
-const bookedStart=
-timeToMinutes(
-item.appointment_time || item.time
-);
-
-const bookedDuration=
-Number(
-item.duration_minutes
-)
-||
-(
-item.service==="اصلاح VIP"
-?
-60
-:
-30
-);
-
-const bookedEnd=
-bookedStart+
-bookedDuration;
-
-return (
-start < bookedEnd &&
-start+duration > bookedStart
-);
-
-});
-
-
-const option=
-document.createElement("option");
-
-option.value=time;
-
-option.textContent=
-conflict
-?
-`${time} — رزرو شده`
-:
-time;
-
-if(conflict){
-
-option.disabled=true;
-
-}
-
-select.appendChild(option);
-
-});
-
 
 }catch(error){
 
 console.error(error);
 
-select.innerHTML=
-`
-<option value="">
-خطا در دریافت ساعت‌ها
-</option>
-`;
-
 }
 
-}
+const date=
+jalaliISO(manualDate);
 
+times.forEach(time=>{
 
-/* وقتی سرویس عوض شد ساعت‌ها دوباره بررسی شود */
+const btn=
+document.createElement("button");
 
-document
-.addEventListener(
-"change",
-function(event){
+btn.type="button";
 
-if(
-event.target.name==="manualService"
-){
+btn.className="manual-time";
 
-loadManualTimes();
+btn.textContent=time;
 
-}
+const duration=
+manualService==="اصلاح VIP"
+?60
+:30;
 
-}
+const start=
+timeToMinutes(time);
+
+const booked=
+appointments.some(item=>
+String(item.appointment_date)
+.substring(0,10)===date
+&&
+appointmentOverlaps(
+start,
+duration,
+item
+)
 );
 
+if(booked){
 
-/* =========================
-   MANUAL BOOKING
-========================= */
+btn.classList.add("booked");
 
-window.createManualAppointment=
+btn.onclick=function(){
+
+alert(
+"این ساعت قبلاً رزرو شده است."
+);
+
+};
+
+}else{
+
+btn.onclick=function(){
+
+document
+.querySelectorAll(".manual-time")
+.forEach(x=>
+x.classList.remove("active")
+);
+
+btn.classList.add("active");
+
+manualTime=time;
+
+};
+
+}
+
+container.appendChild(btn);
+
+});
+
+}
+
+
+/* =========================================================
+   MANUAL SAVE
+========================================================= */
+
+window.saveManualAppointment=
 async function(){
 
 const name=
@@ -2524,240 +2277,141 @@ document
 .value
 .trim();
 
-const time=
-document
-.getElementById("manualTime")
-.value;
-
-const service=
-document
-.querySelector(
-'input[name="manualService"]:checked'
-)?.value;
-
 const message=
 document
 .getElementById("manualMessage");
 
-const button=
-document
-.getElementById("manualSubmit");
-
-
 message.innerHTML="";
 
+if(!manualService){
+
+alert(
+"لطفاً نوع خدمت را انتخاب کنید."
+);
+
+return;
+
+}
+
+if(!manualTime){
+
+alert(
+"لطفاً ساعت نوبت را انتخاب کنید."
+);
+
+return;
+
+}
 
 if(!name){
 
-message.innerHTML=
-`
-<div class="error-box">
-لطفاً نام مشتری را وارد کنید.
-</div>
-`;
+alert(
+"لطفاً نام مشتری را وارد کنید."
+);
 
 return;
 
 }
 
+if(
+phone &&
+!/^09\d{9}$/.test(phone)
+){
 
-if(!phone){
-
-message.innerHTML=
-`
-<div class="error-box">
-لطفاً شماره موبایل مشتری را وارد کنید.
-</div>
-`;
-
-return;
-
-}
-
-
-if(!time){
-
-message.innerHTML=
-`
-<div class="error-box">
-لطفاً ساعت رزرو را انتخاب کنید.
-</div>
-`;
+alert(
+"شماره تماس معتبر نیست."
+);
 
 return;
 
 }
 
-
-if(!service){
-
-message.innerHTML=
-`
-<div class="error-box">
-لطفاً نوع سرویس را انتخاب کنید.
-</div>
-`;
-
-return;
-
-}
-
-
-const appointmentDate=
-getGregorianDate(manualDate);
-
+const date=
+jalaliISO(manualDate);
 
 const duration=
-service==="اصلاح VIP"
-?
-60
-:
-30;
-
-
-button.disabled=true;
-
-button.textContent=
-"در حال ثبت...";
-
+manualService==="اصلاح VIP"
+?60
+:30;
 
 try{
 
+/* بررسی آخرین وضعیت */
 
-/*
-یک بار دیگر بررسی تداخل
-برای جلوگیری از رزرو اشتباه
-*/
-
-const all=
+const appointments=
 await getAppointments();
 
 const conflict=
-all.some(item=>{
-
-if(
-!item.appointment_date
-){
-
-return false;
-
-}
-
-if(
+appointments.some(item=>
 String(item.appointment_date)
-.substring(0,10)
-!==
-appointmentDate
-){
-
-return false;
-
-}
-
-const start=
-timeToMinutes(time);
-
-const bookedStart=
-timeToMinutes(
-item.appointment_time || item.time
+.substring(0,10)===date
+&&
+appointmentOverlaps(
+timeToMinutes(manualTime),
+duration,
+item
+)
 );
-
-const bookedDuration=
-Number(item.duration_minutes)
-||
-(
-item.service==="اصلاح VIP"
-?
-60
-:
-30
-);
-
-const bookedEnd=
-bookedStart+
-bookedDuration;
-
-return (
-start < bookedEnd &&
-start+duration > bookedStart
-);
-
-});
-
 
 if(conflict){
 
+await renderManualTimes();
+
 throw new Error(
-"این ساعت همین الان توسط یک رزرو دیگر گرفته شده است."
+"این ساعت همین الان رزرو شده است."
 );
 
 }
 
 
-/*
-ثبت رزرو
-*/
+/* INSERT */
 
 const {
 error
-} =
+}=
 await supabase
 .from("appointments")
 .insert({
+
+service:manualService,
 
 name:name,
 
 phone:phone,
 
-appointment_date:appointmentDate,
+appointment_date:date,
 
-appointment_time:time,
+appointment_time:manualTime,
 
-service:service,
+appointment_minute:duration,
 
-duration_minutes:duration
+duration_minutes:duration,
+
+created_at:new Date().toISOString()
 
 });
 
-
-if(error){
-
+if(error)
 throw error;
 
-}
 
+/* SUCCESS */
 
 message.innerHTML=
 `
 <div class="success-box">
-
-✅ رزرو با موفقیت ثبت شد.
-
+✅ رزرو دستی با موفقیت ثبت شد.
+<br><br>
+خدمت: ${escapeHtml(manualService)}
 <br>
-
-👤 ${escapeHtml(name)}
-
+نام: ${escapeHtml(name)}
 <br>
-
-📅 ${escapeHtml(
-getDateText(manualDate)
-)}
-
-<br>
-
-⏰ ${escapeHtml(time)}
-
-<br>
-
-${service==="اصلاح VIP"
-?
-"👑 اصلاح VIP"
-:
-"✂️ اصلاح"}
-
+ساعت: ${escapeHtml(manualTime)}
 </div>
 `;
 
+
+/* CLEAR */
 
 document
 .getElementById("manualName")
@@ -2767,13 +2421,9 @@ document
 .getElementById("manualPhone")
 .value="";
 
-document
-.getElementById("manualTime")
-.value="";
+manualTime="";
 
-
-await loadManualTimes();
-
+await renderManualTimes();
 
 }catch(error){
 
@@ -2782,31 +2432,20 @@ console.error(error);
 message.innerHTML=
 `
 <div class="error-box">
-
 ❌ خطا در ثبت رزرو
-
 <br><br>
-
 ${escapeHtml(error.message)}
-
 </div>
 `;
-
-}finally{
-
-button.disabled=false;
-
-button.textContent=
-"➕ ثبت رزرو دستی";
 
 }
 
 };
 
 
-/* =========================
+/* =========================================================
    LOGIN
-========================= */
+========================================================= */
 
 window.login=
 async function(){
@@ -2832,7 +2471,6 @@ document
 
 errorBox.innerHTML="";
 
-
 if(!email){
 
 errorBox.innerHTML=
@@ -2845,7 +2483,6 @@ errorBox.innerHTML=
 return;
 
 }
-
 
 if(!password){
 
@@ -2860,34 +2497,24 @@ return;
 
 }
 
-
 button.disabled=true;
-
-button.textContent=
-"در حال ورود...";
-
+button.textContent="در حال ورود...";
 
 try{
 
 const {
 data,
 error
-} =
+}=
 await supabase.auth.signInWithPassword({
 
 email:email,
-
 password:password
 
 });
 
-
-if(error){
-
+if(error)
 throw error;
-
-}
-
 
 if(!data.session){
 
@@ -2897,14 +2524,7 @@ throw new Error(
 
 }
 
-
-sessionStorage.setItem(
-"esiAdmin",
-"true"
-);
-
-showAdmin();
-
+await showAdmin();
 
 }catch(error){
 
@@ -2913,31 +2533,25 @@ console.error(error);
 errorBox.innerHTML=
 `
 <div class="error-box">
-
 ❌ ورود ناموفق بود
-
 <br>
-
 ${escapeHtml(error.message)}
-
 </div>
 `;
 
 }finally{
 
 button.disabled=false;
-
-button.textContent=
-"ورود به پنل";
+button.textContent="ورود به پنل";
 
 }
 
 };
 
 
-/* =========================
+/* =========================================================
    SHOW ADMIN
-========================= */
+========================================================= */
 
 async function showAdmin(){
 
@@ -2949,36 +2563,32 @@ document
 .getElementById("adminPage")
 .style.display="block";
 
-updateDateButton();
+updateAdminDate();
 
-updateManualDateButton();
+updateManualDate();
 
 await loadForSelectedDate();
 
 }
 
 
-/* =========================
+/* =========================================================
    LOGOUT
-========================= */
+========================================================= */
 
 window.logout=
 async function(){
 
 await supabase.auth.signOut();
 
-sessionStorage.removeItem(
-"esiAdmin"
-);
-
 location.reload();
 
 };
 
 
-/* =========================
-   ENTER LOGIN
-========================= */
+/* =========================================================
+   ENTER
+========================================================= */
 
 document
 .getElementById("adminPassword")
@@ -2996,24 +2606,34 @@ login();
 );
 
 
-/* =========================
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+function escapeHtml(text){
+
+return String(text??"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
    START
-========================= */
+========================================================= */
 
 async function start(){
 
 const {
 data
-} =
+}=
 await supabase.auth.getSession();
 
-
 if(data.session){
-
-sessionStorage.setItem(
-"esiAdmin",
-"true"
-);
 
 await showAdmin();
 
@@ -3031,11 +2651,9 @@ document
 
 }
 
-
 start();
 
 </script>
 
 </body>
-
 </html>
