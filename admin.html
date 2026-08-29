@@ -5,7 +5,8 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>ESI BARBER | پنل مدیریت</title>
 
@@ -73,6 +74,10 @@ body{
     margin-bottom:15px;
 }
 
+/* =========================
+   LOGIN
+========================= */
+
 #loginPage{
     max-width:400px;
     margin:auto;
@@ -106,13 +111,13 @@ select{
     outline:none;
 }
 
+select{
+    appearance:auto;
+}
+
 input:focus,
 select:focus{
     border-color:#d4af37;
-}
-
-button{
-    font-family:inherit;
 }
 
 .gold-btn{
@@ -136,6 +141,39 @@ button{
     cursor:not-allowed;
 }
 
+/* =========================
+   TABS
+========================= */
+
+.tabs{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-bottom:15px;
+}
+
+.tab-btn{
+    padding:14px 10px;
+    border-radius:11px;
+    border:1px solid #333;
+    background:#171717;
+    color:#888;
+    font-family:inherit;
+    font-size:14px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.tab-btn.active{
+    background:#d4af37;
+    border-color:#d4af37;
+    color:#000;
+}
+
+/* =========================
+   DATE
+========================= */
+
 .date-box{
     display:flex;
     gap:10px;
@@ -157,7 +195,8 @@ button{
     border-color:#d4af37;
 }
 
-#jalaliDateButton{
+#jalaliDateButton,
+#manualDateButton{
     flex:1;
     min-height:45px;
 }
@@ -240,6 +279,10 @@ button{
     cursor:default;
 }
 
+/* =========================
+   STATS
+========================= */
+
 .stats{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -267,73 +310,9 @@ button{
     margin-top:5px;
 }
 
-.service-buttons{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-bottom:15px;
-}
-
-.service-btn{
-    background:#202020;
-    border:1px solid #444;
-    color:#ddd;
-    padding:14px 8px;
-    border-radius:12px;
-    cursor:pointer;
-    font-family:inherit;
-    font-size:14px;
-    transition:.2s;
-}
-
-.service-btn:hover{
-    border-color:#aaa;
-}
-
-.service-btn.selected{
-    background:#211e13;
-    border-color:#d4af37;
-    color:#d4af37;
-    font-weight:800;
-}
-
-.time-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
-    margin-top:10px;
-}
-
-.manual-time{
-    background:#202020;
-    border:1px solid #333;
-    color:#fff;
-    padding:12px 5px;
-    border-radius:10px;
-    text-align:center;
-    cursor:pointer;
-    font-family:inherit;
-    transition:.2s;
-}
-
-.manual-time:hover{
-    border-color:#aaa;
-}
-
-.manual-time.selected{
-    background:#d4af37;
-    border-color:#d4af37;
-    color:#000;
-    font-weight:800;
-}
-
-.manual-time.booked{
-    background:#090909;
-    color:#555;
-    border-color:#222;
-    opacity:.45;
-    cursor:not-allowed;
-}
+/* =========================
+   APPOINTMENT
+========================= */
 
 .appointment{
     background:#1b1b1b;
@@ -341,6 +320,7 @@ button{
     border-radius:14px;
     padding:15px;
     margin-bottom:10px;
+    position:relative;
 }
 
 .appointment.vip{
@@ -418,6 +398,83 @@ button{
     font-family:inherit;
 }
 
+.delete-btn:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+/* =========================
+   MANUAL BOOKING
+========================= */
+
+.manual-service{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:12px;
+}
+
+.service-option{
+    position:relative;
+}
+
+.service-option input{
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+}
+
+.service-option label{
+    display:block;
+    padding:14px 8px;
+    text-align:center;
+    background:#202020;
+    border:1px solid #333;
+    border-radius:10px;
+    cursor:pointer;
+    color:#aaa;
+    font-size:13px;
+}
+
+.service-option input:checked + label{
+    background:#d4af37;
+    border-color:#d4af37;
+    color:#000;
+    font-weight:800;
+}
+
+.manual-info{
+    background:#101010;
+    border:1px solid #292929;
+    border-radius:10px;
+    padding:12px;
+    color:#777;
+    font-size:12px;
+    line-height:2;
+    margin-bottom:12px;
+}
+
+.success-box{
+    background:#172617;
+    border:1px solid #315a31;
+    color:#9ddd9d;
+    border-radius:10px;
+    padding:12px;
+    margin-top:10px;
+    font-size:13px;
+}
+
+.error-box{
+    background:#301818;
+    border:1px solid #522222;
+    color:#ff9999;
+    border-radius:10px;
+    padding:12px;
+    margin-top:10px;
+    font-size:13px;
+    line-height:1.8;
+}
+
 .empty{
     text-align:center;
     padding:30px 10px;
@@ -440,35 +497,6 @@ button{
     color:#888;
     cursor:pointer;
     font-family:inherit;
-}
-
-.error-box{
-    background:#301818;
-    border:1px solid #522222;
-    color:#ff9999;
-    border-radius:10px;
-    padding:12px;
-    margin-top:10px;
-    font-size:13px;
-    line-height:1.8;
-}
-
-.success-box{
-    background:#172617;
-    border:1px solid #315a31;
-    color:#9ddd9d;
-    border-radius:10px;
-    padding:12px;
-    margin-top:10px;
-    font-size:13px;
-    line-height:1.8;
-}
-
-.manual-help{
-    color:#777;
-    font-size:12px;
-    line-height:1.8;
-    margin-bottom:12px;
 }
 
 @media(max-width:450px){
@@ -496,53 +524,52 @@ button{
 
 <div id="loginPage">
 
-<div class="header">
+    <div class="header">
 
-<img
-class="logo"
-src="esi_barber_1994_14050522_200959787.jpg">
+        <img
+        class="logo"
+        src="esi_barber_1994_14050522_200959787.jpg">
 
-<h1>ESI BARBER</h1>
+        <h1>ESI BARBER</h1>
 
-<p>پنل مدیریت</p>
+        <p>پنل مدیریت</p>
+
+    </div>
+
+    <div class="login-box">
+
+        <h2>🔐 ورود مدیر</h2>
+
+        <p style="color:#777;font-size:13px;">
+            ایمیل و رمز مدیر را وارد کنید
+        </p>
+
+        <input
+        type="email"
+        id="adminEmail"
+        placeholder="ایمیل مدیر"
+        autocomplete="username">
+
+        <input
+        type="password"
+        id="adminPassword"
+        placeholder="رمز مدیریت"
+        autocomplete="current-password">
+
+        <button
+        id="loginButton"
+        class="gold-btn"
+        onclick="login()">
+
+        ورود به پنل
+
+        </button>
+
+        <div id="loginError"></div>
+
+    </div>
 
 </div>
-
-<div class="login-box">
-
-<h2>🔐 ورود مدیر</h2>
-
-<p style="color:#777;font-size:13px;">
-ایمیل و رمز مدیر را وارد کنید
-</p>
-
-<input
-type="email"
-id="adminEmail"
-placeholder="ایمیل مدیر"
-autocomplete="username">
-
-<input
-type="password"
-id="adminPassword"
-placeholder="رمز مدیریت"
-autocomplete="current-password">
-
-<button
-id="loginButton"
-class="gold-btn"
-onclick="login()">
-
-ورود به پنل
-
-</button>
-
-<div id="loginError"></div>
-
-</div>
-
-</div>
-
 
 
 <!-- =========================
@@ -564,15 +591,44 @@ src="esi_barber_1994_14050522_200959787.jpg">
 
 <h1>ESI BARBER</h1>
 
-<p>پنل مدیریت نوبت‌ها</p>
+<p>پنل مدیریت</p>
 
 </div>
 
 
+<!-- =========================
+     TABS
+========================= -->
+
+<div class="tabs">
+
+<button
+id="bookingsTab"
+class="tab-btn active"
+onclick="showTab('bookings')">
+
+📋 رزروها
+
+</button>
+
+<button
+id="manualTab"
+class="tab-btn"
+onclick="showTab('manual')">
+
+➕ رزرو دستی
+
+</button>
+
+</div>
+
 
 <!-- =========================
-     DATE
+     BOOKINGS TAB
 ========================= -->
+
+<div id="bookingsSection">
+
 
 <div class="card">
 
@@ -654,133 +710,7 @@ id="datePicker">
 </div>
 
 
-
-<!-- =========================
-     MANUAL BOOKING
-========================= -->
-
-<div class="card">
-
-<div class="title">
-➕ ثبت رزرو دستی
-</div>
-
-<div class="manual-help">
-اگر مشتری تلفنی نوبت گرفت، از این قسمت همان نوبت را برایش ثبت کن.
-</div>
-
-<label style="display:block;color:#aaa;font-size:13px;margin-bottom:8px;">
-نوع خدمت
-</label>
-
-<div class="service-buttons">
-
-<button
-type="button"
-class="service-btn"
-id="normalServiceButton"
-onclick="selectManualService('اصلاح')">
-
-✂️ اصلاح
-<br>
-<small>۳۰ دقیقه</small>
-
-</button>
-
-<button
-type="button"
-class="service-btn"
-id="vipServiceButton"
-onclick="selectManualService('اصلاح VIP')">
-
-👑 اصلاح VIP
-<br>
-<small>۶۰ دقیقه</small>
-
-</button>
-
-</div>
-
-
-<label style="display:block;color:#aaa;font-size:13px;margin-bottom:8px;">
-ساعت نوبت
-</label>
-
-<div
-id="manualTimes"
-class="time-grid">
-
-<div
-style="
-grid-column:1/-1;
-text-align:center;
-color:#666;
-padding:15px;
-">
-
-ابتدا خدمت را انتخاب کن
-
-</div>
-
-</div>
-
-
-<label
-style="
-display:block;
-color:#aaa;
-font-size:13px;
-margin-top:15px;
-margin-bottom:8px;
-">
-
-نام و نام خانوادگی مشتری
-
-</label>
-
-<input
-type="text"
-id="manualName"
-placeholder="مثلاً علی رضایی">
-
-
-<label
-style="
-display:block;
-color:#aaa;
-font-size:13px;
-margin-bottom:8px;
-">
-
-شماره تماس مشتری
-
-</label>
-
-<input
-type="tel"
-id="manualPhone"
-placeholder="09xxxxxxxxx">
-
-
-<button
-type="button"
-id="manualBookButton"
-class="gold-btn"
-onclick="manualBookAppointment()">
-
-➕ ثبت رزرو دستی
-
-</button>
-
-<div id="manualMessage"></div>
-
-</div>
-
-
-
-<!-- =========================
-     STATS
-========================= -->
+<!-- STATS -->
 
 <div class="stats">
 
@@ -829,10 +759,7 @@ VIP
 </div>
 
 
-
-<!-- =========================
-     APPOINTMENTS
-========================= -->
+<!-- APPOINTMENTS -->
 
 <div class="card">
 
@@ -840,7 +767,8 @@ VIP
 📋 نوبت‌های روز
 </div>
 
-<div id="appointments">
+<div
+id="appointments">
 
 <div class="loading">
 در حال دریافت نوبت‌ها...
@@ -858,6 +786,209 @@ onclick="loadForSelectedDate()">
 🔄 بروزرسانی
 
 </button>
+
+</div>
+
+
+<!-- =========================
+     MANUAL TAB
+========================= -->
+
+<div
+id="manualSection"
+style="display:none;">
+
+
+<div class="card">
+
+<div class="title">
+➕ ثبت رزرو دستی
+</div>
+
+
+<div class="manual-info">
+
+رزرو تلفنی یا رزروی که خودت می‌خواهی برای مشتری ثبت کنی را از این قسمت وارد کن.
+
+</div>
+
+
+<div class="title"
+style="font-size:15px;">
+
+📅 تاریخ رزرو
+
+</div>
+
+
+<div class="date-box">
+
+<button
+class="small-btn"
+onclick="changeManualDate(-1)">
+‹
+</button>
+
+<button
+id="manualDateButton"
+class="gold-btn"
+onclick="toggleManualCalendar()">
+انتخاب تاریخ
+</button>
+
+<button
+class="small-btn"
+onclick="changeManualDate(1)">
+›
+</button>
+
+</div>
+
+
+<div
+id="manualCalendar"
+class="admin-calendar">
+
+<div class="admin-calendar-header">
+
+<button
+class="small-btn"
+onclick="manualPreviousMonth()">
+‹
+</button>
+
+<div
+id="manualCalendarMonth"
+class="calendar-title">
+</div>
+
+<button
+class="small-btn"
+onclick="manualNextMonth()">
+›
+</button>
+
+</div>
+
+<div class="admin-weekdays">
+
+<span>ش</span>
+<span>ی</span>
+<span>د</span>
+<span>س</span>
+<span>چ</span>
+<span>پ</span>
+<span>ج</span>
+
+</div>
+
+<div
+id="manualCalendarDays"
+class="admin-days">
+</div>
+
+</div>
+
+
+<br>
+
+
+<div class="title"
+style="font-size:15px;">
+
+⏰ ساعت
+
+</div>
+
+
+<select id="manualTime">
+
+<option value="">انتخاب ساعت</option>
+
+</select>
+
+
+<div class="title"
+style="font-size:15px;">
+
+✂️ نوع سرویس
+
+</div>
+
+
+<div class="manual-service">
+
+
+<div class="service-option">
+
+<input
+type="radio"
+name="manualService"
+id="normalService"
+value="اصلاح"
+checked>
+
+<label for="normalService">
+
+✂️ اصلاح
+<br>
+30 دقیقه
+
+</label>
+
+</div>
+
+
+<div class="service-option">
+
+<input
+type="radio"
+name="manualService"
+id="vipService"
+value="اصلاح VIP">
+
+<label for="vipService">
+
+👑 اصلاح VIP
+<br>
+60 دقیقه
+
+</label>
+
+</div>
+
+</div>
+
+
+<input
+type="text"
+id="manualName"
+placeholder="نام مشتری">
+
+
+<input
+type="tel"
+id="manualPhone"
+placeholder="شماره موبایل"
+inputmode="tel">
+
+
+<button
+id="manualSubmit"
+class="gold-btn"
+onclick="createManualAppointment()">
+
+➕ ثبت رزرو دستی
+
+</button>
+
+
+<div id="manualMessage"></div>
+
+
+</div>
+
+</div>
 
 
 <button
@@ -886,8 +1017,8 @@ ESI BARBER
 </div>
 
 
-
 <script type="module">
+
 
 /* =========================
    SUPABASE
@@ -935,65 +1066,6 @@ const months=[
 "اسفند"
 
 ];
-
-
-/* =========================
-   TIME LIST
-   دقیقاً مثل سایت
-========================= */
-
-const normalTimes=[
-
-"08:30",
-"09:00",
-"09:30",
-"10:00",
-"10:30",
-"11:00",
-"11:30",
-"12:00",
-"12:30",
-"13:00",
-"13:30",
-
-"16:00",
-"16:30",
-"17:00",
-"17:30",
-"18:00",
-"18:30",
-"19:00",
-"19:30",
-"20:00",
-"20:30",
-"21:00"
-
-];
-
-
-const vipTimes=[
-
-"08:30",
-"09:30",
-"10:30",
-"11:30",
-"12:30",
-
-"16:00",
-"17:00",
-"18:00",
-"19:00",
-"20:00"
-
-];
-
-
-/* =========================
-   VARIABLES
-========================= */
-
-let manualService="";
-let manualTime="";
 
 
 /* =========================
@@ -1215,23 +1287,40 @@ month:todayJalali[1]
 };
 
 
+let manualDate={
+
+year:todayJalali[0],
+month:todayJalali[1],
+day:todayJalali[2]
+
+};
+
+
+let manualCalendarDate={
+
+year:todayJalali[0],
+month:todayJalali[1]
+
+};
+
+
 /* =========================
-   DATE
+   DATE TEXT
 ========================= */
 
-function getSelectedDateText(){
+function getDateText(date){
 
 return (
 
-persianNumber(selectedAdminDate.day)
+persianNumber(date.day)
 +
 " "
 +
-months[selectedAdminDate.month-1]
+months[date.month-1]
 +
 " "
 +
-persianNumber(selectedAdminDate.year)
+persianNumber(date.year)
 
 );
 
@@ -1240,12 +1329,10 @@ persianNumber(selectedAdminDate.year)
 
 function updateDateButton(){
 
-const text=
-getSelectedDateText();
-
 document
 .getElementById("jalaliDateButton")
-.textContent=text;
+.textContent=
+getDateText(selectedAdminDate);
 
 document
 .getElementById("datePicker")
@@ -1255,17 +1342,27 @@ document
 }
 
 
+function updateManualDateButton(){
+
+document
+.getElementById("manualDateButton")
+.textContent=
+getDateText(manualDate);
+
+}
+
+
 /* =========================
    GREGORIAN DATE
 ========================= */
 
-function getGregorianDateString(){
+function getGregorianDate(date){
 
 const g=
 jalaliToGregorian(
-selectedAdminDate.year,
-selectedAdminDate.month,
-selectedAdminDate.day
+date.year,
+date.month,
+date.day
 );
 
 return (
@@ -1283,6 +1380,15 @@ String(g[2]).padStart(2,"0")
 }
 
 
+function getGregorianDateString(){
+
+return getGregorianDate(
+selectedAdminDate
+);
+
+}
+
+
 /* =========================
    TIME
 ========================= */
@@ -1291,35 +1397,30 @@ function timeToMinutes(time){
 
 if(!time) return 0;
 
-const clean=
+const cleanTime=
 String(time).substring(0,5);
 
-const parts=
-clean.split(":");
+const [h,m]=
+cleanTime.split(":").map(Number);
 
-return (
-Number(parts[0])*60+
-Number(parts[1])
-);
+return h*60+m;
 
 }
 
 
 function minutesToTime(minutes){
 
-const h=
+let h=
 Math.floor(minutes/60);
 
-const m=
+let m=
 minutes%60;
 
-return (
-String(h).padStart(2,"0")
+return String(h).padStart(2,"0")
 +
 ":"
 +
-String(m).padStart(2,"0")
-);
+String(m).padStart(2,"0");
 
 }
 
@@ -1341,7 +1442,79 @@ return String(text ?? "")
 
 
 /* =========================
-   CALENDAR
+   GET APPOINTMENTS
+========================= */
+
+async function getAppointments(){
+
+const {
+    data,
+    error
+} =
+await supabase
+.from("appointments")
+.select("*")
+.order("appointment_time",{ascending:true});
+
+if(error){
+
+throw error;
+
+}
+
+return data || [];
+
+}
+
+
+/* =========================
+   TABS
+========================= */
+
+window.showTab=function(tab){
+
+const bookings=
+document.getElementById("bookingsSection");
+
+const manual=
+document.getElementById("manualSection");
+
+const bookingsTab=
+document.getElementById("bookingsTab");
+
+const manualTab=
+document.getElementById("manualTab");
+
+
+if(tab==="manual"){
+
+bookings.style.display="none";
+manual.style.display="block";
+
+bookingsTab.classList.remove("active");
+manualTab.classList.add("active");
+
+renderManualCalendar();
+updateManualDateButton();
+loadManualTimes();
+
+}else{
+
+bookings.style.display="block";
+manual.style.display="none";
+
+bookingsTab.classList.add("active");
+manualTab.classList.remove("active");
+
+loadForSelectedDate();
+
+}
+
+};
+
+
+/* =========================
+   ADMIN CALENDAR
 ========================= */
 
 window.toggleAdminCalendar=function(){
@@ -1375,7 +1548,6 @@ adminCalendarDate.year;
 const month=
 adminCalendarDate.month;
 
-
 document
 .getElementById("adminCalendarMonth")
 .textContent=
@@ -1385,12 +1557,10 @@ months[month-1]
 +
 persianNumber(year);
 
-
 const daysContainer=
 document.getElementById("adminCalendarDays");
 
 daysContainer.innerHTML="";
-
 
 const firstGregorian=
 jalaliToGregorian(
@@ -1399,6 +1569,540 @@ month,
 1
 );
 
+const firstDate=
+new Date(
+firstGregorian[0],
+firstGregorian[1]-1,
+firstGregorian[2]
+);
+
+const startDay=
+(firstDate.getDay()+1)%7;
+
+let daysInMonth;
+
+if(month<=6){
+
+daysInMonth=31;
+
+}else if(month<=11){
+
+daysInMonth=30;
+
+}else{
+
+daysInMonth=30;
+
+}
+
+for(
+let i=0;
+i<startDay;
+i++
+){
+
+const empty=
+document.createElement("div");
+
+empty.className=
+"admin-day empty";
+
+daysContainer.appendChild(empty);
+
+}
+
+
+for(
+let day=1;
+day<=daysInMonth;
+day++
+){
+
+const div=
+document.createElement("div");
+
+div.className="admin-day";
+
+div.textContent=
+persianNumber(day);
+
+if(
+year===todayJalali[0] &&
+month===todayJalali[1] &&
+day===todayJalali[2]
+){
+
+div.classList.add("today");
+
+}
+
+if(
+year===selectedAdminDate.year &&
+month===selectedAdminDate.month &&
+day===selectedAdminDate.day
+){
+
+div.classList.add("selected");
+
+}
+
+div.onclick=function(){
+
+selectAdminDate(
+year,
+month,
+day
+);
+
+};
+
+daysContainer.appendChild(div);
+
+}
+
+}
+
+
+function selectAdminDate(year,month,day){
+
+selectedAdminDate={
+
+year:year,
+month:month,
+day:day
+
+};
+
+updateDateButton();
+
+document
+.getElementById("adminCalendar")
+.classList.remove("show");
+
+loadForSelectedDate();
+
+}
+
+
+window.adminPreviousMonth=function(){
+
+adminCalendarDate.month--;
+
+if(adminCalendarDate.month<1){
+
+adminCalendarDate.month=12;
+adminCalendarDate.year--;
+
+}
+
+renderAdminCalendar();
+
+};
+
+
+window.adminNextMonth=function(){
+
+adminCalendarDate.month++;
+
+if(adminCalendarDate.month>12){
+
+adminCalendarDate.month=1;
+adminCalendarDate.year++;
+
+}
+
+renderAdminCalendar();
+
+};
+
+
+window.changeDate=function(direction){
+
+let gregorian=
+jalaliToGregorian(
+selectedAdminDate.year,
+selectedAdminDate.month,
+selectedAdminDate.day
+);
+
+const date=
+new Date(
+gregorian[0],
+gregorian[1]-1,
+gregorian[2]
+);
+
+date.setDate(
+date.getDate()+direction
+);
+
+const jalali=
+gregorianToJalali(
+date.getFullYear(),
+date.getMonth()+1,
+date.getDate()
+);
+
+selectedAdminDate={
+
+year:jalali[0],
+month:jalali[1],
+day:jalali[2]
+
+};
+
+updateDateButton();
+
+loadForSelectedDate();
+
+};
+
+
+/* =========================
+   LOAD BOOKINGS
+========================= */
+
+window.loadForSelectedDate=
+async function(){
+
+const container=
+document.getElementById("appointments");
+
+container.innerHTML=
+`
+<div class="loading">
+در حال دریافت نوبت‌ها...
+</div>
+`;
+
+try{
+
+const all=
+await getAppointments();
+
+const selectedDateGregorian=
+getGregorianDateString();
+
+const selectedDateText=
+getDateText(selectedAdminDate);
+
+const list=
+all.filter(item=>{
+
+if(item.appointment_date){
+
+return String(
+item.appointment_date
+).substring(0,10)
+===
+selectedDateGregorian;
+
+}
+
+if(item.date){
+
+return item.date===selectedDateText;
+
+}
+
+return false;
+
+});
+
+
+list.sort(
+(a,b)=>
+timeToMinutes(
+a.appointment_time || a.time
+)
+-
+timeToMinutes(
+b.appointment_time || b.time
+)
+);
+
+
+document
+.getElementById("totalCount")
+.textContent=list.length;
+
+document
+.getElementById("normalCount")
+.textContent=
+list.filter(
+x=>x.service==="اصلاح"
+).length;
+
+document
+.getElementById("vipCount")
+.textContent=
+list.filter(
+x=>x.service==="اصلاح VIP"
+).length;
+
+
+if(list.length===0){
+
+container.innerHTML=
+`
+<div class="empty">
+
+📭
+
+<br><br>
+
+برای این تاریخ نوبتی ثبت نشده
+
+</div>
+`;
+
+return;
+
+}
+
+
+container.innerHTML="";
+
+
+list.forEach(item=>{
+
+const vip=
+item.service==="اصلاح VIP";
+
+const startTime=
+item.appointment_time
+?
+String(item.appointment_time).substring(0,5)
+:
+item.time;
+
+const duration=
+Number(item.duration_minutes)
+||
+(
+vip
+?
+60
+:
+30
+);
+
+const end=
+minutesToTime(
+timeToMinutes(startTime)+duration
+);
+
+const div=
+document.createElement("div");
+
+div.className=
+"appointment"
++
+(vip ? " vip" : "");
+
+div.innerHTML=`
+
+<div class="appointment-time">
+
+${escapeHtml(startTime || "--:--")}
+
+</div>
+
+<div class="service-name">
+
+${vip ? "👑 اصلاح VIP" : "✂️ اصلاح"}
+
+</div>
+
+<div class="customer">
+
+👤 ${escapeHtml(
+item.name || "بدون نام"
+)}
+
+</div>
+
+<div class="phone">
+
+📱 ${escapeHtml(
+item.phone || "-"
+)}
+
+</div>
+
+<div class="duration">
+
+⏱ ${escapeHtml(startTime || "--:--")}
+تا
+${escapeHtml(end)}
+
+</div>
+
+<div class="actions">
+
+<a
+class="call-btn"
+href="tel:${escapeHtml(item.phone || "")}">
+
+📞 تماس
+
+</a>
+
+<button
+class="delete-btn"
+onclick="deleteAppointment('${escapeHtml(item.id)}')">
+
+🗑 حذف رزرو
+
+</button>
+
+</div>
+
+`;
+
+container.appendChild(div);
+
+});
+
+
+}catch(error){
+
+console.error(error);
+
+container.innerHTML=
+`
+<div class="error-box">
+
+❌ خطا در دریافت اطلاعات
+
+<br><br>
+
+${escapeHtml(error.message)}
+
+</div>
+`;
+
+}
+
+};
+
+
+/* =========================
+   DELETE
+========================= */
+
+window.deleteAppointment=
+async function(id){
+
+if(!id){
+
+alert("شناسه نوبت پیدا نشد.");
+
+return;
+
+}
+
+const confirmed=
+confirm(
+"آیا از حذف این رزرو مطمئن هستید؟"
+);
+
+if(!confirmed){
+
+return;
+
+}
+
+try{
+
+const {
+error
+} =
+await supabase
+.from("appointments")
+.delete()
+.eq("id",id);
+
+if(error){
+
+throw error;
+
+}
+
+alert("رزرو با موفقیت حذف شد.");
+
+await loadForSelectedDate();
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"خطا در حذف رزرو:\n"
++
+error.message
+);
+
+}
+
+};
+
+
+/* =========================
+   MANUAL CALENDAR
+========================= */
+
+window.toggleManualCalendar=function(){
+
+const calendar=
+document.getElementById("manualCalendar");
+
+calendar.classList.toggle("show");
+
+if(calendar.classList.contains("show")){
+
+manualCalendarDate={
+
+year:manualDate.year,
+month:manualDate.month
+
+};
+
+renderManualCalendar();
+
+}
+
+};
+
+
+function renderManualCalendar(){
+
+const year=
+manualCalendarDate.year;
+
+const month=
+manualCalendarDate.month;
+
+document
+.getElementById("manualCalendarMonth")
+.textContent=
+months[month-1]
++
+" "
++
+persianNumber(year);
+
+const daysContainer=
+document.getElementById("manualCalendarDays");
+
+daysContainer.innerHTML="";
+
+const firstGregorian=
+jalaliToGregorian(
+year,
+month,
+1
+);
 
 const firstDate=
 new Date(
@@ -1407,10 +2111,8 @@ firstGregorian[1]-1,
 firstGregorian[2]
 );
 
-
 const startDay=
 (firstDate.getDay()+1)%7;
-
 
 let daysInMonth;
 
@@ -1455,12 +2157,10 @@ day++
 const div=
 document.createElement("div");
 
-div.className=
-"admin-day";
+div.className="admin-day";
 
 div.textContent=
 persianNumber(day);
-
 
 if(
 year===todayJalali[0] &&
@@ -1472,28 +2172,25 @@ div.classList.add("today");
 
 }
 
-
 if(
-year===selectedAdminDate.year &&
-month===selectedAdminDate.month &&
-day===selectedAdminDate.day
+year===manualDate.year &&
+month===manualDate.month &&
+day===manualDate.day
 ){
 
 div.classList.add("selected");
 
 }
 
-
 div.onclick=function(){
 
-selectAdminDate(
+selectManualDate(
 year,
 month,
 day
 );
 
 };
-
 
 daysContainer.appendChild(div);
 
@@ -1502,9 +2199,9 @@ daysContainer.appendChild(div);
 }
 
 
-function selectAdminDate(year,month,day){
+function selectManualDate(year,month,day){
 
-selectedAdminDate={
+manualDate={
 
 year:year,
 month:month,
@@ -1512,68 +2209,57 @@ day:day
 
 };
 
-
-manualTime="";
-
-updateDateButton();
+updateManualDateButton();
 
 document
-.getElementById("adminCalendar")
+.getElementById("manualCalendar")
 .classList.remove("show");
 
-
-if(manualService){
-
-renderManualTimes();
-
-}
-
-loadForSelectedDate();
+loadManualTimes();
 
 }
 
 
-window.adminPreviousMonth=function(){
+window.manualPreviousMonth=function(){
 
-adminCalendarDate.month--;
+manualCalendarDate.month--;
 
-if(adminCalendarDate.month<1){
+if(manualCalendarDate.month<1){
 
-adminCalendarDate.month=12;
-adminCalendarDate.year--;
+manualCalendarDate.month=12;
+manualCalendarDate.year--;
 
 }
 
-renderAdminCalendar();
+renderManualCalendar();
 
 };
 
 
-window.adminNextMonth=function(){
+window.manualNextMonth=function(){
 
-adminCalendarDate.month++;
+manualCalendarDate.month++;
 
-if(adminCalendarDate.month>12){
+if(manualCalendarDate.month>12){
 
-adminCalendarDate.month=1;
-adminCalendarDate.year++;
+manualCalendarDate.month=1;
+manualCalendarDate.year++;
 
 }
 
-renderAdminCalendar();
+renderManualCalendar();
 
 };
 
 
-window.changeDate=function(direction){
+window.changeManualDate=function(direction){
 
-const gregorian=
+let gregorian=
 jalaliToGregorian(
-selectedAdminDate.year,
-selectedAdminDate.month,
-selectedAdminDate.day
+manualDate.year,
+manualDate.month,
+manualDate.day
 );
-
 
 const date=
 new Date(
@@ -1582,11 +2268,9 @@ gregorian[1]-1,
 gregorian[2]
 );
 
-
 date.setDate(
 date.getDate()+direction
 );
-
 
 const jalali=
 gregorianToJalali(
@@ -1595,8 +2279,7 @@ date.getMonth()+1,
 date.getDate()
 );
 
-
-selectedAdminDate={
+manualDate={
 
 year:jalali[0],
 month:jalali[1],
@@ -1604,86 +2287,382 @@ day:jalali[2]
 
 };
 
+updateManualDateButton();
 
-manualTime="";
-
-updateDateButton();
-
-if(manualService){
-
-renderManualTimes();
-
-}
-
-loadForSelectedDate();
+loadManualTimes();
 
 };
 
 
 /* =========================
-   GET APPOINTMENTS
+   MANUAL TIMES
 ========================= */
 
-async function getAppointments(){
+async function loadManualTimes(){
 
-const {
-data,
-error
-} =
-await supabase
-.from("appointments")
-.select("*")
-.order("appointment_time",{ascending:true});
+const select=
+document.getElementById("manualTime");
 
+select.innerHTML=
+`
+<option value="">
+در حال دریافت ساعت‌ها...
+</option>
+`;
 
-if(error){
+try{
 
-throw error;
+const all=
+await getAppointments();
+
+const selectedDate=
+getGregorianDate(manualDate);
+
+const booked=
+all.filter(item=>{
+
+if(!item.appointment_date){
+
+return false;
 
 }
 
-return data || [];
+return String(item.appointment_date)
+.substring(0,10)
+===
+selectedDate;
+
+});
+
+
+const selectedService=
+document.querySelector(
+'input[name="manualService"]:checked'
+)?.value
+||
+"اصلاح";
+
+
+const duration=
+selectedService==="اصلاح VIP"
+?
+60
+:
+30;
+
+
+/*
+ساعت‌های استاندارد ESI BARBER
+*/
+
+let times=[];
+
+
+/*
+اصلاح معمولی
+08:30 تا 21:00
+*/
+
+if(selectedService==="اصلاح"){
+
+for(
+let minutes=8*60+30;
+minutes<=21*60;
+minutes+=30
+){
+
+times.push(
+minutesToTime(minutes)
+);
 
 }
+
+}else{
+
+
+/*
+VIP
+هر 60 دقیقه
+از 08:30 تا 20:00
+*/
+
+for(
+let minutes=8*60+30;
+minutes<=20*60;
+minutes+=60
+){
+
+times.push(
+minutesToTime(minutes)
+);
+
+}
+
+}
+
+
+select.innerHTML=
+`
+<option value="">
+انتخاب ساعت
+</option>
+`;
+
+
+times.forEach(time=>{
+
+const start=
+timeToMinutes(time);
+
+const conflict=
+booked.some(item=>{
+
+const bookedStart=
+timeToMinutes(
+item.appointment_time || item.time
+);
+
+const bookedDuration=
+Number(
+item.duration_minutes
+)
+||
+(
+item.service==="اصلاح VIP"
+?
+60
+:
+30
+);
+
+const bookedEnd=
+bookedStart+
+bookedDuration;
+
+return (
+start < bookedEnd &&
+start+duration > bookedStart
+);
+
+});
+
+
+const option=
+document.createElement("option");
+
+option.value=time;
+
+option.textContent=
+conflict
+?
+`${time} — رزرو شده`
+:
+time;
+
+if(conflict){
+
+option.disabled=true;
+
+}
+
+select.appendChild(option);
+
+});
+
+
+}catch(error){
+
+console.error(error);
+
+select.innerHTML=
+`
+<option value="">
+خطا در دریافت ساعت‌ها
+</option>
+`;
+
+}
+
+}
+
+
+/* وقتی سرویس عوض شد ساعت‌ها دوباره بررسی شود */
+
+document
+.addEventListener(
+"change",
+function(event){
+
+if(
+event.target.name==="manualService"
+){
+
+loadManualTimes();
+
+}
+
+}
+);
 
 
 /* =========================
-   CHECK TIME
+   MANUAL BOOKING
 ========================= */
 
-function isTimeBlocked(
-time,
-service,
-appointments
-){
+window.createManualAppointment=
+async function(){
 
-const currentStart=
-timeToMinutes(time);
+const name=
+document
+.getElementById("manualName")
+.value
+.trim();
 
-const currentDuration=
+const phone=
+document
+.getElementById("manualPhone")
+.value
+.trim();
+
+const time=
+document
+.getElementById("manualTime")
+.value;
+
+const service=
+document
+.querySelector(
+'input[name="manualService"]:checked'
+)?.value;
+
+const message=
+document
+.getElementById("manualMessage");
+
+const button=
+document
+.getElementById("manualSubmit");
+
+
+message.innerHTML="";
+
+
+if(!name){
+
+message.innerHTML=
+`
+<div class="error-box">
+لطفاً نام مشتری را وارد کنید.
+</div>
+`;
+
+return;
+
+}
+
+
+if(!phone){
+
+message.innerHTML=
+`
+<div class="error-box">
+لطفاً شماره موبایل مشتری را وارد کنید.
+</div>
+`;
+
+return;
+
+}
+
+
+if(!time){
+
+message.innerHTML=
+`
+<div class="error-box">
+لطفاً ساعت رزرو را انتخاب کنید.
+</div>
+`;
+
+return;
+
+}
+
+
+if(!service){
+
+message.innerHTML=
+`
+<div class="error-box">
+لطفاً نوع سرویس را انتخاب کنید.
+</div>
+`;
+
+return;
+
+}
+
+
+const appointmentDate=
+getGregorianDate(manualDate);
+
+
+const duration=
 service==="اصلاح VIP"
 ?
 60
 :
 30;
 
-const currentEnd=
-currentStart+
-currentDuration;
+
+button.disabled=true;
+
+button.textContent=
+"در حال ثبت...";
 
 
-for(
-const item of appointments
+try{
+
+
+/*
+یک بار دیگر بررسی تداخل
+برای جلوگیری از رزرو اشتباه
+*/
+
+const all=
+await getAppointments();
+
+const conflict=
+all.some(item=>{
+
+if(
+!item.appointment_date
 ){
+
+return false;
+
+}
+
+if(
+String(item.appointment_date)
+.substring(0,10)
+!==
+appointmentDate
+){
+
+return false;
+
+}
+
+const start=
+timeToMinutes(time);
 
 const bookedStart=
 timeToMinutes(
-item.appointment_time
+item.appointment_time || item.time
 );
 
 const bookedDuration=
-Number(item.appointment_minute)
-||
 Number(item.duration_minutes)
 ||
 (
@@ -1698,378 +2677,26 @@ const bookedEnd=
 bookedStart+
 bookedDuration;
 
-
-if(
-currentStart<bookedEnd
-&&
-currentEnd>bookedStart
-){
-
-return true;
-
-}
-
-}
-
-return false;
-
-}
-
-
-/* =========================
-   MANUAL SERVICE
-========================= */
-
-window.selectManualService=function(service){
-
-manualService=service;
-
-manualTime="";
-
-
-document
-.getElementById("normalServiceButton")
-.classList.toggle(
-"selected",
-service==="اصلاح"
+return (
+start < bookedEnd &&
+start+duration > bookedStart
 );
-
-
-document
-.getElementById("vipServiceButton")
-.classList.toggle(
-"selected",
-service==="اصلاح VIP"
-);
-
-
-renderManualTimes();
-
-};
-
-
-/* =========================
-   MANUAL TIMES
-========================= */
-
-async function renderManualTimes(){
-
-const container=
-document.getElementById("manualTimes");
-
-
-if(!manualService){
-
-container.innerHTML=`
-<div
-style="
-grid-column:1/-1;
-text-align:center;
-color:#666;
-padding:15px;
-">
-ابتدا خدمت را انتخاب کن
-</div>
-`;
-
-return;
-
-}
-
-
-container.innerHTML=`
-<div
-style="
-grid-column:1/-1;
-text-align:center;
-color:#888;
-padding:10px;">
-در حال بررسی ساعت‌ها...
-</div>
-`;
-
-
-try{
-
-const appointments=
-await getAppointments();
-
-
-const date=
-getGregorianDateString();
-
-
-const dateAppointments=
-appointments.filter(
-item=>
-String(item.appointment_date || "")
-.substring(0,10)
-===
-date
-);
-
-
-const times=
-manualService==="اصلاح"
-?
-normalTimes
-:
-vipTimes;
-
-
-container.innerHTML="";
-
-
-times.forEach(
-time=>{
-
-const button=
-document.createElement("button");
-
-button.type="button";
-
-button.className=
-"manual-time";
-
-button.textContent=
-time;
-
-
-const blocked=
-isTimeBlocked(
-time,
-manualService,
-dateAppointments
-);
-
-
-if(blocked){
-
-button.classList.add("booked");
-
-button.disabled=true;
-
-}else{
-
-button.onclick=function(){
-
-selectManualTime(
-button,
-time
-);
-
-};
-
-}
-
-
-if(manualTime===time){
-
-button.classList.add("selected");
-
-}
-
-
-container.appendChild(button);
 
 });
 
-}catch(error){
 
-console.error(
-"MANUAL TIME ERROR:",
-error
-);
-
-container.innerHTML=`
-<div
-style="
-grid-column:1/-1;
-text-align:center;
-color:#ff7777;
-padding:15px;">
-خطا در بررسی ساعت‌ها
-</div>
-`;
-
-}
-
-}
-
-
-/* =========================
-   SELECT MANUAL TIME
-========================= */
-
-window.selectManualTime=function(
-button,
-time
-){
-
-document
-.querySelectorAll(".manual-time")
-.forEach(
-item=>{
-item.classList.remove("selected");
-}
-);
-
-
-button.classList.add("selected");
-
-manualTime=time;
-
-};
-
-
-/* =========================
-   MANUAL BOOKING
-========================= */
-
-window.manualBookAppointment=
-async function(){
-
-const name=
-document
-.getElementById("manualName")
-.value
-.trim();
-
-
-const phone=
-document
-.getElementById("manualPhone")
-.value
-.trim();
-
-
-const message=
-document
-.getElementById("manualMessage");
-
-
-const button=
-document
-.getElementById("manualBookButton");
-
-
-message.innerHTML="";
-
-
-if(!manualService){
-
-message.innerHTML=`
-<div class="error-box">
-لطفاً خدمت را انتخاب کن.
-</div>
-`;
-
-return;
-
-}
-
-
-if(!manualTime){
-
-message.innerHTML=`
-<div class="error-box">
-لطفاً ساعت نوبت را انتخاب کن.
-</div>
-`;
-
-return;
-
-}
-
-
-if(!name){
-
-message.innerHTML=`
-<div class="error-box">
-لطفاً نام مشتری را وارد کن.
-</div>
-`;
-
-return;
-
-}
-
-
-if(
-phone &&
-!/^09\d{9}$/.test(phone)
-){
-
-message.innerHTML=`
-<div class="error-box">
-شماره موبایل معتبر نیست.
-</div>
-`;
-
-return;
-
-}
-
-
-const appointmentDate=
-getGregorianDateString();
-
-
-button.disabled=true;
-
-button.textContent=
-"در حال ثبت...";
-
-
-try{
-
-
-/* =========================
-   دوباره بررسی تداخل
-========================= */
-
-const appointments=
-await getAppointments();
-
-
-const dateAppointments=
-appointments.filter(
-item=>
-String(item.appointment_date || "")
-.substring(0,10)
-===
-appointmentDate
-);
-
-
-const blocked=
-isTimeBlocked(
-manualTime,
-manualService,
-dateAppointments
-);
-
-
-if(blocked){
+if(conflict){
 
 throw new Error(
-"این ساعت همین الان رزرو شده است."
+"این ساعت همین الان توسط یک رزرو دیگر گرفته شده است."
 );
 
 }
 
 
-const duration=
-manualService==="اصلاح VIP"
-?
-60
-:
-30;
-
-
-/* =========================
-   INSERT
-========================= */
+/*
+ثبت رزرو
+*/
 
 const {
 error
@@ -2078,21 +2705,17 @@ await supabase
 .from("appointments")
 .insert({
 
-service:manualService,
-
 name:name,
 
-phone:phone || null,
+phone:phone,
 
 appointment_date:appointmentDate,
 
-appointment_time:manualTime,
+appointment_time:time,
 
-appointment_minute:duration,
+service:service,
 
-duration_minutes:duration,
-
-created_at:new Date().toISOString()
+duration_minutes:duration
 
 });
 
@@ -2104,30 +2727,33 @@ throw error;
 }
 
 
-/* =========================
-   SUCCESS
-========================= */
-
-message.innerHTML=`
+message.innerHTML=
+`
 <div class="success-box">
 
-✅ رزرو دستی با موفقیت ثبت شد.
+✅ رزرو با موفقیت ثبت شد.
 
 <br>
 
-${escapeHtml(name)}
+👤 ${escapeHtml(name)}
 
 <br>
 
-${manualService==="اصلاح VIP"
+📅 ${escapeHtml(
+getDateText(manualDate)
+)}
+
+<br>
+
+⏰ ${escapeHtml(time)}
+
+<br>
+
+${service==="اصلاح VIP"
 ?
 "👑 اصلاح VIP"
 :
 "✂️ اصلاح"}
-
-<br>
-
-⏰ ${escapeHtml(manualTime)}
 
 </div>
 `;
@@ -2137,29 +2763,24 @@ document
 .getElementById("manualName")
 .value="";
 
-
 document
 .getElementById("manualPhone")
 .value="";
 
+document
+.getElementById("manualTime")
+.value="";
 
-manualTime="";
 
-
-await loadForSelectedDate();
-
-await renderManualTimes();
+await loadManualTimes();
 
 
 }catch(error){
 
-console.error(
-"MANUAL BOOK ERROR:",
-error
-);
+console.error(error);
 
-
-message.innerHTML=`
+message.innerHTML=
+`
 <div class="error-box">
 
 ❌ خطا در ثبت رزرو
@@ -2184,354 +2805,6 @@ button.textContent=
 
 
 /* =========================
-   LOAD SELECTED DATE
-========================= */
-
-window.loadForSelectedDate=
-async function(){
-
-const container=
-document.getElementById("appointments");
-
-
-container.innerHTML=
-`
-<div class="loading">
-در حال دریافت نوبت‌ها...
-</div>
-`;
-
-
-try{
-
-const all=
-await getAppointments();
-
-
-const selectedDateGregorian=
-getGregorianDateString();
-
-
-const list=
-all.filter(
-item=>
-String(item.appointment_date || "")
-.substring(0,10)
-===
-selectedDateGregorian
-);
-
-
-/* SORT */
-
-list.sort(
-(a,b)=>
-timeToMinutes(
-a.appointment_time
-)
--
-timeToMinutes(
-b.appointment_time
-)
-);
-
-
-/* STATS */
-
-document
-.getElementById("totalCount")
-.textContent=
-list.length;
-
-
-document
-.getElementById("normalCount")
-.textContent=
-list.filter(
-x=>
-String(x.service || "").trim()
-===
-"اصلاح"
-).length;
-
-
-document
-.getElementById("vipCount")
-.textContent=
-list.filter(
-x=>
-String(x.service || "").trim()
-===
-"اصلاح VIP"
-).length;
-
-
-if(list.length===0){
-
-container.innerHTML=
-`
-<div class="empty">
-
-📭
-
-<br><br>
-
-برای این تاریخ نوبتی ثبت نشده
-
-</div>
-`;
-
-return;
-
-}
-
-
-container.innerHTML="";
-
-
-list.forEach(
-item=>{
-
-const vip=
-String(item.service || "").trim()
-===
-"اصلاح VIP";
-
-
-const startTime=
-item.appointment_time
-?
-String(item.appointment_time).substring(0,5)
-:
-"--:--";
-
-
-const duration=
-Number(item.appointment_minute)
-||
-Number(item.duration_minutes)
-||
-(
-vip
-?
-60
-:
-30
-);
-
-
-const end=
-minutesToTime(
-timeToMinutes(startTime)+duration
-);
-
-
-const div=
-document.createElement("div");
-
-
-div.className=
-"appointment"
-+
-(
-vip
-?
-" vip"
-:
-""
-);
-
-
-div.innerHTML=`
-
-<div class="appointment-time">
-
-${escapeHtml(startTime)}
-
-</div>
-
-
-<div class="service-name">
-
-${vip
-?
-"👑 اصلاح VIP"
-:
-"✂️ اصلاح"}
-
-</div>
-
-
-<div class="customer">
-
-👤 ${escapeHtml(
-item.name || "بدون نام"
-)}
-
-</div>
-
-
-<div class="phone">
-
-📱 ${escapeHtml(
-item.phone || "-"
-)}
-
-</div>
-
-
-<div class="duration">
-
-⏱ ${escapeHtml(startTime)}
-تا
-${escapeHtml(end)}
-
-&nbsp;&nbsp;•
-
-${persianNumber(duration)}
-دقیقه
-
-</div>
-
-
-<div class="actions">
-
-<a
-class="call-btn"
-href="tel:${escapeHtml(item.phone || "")}">
-
-📞 تماس
-
-</a>
-
-
-<button
-class="delete-btn"
-onclick="deleteAppointment('${escapeHtml(item.id)}')">
-
-🗑 حذف رزرو
-
-</button>
-
-</div>
-
-`;
-
-
-container.appendChild(div);
-
-});
-
-}catch(error){
-
-console.error(
-"LOAD APPOINTMENTS ERROR:",
-error
-);
-
-
-container.innerHTML=
-`
-<div class="error-box">
-
-❌ خطا در دریافت اطلاعات
-
-<br><br>
-
-${escapeHtml(error.message)}
-
-</div>
-`;
-
-}
-
-};
-
-
-/* =========================
-   DELETE
-========================= */
-
-window.deleteAppointment=
-async function(id){
-
-if(!id){
-
-alert(
-"شناسه نوبت پیدا نشد."
-);
-
-return;
-
-}
-
-
-const confirmed=
-confirm(
-"آیا از حذف این رزرو مطمئن هستید؟"
-);
-
-
-if(!confirmed){
-
-return;
-
-}
-
-
-try{
-
-const {
-error
-} =
-await supabase
-.from("appointments")
-.delete()
-.eq("id",id);
-
-
-if(error){
-
-throw error;
-
-}
-
-
-alert(
-"رزرو با موفقیت حذف شد."
-);
-
-
-await loadForSelectedDate();
-
-
-if(manualService){
-
-await renderManualTimes();
-
-}
-
-
-}catch(error){
-
-console.error(
-"DELETE ERROR:",
-error
-);
-
-
-alert(
-"خطا در حذف رزرو:\n"
-+
-error.message
-);
-
-}
-
-};
-
-
-/* =========================
    LOGIN
 ========================= */
 
@@ -2544,22 +2817,18 @@ document
 .value
 .trim();
 
-
 const password=
 document
 .getElementById("adminPassword")
 .value;
 
-
 const button=
 document
 .getElementById("loginButton");
 
-
 const errorBox=
 document
 .getElementById("loginError");
-
 
 errorBox.innerHTML="";
 
@@ -2634,17 +2903,12 @@ sessionStorage.setItem(
 "true"
 );
 
-
-await showAdmin();
+showAdmin();
 
 
 }catch(error){
 
-console.error(
-"LOGIN ERROR:",
-error
-);
-
+console.error(error);
 
 errorBox.innerHTML=
 `
@@ -2681,14 +2945,13 @@ document
 .getElementById("loginPage")
 .style.display="none";
 
-
 document
 .getElementById("adminPage")
 .style.display="block";
 
-
 updateDateButton();
 
+updateManualDateButton();
 
 await loadForSelectedDate();
 
