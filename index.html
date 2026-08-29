@@ -11,7 +11,6 @@
 href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap"
 rel="stylesheet">
 
-
 <style>
 
 *{
@@ -30,9 +29,6 @@ max-width:500px;
 margin:auto;
 padding:25px 18px 40px;
 }
-
-
-/* HEADER */
 
 .header{
 text-align:center;
@@ -61,16 +57,12 @@ color:#888;
 font-size:14px;
 }
 
-
-/* ACTIONS */
-
 .actions{
 display:flex;
 justify-content:center;
 gap:10px;
 margin-top:20px;
 }
-
 
 .btn{
 background:#111;
@@ -80,18 +72,7 @@ padding:11px 18px;
 border-radius:12px;
 text-decoration:none;
 font-size:14px;
-transition:.3s;
 }
-
-
-.btn:hover{
-border-color:#aaa;
-color:#fff;
-}
-
-
-
-/* CARDS */
 
 .card{
 background:#111;
@@ -99,10 +80,8 @@ border:1px solid #242424;
 border-radius:18px;
 padding:20px;
 margin-bottom:18px;
-box-shadow:
-0 15px 40px rgba(0,0,0,.5);
+box-shadow:0 15px 40px rgba(0,0,0,.5);
 }
-
 
 .title{
 font-size:18px;
@@ -111,40 +90,30 @@ color:#fff;
 margin-bottom:18px;
 }
 
-
-
-/* SERVICES */
-
 .services{
 display:grid;
 gap:12px;
 }
-
 
 .service{
 background:#181818;
 border:1px solid #333;
 border-radius:14px;
 padding:16px;
-
 display:flex;
 justify-content:space-between;
 align-items:center;
-
 cursor:pointer;
 transition:.25s;
 }
-
 
 .service:hover{
 border-color:#888;
 }
 
-
 .service.selected{
 border-color:#d4af37;
-background:
-linear-gradient(135deg,#252015,#171717);
+background:linear-gradient(135deg,#252015,#171717);
 box-shadow:
 0 0 20px rgba(212,175,55,.25),
 inset 0 0 15px rgba(212,175,55,.08);
@@ -155,443 +124,238 @@ color:#d4af37;
 font-weight:700;
 }
 
-.service.selected small{
-color:#ccc !important;
-}
-
-
 .service-price{
 color:#aaa;
 }
 
-
-
-/* DATE */
-
 .date-button{
-
 width:100%;
-
 background:#181818;
-
 border:1px solid #333;
-
 color:#fff;
-
 padding:15px;
-
 border-radius:14px;
-
 font-family:inherit;
-
 font-size:15px;
-
 cursor:pointer;
-
 }
-
-
-.date-button:hover{
-border-color:#aaa;
-}
-
 
 .date-button.selected{
 border-color:#ddd;
 }
 
-
-
-/* CALENDAR */
-
-
 .calendar{
-
 display:none;
-
 margin-top:15px;
-
 background:#0d0d0d;
-
 border:1px solid #333;
-
 border-radius:16px;
-
 padding:15px;
-
 }
-
 
 .calendar.show{
 display:block;
 }
 
-
 .calendar-header{
-
 display:flex;
-
 align-items:center;
-
 justify-content:space-between;
-
 margin-bottom:15px;
-
 }
-
 
 .calendar-header button{
-
 background:#171717;
-
 color:#fff;
-
 border:1px solid #333;
-
 width:38px;
-
 height:38px;
-
 border-radius:10px;
-
 cursor:pointer;
-
 }
-
 
 .calendar-month{
 color:#fff;
 font-weight:700;
 }
 
-
 .weekdays{
-
 display:grid;
-
 grid-template-columns:repeat(7,1fr);
-
 gap:5px;
-
 }
-
 
 .weekday{
-
 text-align:center;
-
 color:#666;
-
 font-size:11px;
-
 }
-
-
 
 .days{
-
 display:grid;
-
 grid-template-columns:repeat(7,1fr);
-
 gap:7px;
-
 margin-top:8px;
-
 }
-
-
 
 .day{
-
 height:40px;
-
 display:flex;
-
 align-items:center;
-
 justify-content:center;
-
 background:#181818;
-
 border:1px solid #333;
-
 border-radius:10px;
-
 cursor:pointer;
-
 font-size:13px;
-
 }
-
-
-
-.day:hover{
-border-color:#aaa;
-}
-
-
 
 .day.today{
 border-color:#aaa;
 }
 
-
-
 .day.selected{
-
 background:#fff;
-
 color:#000;
-
 font-weight:700;
-
 }
-
-
 
 .day.empty{
-
 background:transparent;
-
 border:0;
-
 }
 
+.selected-date{
+margin-top:15px;
+font-size:13px;
+color:#888;
+text-align:center;
+}
 
-
-/* TIME */
+.selected-date span{
+color:#fff;
+}
 
 .times{
-
 display:grid;
-
 grid-template-columns:repeat(3,1fr);
-
 gap:10px;
-
 margin-top:12px;
-
 }
-
 
 .time{
-
 background:#181818;
-
 border:1px solid #333;
-
 color:#fff;
-
 padding:13px 5px;
-
 border-radius:12px;
-
 text-align:center;
-
 cursor:pointer;
-
 transition:.2s;
-
 }
-
-
-.time:hover{
-border-color:#aaa;
-}
-
 
 .time:active{
 transform:scale(.96);
 }
-
 
 .time.selected{
 background:#d4af37;
 color:#000;
 border-color:#d4af37;
 font-weight:700;
-box-shadow:
-0 0 18px rgba(212,175,55,.35);
+box-shadow:0 0 18px rgba(212,175,55,.35);
 }
-
-
 
 .time.booked{
-
 background:#090909;
-
 color:#555;
-
 border-color:#222;
-
 opacity:.5;
-
 cursor:not-allowed;
-
 }
-
-
-
-/* INPUT */
 
 label{
-
 display:block;
-
 margin-bottom:8px;
-
 color:#bbb;
-
 font-size:14px;
-
 }
-
 
 input{
-
 width:100%;
-
 padding:14px;
-
 margin-bottom:15px;
-
 background:#090909;
-
 border:1px solid #333;
-
 border-radius:12px;
-
 color:#fff;
-
 font-family:inherit;
-
 font-size:15px;
-
 outline:none;
-
 }
-
-
 
 input:focus{
-
 border-color:#aaa;
-
 }
-
-
-
-/* SUBMIT */
-
 
 .submit{
-
 width:100%;
-
 padding:16px;
-
 border-radius:14px;
-
 border:1px solid #777;
-
 background:#fff;
-
 color:#000;
-
 font-family:inherit;
-
 font-size:16px;
-
 font-weight:800;
-
 cursor:pointer;
-
 transition:.3s;
-
 }
-
-
-
-.submit:hover{
-
-background:#ddd;
-
-box-shadow:0 0 25px rgba(255,255,255,.15);
-
-}
-
-
 
 .submit:disabled{
-
 opacity:.5;
-
+cursor:not-allowed;
 }
 
-
-
-/* SUCCESS */
+.verify-info{
+color:#aaa;
+font-size:13px;
+line-height:2;
+margin-bottom:15px;
+}
 
 .success{
-
 display:none;
-
 text-align:center;
-
 background:#111;
-
 border:1px solid #777;
-
 border-radius:18px;
-
 padding:25px;
-
 margin-top:20px;
-
 }
-
 
 .success h2{
-
 color:#fff;
-
 }
-
 
 .success p{
-
 color:#aaa;
-
 line-height:2;
-
 }
-
-
-
-/* FOOTER */
 
 .footer{
-
 text-align:center;
-
 color:#555;
-
 font-size:12px;
-
 margin-top:30px;
-
 }
-
 
 </style>
 </head>
 
-
 <body>
 
 <div class="container">
-
 
 <div class="header">
 
@@ -606,28 +370,32 @@ alt="ESI BARBER">
 
 <div class="actions">
 
-<a class="btn"
+<a
+class="btn"
 href="https://instagram.com/Esi_barber_1994"
 target="_blank">
 📷 اینستاگرام
 </a>
 
-
-<a class="btn"
+<a
+class="btn"
 href="tel:+989179174042">
 📞 تماس
 </a>
 
 </div>
-    
+
 </div>
 
 
-<!-- SERVICES -->
+<!-- SERVICE -->
 
 <div class="card">
 
 <div class="title">
+انتخاب خدمت
+</div>
+
 <div class="services">
 
 <div
@@ -636,9 +404,7 @@ onclick="selectService(this,'اصلاح')">
 
 <div>
 
-<span>
-✂️ اصلاح
-</span>
+<span>✂️ اصلاح</span>
 
 <br>
 
@@ -647,7 +413,6 @@ onclick="selectService(this,'اصلاح')">
 </small>
 
 </div>
-
 
 <span class="service-price">
 ۳۰ دقیقه
@@ -662,9 +427,7 @@ onclick="selectService(this,'اصلاح VIP')">
 
 <div>
 
-<span>
-👑 اصلاح VIP
-</span>
+<span>👑 اصلاح VIP</span>
 
 <br>
 
@@ -674,10 +437,11 @@ onclick="selectService(this,'اصلاح VIP')">
 
 </div>
 
-
 <span class="service-price">
 ۶۰ دقیقه
 </span>
+
+</div>
 
 </div>
 
@@ -691,7 +455,6 @@ onclick="selectService(this,'اصلاح VIP')">
 <div class="title">
 📅 انتخاب تاریخ و ساعت
 </div>
-
 
 <button
 type="button"
@@ -707,7 +470,6 @@ onclick="toggleCalendar()">
 <div
 class="calendar"
 id="calendar">
-
 
 <div class="calendar-header">
 
@@ -765,105 +527,14 @@ id="days">
 
 <br>
 
-
 <label>
 ساعت نوبت
 </label>
 
-
 <div
 class="times"
 id="times">
-
-<div class="time" onclick="selectTime(this,'09:00')">
-09:00
 </div>
-
-<div class="time" onclick="selectTime(this,'09:30')">
-09:30
-</div>
-
-<div class="time" onclick="selectTime(this,'10:00')">
-10:00
-</div>
-
-<div class="time" onclick="selectTime(this,'10:30')">
-10:30
-</div>
-
-<div class="time" onclick="selectTime(this,'11:00')">
-11:00
-</div>
-
-<div class="time" onclick="selectTime(this,'11:30')">
-11:30
-</div>
-
-<div class="time" onclick="selectTime(this,'12:00')">
-12:00
-</div>
-
-<div class="time" onclick="selectTime(this,'12:30')">
-12:30
-</div>
-
-<div class="time" onclick="selectTime(this,'13:00')">
-13:00
-</div>
-
-<div class="time" onclick="selectTime(this,'13:30')">
-13:30
-</div>
-
-<div class="time" onclick="selectTime(this,'16:00')">
-16:00
-</div>
-
-<div class="time" onclick="selectTime(this,'16:30')">
-16:30
-</div>
-
-<div class="time" onclick="selectTime(this,'17:00')">
-17:00
-</div>
-
-<div class="time" onclick="selectTime(this,'17:30')">
-17:30
-</div>
-
-<div class="time" onclick="selectTime(this,'18:00')">
-18:00
-</div>
-
-<div class="time" onclick="selectTime(this,'18:30')">
-18:30
-</div>
-
-<div class="time" onclick="selectTime(this,'19:00')">
-19:00
-</div>
-
-<div class="time" onclick="selectTime(this,'19:30')">
-19:30
-</div>
-
-<div class="time" onclick="selectTime(this,'20:00')">
-20:00
-</div>
-
-<div class="time" onclick="selectTime(this,'20:30')">
-20:30
-</div>
-
-<div class="time" onclick="selectTime(this,'21:00')">
-21:00
-</div>
-
-</div>
-
-<input
-type="hidden"
-id="time">
 
 </div>
 
@@ -875,7 +546,6 @@ id="time">
 <div class="title">
 👤 اطلاعات شما
 </div>
-
 
 <label>
 نام و نام خانوادگی
@@ -900,34 +570,45 @@ autocomplete="tel">
 
 </div>
 
-    <div class="card" id="verifyBox" style="display:none">
+
+<!-- VERIFY -->
+
+<div
+class="card"
+id="verifyBox"
+style="display:none">
 
 <div class="title">
 🔐 تایید شماره موبایل
 </div>
 
-<p>
-کد ارسال شده به شماره شما را وارد کنید
+<p class="verify-info">
+کد تأیید برای شماره شما ارسال شد.
+<br>
+کد ۶ رقمی را وارد کنید.
 </p>
 
 <input
 type="tel"
 id="verifyCode"
 placeholder="کد ۶ رقمی"
-maxlength="6">
+maxlength="6"
+inputmode="numeric">
 
 <button
 type="button"
 class="submit"
+id="verifyButton"
 onclick="verifyCode()">
 
 تایید کد و ثبت نوبت
 
 </button>
 
-    </div>
+</div>
 
-<!-- SUBMIT -->
+
+<!-- SEND OTP -->
 
 <button
 type="button"
@@ -938,6 +619,7 @@ onclick="sendVerificationCode()">
 ارسال کد تأیید
 
 </button>
+
 
 <!-- SUCCESS -->
 
@@ -958,7 +640,6 @@ id="success">
 ESI BARBER
 </div>
 
-
 </div>
 
 
@@ -969,7 +650,7 @@ ESI BARBER
 ========================================================= */
 
 import {
-    createClient
+createClient
 }
 from
 "https://esm.sh/@supabase/supabase-js@2";
@@ -985,8 +666,8 @@ const SUPABASE_KEY =
 
 const supabase =
 createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
 
@@ -995,12 +676,11 @@ createClient(
 ========================================================= */
 
 let selectedService = "";
-
 let selectedTime = "";
-
 let selectedDate = null;
-
 let calendarDate = null;
+
+let verificationSent = false;
 
 
 /* =========================================================
@@ -1032,12 +712,10 @@ const months = [
 function persianNumber(num){
 
 return String(num).replace(
-    /\d/g,
-    function(d){
-
-        return "۰۱۲۳۴۵۶۷۸۹"[d];
-
-    }
+/\d/g,
+function(d){
+return "۰۱۲۳۴۵۶۷۸۹"[d];
+}
 );
 
 }
@@ -1047,11 +725,7 @@ return String(num).replace(
    GREGORIAN → JALALI
 ========================================================= */
 
-function gregorianToJalali(
-    gy,
-    gm,
-    gd
-){
+function gregorianToJalali(gy,gm,gd){
 
 let gdm=[
 0,31,59,90,120,151,
@@ -1060,104 +734,89 @@ let gdm=[
 
 let jy;
 
-
 if(gy>1600){
 
 jy=979;
 gy-=1600;
 
-}
-
-else{
+}else{
 
 jy=0;
 gy-=621;
 
 }
 
-
 let gy2 =
-    (gm>2)
-    ? gy+1
-    : gy;
-
+gm>2
+? gy+1
+: gy;
 
 let days =
-    365*gy
-    +
-    Math.floor((gy2+3)/4)
-    -
-    Math.floor((gy2+99)/100)
-    +
-    Math.floor((gy2+399)/400)
-    -
-    80
-    +
-    gd
-    +
-    gdm[gm-1];
-
+365*gy
++
+Math.floor((gy2+3)/4)
+-
+Math.floor((gy2+99)/100)
++
+Math.floor((gy2+399)/400)
+-
+80
++
+gd
++
+gdm[gm-1];
 
 jy +=
-    33 *
-    Math.floor(days/12053);
-
+33 *
+Math.floor(days/12053);
 
 days %= 12053;
 
-
 jy +=
-    4 *
-    Math.floor(days/1461);
-
+4 *
+Math.floor(days/1461);
 
 days %= 1461;
-
 
 if(days>365){
 
 jy +=
-    Math.floor((days-1)/365);
+Math.floor((days-1)/365);
 
 days =
-    (days-1)%365;
+(days-1)%365;
 
 }
-
 
 let jm;
 let jd;
 
-
 if(days<186){
 
 jm =
-    1+
-    Math.floor(days/31);
+1+
+Math.floor(days/31);
 
 jd =
-    1+
-    (days%31);
+1+
+(days%31);
 
-}
-
-else{
+}else{
 
 jm =
-    7+
-    Math.floor((days-186)/30);
+7+
+Math.floor((days-186)/30);
 
 jd =
-    1+
-    ((days-186)%30);
+1+
+((days-186)%30);
 
 }
 
-
 return [
-    jy,
-    jm,
-    jd
+jy,
+jm,
+jd
 ];
 
 }
@@ -1167,143 +826,112 @@ return [
    JALALI → GREGORIAN
 ========================================================= */
 
-function jalaliToGregorian(
-    jy,
-    jm,
-    jd
-){
+function jalaliToGregorian(jy,jm,jd){
 
 jy=parseInt(jy);
 jm=parseInt(jm);
 jd=parseInt(jd);
 
-
 let gy;
-
 
 if(jy>979){
 
 gy=1600;
 jy-=979;
 
-}
-
-else{
+}else{
 
 gy=621;
 
 }
 
-
 let days =
-    365*jy
-    +
-    Math.floor(jy/33)*8
-    +
-    Math.floor(((jy%33)+3)/4)
-    +
-    78
-    +
-    jd
-    +
-    (
-        jm<7
-        ?
-        ((jm-1)*31)
-        :
-        (((jm-7)*30)+186)
-    );
-
+365*jy
++
+Math.floor(jy/33)*8
++
+Math.floor(((jy%33)+3)/4)
++
+78
++
+jd
++
+(
+jm<7
+?
+((jm-1)*31)
+:
+(((jm-7)*30)+186)
+);
 
 gy +=
-    400 *
-    Math.floor(days/146097);
+400 *
+Math.floor(days/146097);
 
-
-days %= 146097;
-
+days %=146097;
 
 if(days>36524){
 
 gy +=
-    100 *
-    Math.floor(--days/36524);
+100 *
+Math.floor(--days/36524);
 
-days %= 36524;
-
+days %=36524;
 
 if(days>=365)
-    days++;
+days++;
 
 }
 
-
 gy +=
-    4 *
-    Math.floor(days/1461);
+4 *
+Math.floor(days/1461);
 
-
-days %= 1461;
-
+days %=1461;
 
 if(days>365){
 
 gy +=
-    Math.floor((days-1)/365);
+Math.floor((days-1)/365);
 
 days =
-    (days-1)%365;
+(days-1)%365;
 
 }
 
-
 let gd =
-    days+1;
-
+days+1;
 
 let sal_a=[
 0,
 31,
 (
-    (gy%4===0 &&
-     gy%100!==0)
-    ||
-    gy%400===0
+(gy%4===0 &&
+gy%100!==0)
+||
+gy%400===0
 )
 ?29
 :28,
-31,
-30,
-31,
-30,
-31,
-31,
-30,
-31,
-30,
-31
+31,30,31,30,
+31,31,30,31,30,31
 ];
-
 
 let gm=0;
 
-
-while(
-    gd>sal_a[gm]
-){
+while(gd>sal_a[gm]){
 
 gd -=
-    sal_a[gm];
+sal_a[gm];
 
 gm++;
 
 }
 
-
 return [
-    gy,
-    gm,
-    gd
+gy,
+gm,
+gd
 ];
 
 }
@@ -1316,22 +944,20 @@ return [
 const todayGregorian =
 new Date();
 
-
 const todayJalali =
 gregorianToJalali(
-    todayGregorian.getFullYear(),
-    todayGregorian.getMonth()+1,
-    todayGregorian.getDate()
+todayGregorian.getFullYear(),
+todayGregorian.getMonth()+1,
+todayGregorian.getDate()
 );
-
 
 calendarDate = {
 
-    year:
-        todayJalali[0],
+year:
+todayJalali[0],
 
-    month:
-        todayJalali[1]
+month:
+todayJalali[1]
 
 };
 
@@ -1345,50 +971,36 @@ function(element,service){
 
 document
 .querySelectorAll(".service")
-.forEach(
-    function(item){
-
-        item.classList.remove("selected");
-
-    }
+.forEach(item =>
+item.classList.remove("selected")
 );
 
-
 element.classList.add("selected");
-
 
 selectedService =
 service;
 
-
 selectedTime =
 "";
 
-
 document
-.getElementById("time")
-.value =
-"";
+.getElementById("time");
 
-
-if(service === "اصلاح"){
+if(service==="اصلاح"){
 
 renderNormalTimes();
 
-}
-
-else{
+}else{
 
 renderVipTimes();
 
 }
 
-
 if(selectedDate){
 
 setTimeout(
-    refreshBookedTimes,
-    100
+refreshBookedTimes,
+100
 );
 
 }
@@ -1397,14 +1009,13 @@ setTimeout(
 
 
 /* =========================================================
-   NORMAL TIMES
+   TIMES
 ========================================================= */
 
 function renderNormalTimes(){
 
 const container =
 document.getElementById("times");
-
 
 container.innerHTML = `
 
@@ -1419,7 +1030,6 @@ container.innerHTML = `
 <div class="time" onclick="selectTime(this,'12:30')">12:30</div>
 <div class="time" onclick="selectTime(this,'13:00')">13:00</div>
 <div class="time" onclick="selectTime(this,'13:30')">13:30</div>
-
 <div class="time" onclick="selectTime(this,'16:00')">16:00</div>
 <div class="time" onclick="selectTime(this,'16:30')">16:30</div>
 <div class="time" onclick="selectTime(this,'17:00')">17:00</div>
@@ -1437,15 +1047,10 @@ container.innerHTML = `
 }
 
 
-/* =========================================================
-   VIP TIMES
-========================================================= */
-
 function renderVipTimes(){
 
 const container =
 document.getElementById("times");
-
 
 container.innerHTML = `
 
@@ -1454,7 +1059,6 @@ container.innerHTML = `
 <div class="time" onclick="selectTime(this,'10:30')">10:30</div>
 <div class="time" onclick="selectTime(this,'11:30')">11:30</div>
 <div class="time" onclick="selectTime(this,'12:30')">12:30</div>
-
 <div class="time" onclick="selectTime(this,'16:00')">16:00</div>
 <div class="time" onclick="selectTime(this,'17:00')">17:00</div>
 <div class="time" onclick="selectTime(this,'18:00')">18:00</div>
@@ -1485,35 +1089,22 @@ return;
 
 }
 
-
 document
 .querySelectorAll(".time")
-.forEach(
-    function(item){
-
-        item.classList.remove("selected");
-
-    }
+.forEach(item =>
+item.classList.remove("selected")
 );
-
 
 element.classList.add("selected");
 
-
 selectedTime =
-time;
-
-
-document
-.getElementById("time")
-.value =
 time;
 
 };
 
 
 /* =========================================================
-   TIME TO MINUTES
+   TIME MINUTES
 ========================================================= */
 
 function timeToMinutes(time){
@@ -1521,11 +1112,9 @@ function timeToMinutes(time){
 const parts =
 time.split(":");
 
-
 return (
-    Number(parts[0])*60
-    +
-    Number(parts[1])
+Number(parts[0])*60+
+Number(parts[1])
 );
 
 }
@@ -1538,27 +1127,17 @@ return (
 async function loadAppointments(){
 
 const {
-    data,
-    error
+data,
+error
 } =
 await supabase
 .from("appointments")
 .select(
-    "service,appointment_date,appointment_time,appointment_minute"
+"service,appointment_date,appointment_time,appointment_minute,duration_minutes"
 );
 
-
-if(error){
-
-console.error(
-    "SUPABASE LOAD ERROR:",
-    error
-);
-
+if(error)
 throw error;
-
-}
-
 
 return data || [];
 
@@ -1566,198 +1145,151 @@ return data || [];
 
 
 /* =========================================================
-   CHECK BOOKED
-   این تابع داخل همان module است
-   و دیگر خطای isTimeBooked نمی‌دهد
+   CHECK TIME
 ========================================================= */
 
 async function isTimeBooked(
-    date,
-    time,
-    service
+date,
+time,
+service
 ){
 
 const {
-    data,
-    error
+data,
+error
 } =
 await supabase
 .from("appointments")
 .select(
-    "service,appointment_date,appointment_time,appointment_minute,duration_minutes"
+"service,appointment_time,appointment_minute,duration_minutes"
 )
 .eq(
-    "appointment_date",
-    date
+"appointment_date",
+date
 );
 
-
-if(error){
-
-console.error(
-    "SUPABASE CHECK ERROR:",
-    error
-);
-
+if(error)
 throw error;
-
-}
-
 
 const currentStart =
 timeToMinutes(time);
 
-
 const currentDuration =
-service === "اصلاح VIP"
-? 60
-: 30;
-
+service==="اصلاح VIP"
+?60
+:30;
 
 const currentEnd =
-currentStart +
+currentStart+
 currentDuration;
 
-
-let booked =
-false;
-
-
-(data || []).forEach(
-function(item){
+for(const item of data || []){
 
 const bookedStart =
 timeToMinutes(
-    item.appointment_time
+item.appointment_time
 );
-
 
 const bookedDuration =
-Number(
-    item.appointment_minute
-)
+Number(item.appointment_minute)
 ||
-Number(
-    item.duration_minutes
-)
+Number(item.duration_minutes)
 ||
 (
-    item.service === "اصلاح VIP"
-    ? 60
-    : 30
+item.service==="اصلاح VIP"
+?60
+:30
 );
 
-
 const bookedEnd =
-bookedStart +
+bookedStart+
 bookedDuration;
 
-
 if(
-    currentStart < bookedEnd
-    &&
-    currentEnd > bookedStart
+currentStart<bookedEnd &&
+currentEnd>bookedStart
 ){
 
-booked =
-true;
+return true;
 
 }
 
-});
+}
 
-
-return booked;
+return false;
 
 }
 
 
 /* =========================================================
-   REFRESH BOOKED TIMES
+   REFRESH BOOKED
 ========================================================= */
 
 async function refreshBookedTimes(){
 
-if(!selectedDate)
+if(!selectedDate || !selectedService)
 return;
-
-
-if(!selectedService)
-return;
-
 
 try{
 
 const appointments =
 await loadAppointments();
 
-
 const gregorian =
 jalaliToGregorian(
-    selectedDate.year,
-    selectedDate.month,
-    selectedDate.day
+selectedDate.year,
+selectedDate.month,
+selectedDate.day
 );
-
 
 const selectedDateISO =
 gregorian[0]
 +
 "-"
 +
-String(
-    gregorian[1]
-).padStart(2,"0")
+String(gregorian[1]).padStart(2,"0")
 +
 "-"
 +
-String(
-    gregorian[2]
-).padStart(2,"0");
+String(gregorian[2]).padStart(2,"0");
 
 
 document
 .querySelectorAll(".time")
-.forEach(
-function(timeBtn){
+.forEach(function(timeBtn){
 
 const time =
 timeBtn.textContent.trim();
 
-    // بستن ساعت‌های گذشته در روز جاری
-const now = new Date();
+const now =
+new Date();
 
 const today =
 gregorianToJalali(
-    now.getFullYear(),
-    now.getMonth()+1,
-    now.getDate()
+now.getFullYear(),
+now.getMonth()+1,
+now.getDate()
 );
 
-
 if(
-selectedDate.year === today[0] &&
-selectedDate.month === today[1] &&
-selectedDate.day === today[2]
+selectedDate.year===today[0] &&
+selectedDate.month===today[1] &&
+selectedDate.day===today[2]
 ){
 
 const currentMinutes =
-now.getHours()*60 +
+now.getHours()*60+
 now.getMinutes();
 
-const selectedMinutes =
-timeToMinutes(time);
-
-
-if(selectedMinutes <= currentMinutes){
+if(
+timeToMinutes(time)<=currentMinutes
+){
 
 timeBtn.classList.add("booked");
 
 timeBtn.onclick =
 function(){
-
 alert("این ساعت گذشته است.");
-
 };
 
 return;
@@ -1766,75 +1298,53 @@ return;
 
 }
 
-
 const currentStart =
 timeToMinutes(time);
 
-
 const currentDuration =
-selectedService === "اصلاح VIP"
-? 60
-: 30;
-
+selectedService==="اصلاح VIP"
+?60
+:30;
 
 const currentEnd =
-currentStart +
+currentStart+
 currentDuration;
 
+let booked=false;
 
-let booked =
-false;
-
-
-appointments.forEach(
-function(item){
+appointments.forEach(function(item){
 
 if(
-item.appointment_date
-!==
-selectedDateISO
-){
-
+item.appointment_date!==selectedDateISO
+)
 return;
-
-}
-
 
 const bookedStart =
 timeToMinutes(
 item.appointment_time
 );
 
-
 const bookedDuration =
-Number(
-item.appointment_minute
-)
+Number(item.appointment_minute)
 ||
-Number(
-item.duration_minutes
-)
+Number(item.duration_minutes)
 ||
 (
-    item.service === "اصلاح VIP"
-    ? 60
-    : 30
+item.service==="اصلاح VIP"
+?60
+:30
 );
 
-
 const bookedEnd =
-bookedStart +
+bookedStart+
 bookedDuration;
 
-
 if(
-currentStart < bookedEnd
-&&
-currentEnd > bookedStart
+currentStart<bookedEnd &&
+currentEnd>bookedStart
 ){
 
-booked =
-true;
+booked=true;
 
 }
 
@@ -1843,54 +1353,27 @@ true;
 
 if(booked){
 
-timeBtn.classList.add(
-    "booked"
-);
+timeBtn.classList.add("booked");
+timeBtn.classList.remove("selected");
 
-timeBtn.classList.remove(
-    "selected"
-);
+if(selectedTime===time){
 
-
-if(selectedTime === time){
-
-selectedTime =
-"";
-
-document
-.getElementById("time")
-.value =
-"";
+selectedTime="";
 
 }
 
-
 timeBtn.onclick =
 function(){
-
-alert(
-"این ساعت قبلاً رزرو شده است."
-);
-
+alert("این ساعت قبلاً رزرو شده است.");
 };
 
-}
+}else{
 
-else{
-
-timeBtn.classList.remove(
-    "booked"
-);
-
+timeBtn.classList.remove("booked");
 
 timeBtn.onclick =
 function(){
-
-selectTime(
-    this,
-    time
-);
-
+selectTime(this,time);
 };
 
 }
@@ -1917,15 +1400,9 @@ window.toggleCalendar =
 function(){
 
 const calendar =
-document.getElementById(
-    "calendar"
-);
+document.getElementById("calendar");
 
-
-calendar
-.classList
-.toggle("show");
-
+calendar.classList.toggle("show");
 
 if(
 calendar.classList.contains("show")
@@ -1938,10 +1415,6 @@ renderCalendar();
 };
 
 
-/* =========================================================
-   RENDER CALENDAR
-========================================================= */
-
 function renderCalendar(){
 
 const year =
@@ -1949,7 +1422,6 @@ calendarDate.year;
 
 const month =
 calendarDate.month;
-
 
 document
 .getElementById("calendarMonth")
@@ -1960,61 +1432,43 @@ months[month-1]
 +
 persianNumber(year);
 
-
 const daysContainer =
 document.getElementById("days");
 
-
-daysContainer.innerHTML =
-"";
-
+daysContainer.innerHTML="";
 
 const firstGregorian =
 jalaliToGregorian(
-    year,
-    month,
-    1
+year,
+month,
+1
 );
-
 
 const firstDate =
 new Date(
-    firstGregorian[0],
-    firstGregorian[1]-1,
-    firstGregorian[2]
+firstGregorian[0],
+firstGregorian[1]-1,
+firstGregorian[2]
 );
-
 
 const startDay =
 (firstDate.getDay()+1)%7;
 
-
 let daysInMonth;
-
 
 if(month<=6){
 
-daysInMonth =
-31;
+daysInMonth=31;
+
+}else if(month<=11){
+
+daysInMonth=30;
+
+}else{
+
+daysInMonth=30;
 
 }
-
-else if(month<=11){
-
-daysInMonth =
-30;
-
-}
-
-else{
-
-daysInMonth =
-30;
-
-}
-
-
-/* EMPTY DAYS */
 
 for(
 let i=0;
@@ -2025,19 +1479,11 @@ i++
 const empty =
 document.createElement("div");
 
+empty.className="day empty";
 
-empty.className =
-"day empty";
-
-
-daysContainer.appendChild(
-empty
-);
+daysContainer.appendChild(empty);
 
 }
-
-
-/* DAYS */
 
 for(
 let day=1;
@@ -2048,150 +1494,90 @@ day++
 const div =
 document.createElement("div");
 
-
-div.className =
-"day";
-
+div.className="day";
 
 div.textContent =
 persianNumber(day);
 
-
-/* TODAY */
-
 if(
-year===todayJalali[0]
-&&
-month===todayJalali[1]
-&&
+year===todayJalali[0] &&
+month===todayJalali[1] &&
 day===todayJalali[2]
 ){
 
-div.classList.add(
-    "today"
-);
+div.classList.add("today");
 
 }
 
-
-/* SELECTED */
-
 if(
-selectedDate
-&&
-selectedDate.year===year
-&&
-selectedDate.month===month
-&&
+selectedDate &&
+selectedDate.year===year &&
+selectedDate.month===month &&
 selectedDate.day===day
 ){
 
-div.classList.add(
-    "selected"
-);
+div.classList.add("selected");
 
 }
 
+let isPast=false;
 
-/* PAST */
+if(year<todayJalali[0]){
 
-let isPast =
-false;
+isPast=true;
 
-
-if(
-year<todayJalali[0]
-){
-
-isPast =
-true;
-
-}
-
-else if(
-year===todayJalali[0]
-&&
+}else if(
+year===todayJalali[0] &&
 month<todayJalali[1]
 ){
 
-isPast =
-true;
+isPast=true;
 
-}
-
-else if(
-year===todayJalali[0]
-&&
-month===todayJalali[1]
-&&
+}else if(
+year===todayJalali[0] &&
+month===todayJalali[1] &&
 day<todayJalali[2]
 ){
 
-isPast =
-true;
+isPast=true;
 
 }
-
 
 if(isPast){
 
-div.style.opacity =
-"0.25";
+div.style.opacity=".25";
+div.style.cursor="not-allowed";
 
-div.style.cursor =
-"not-allowed";
-
-}
-
-else{
+}else{
 
 div.onclick =
 function(){
 
 selectDate(
-    year,
-    month,
-    day
+year,
+month,
+day
 );
 
 };
 
 }
 
-
-daysContainer.appendChild(
-div
-);
+daysContainer.appendChild(div);
 
 }
 
 }
 
-
-/* =========================================================
-   SELECT DATE
-========================================================= */
 
 window.selectDate =
-function(
-    year,
-    month,
-    day
-){
+function(year,month,day){
 
-selectedDate = {
-
-    year:
-        year,
-
-    month:
-        month,
-
-    day:
-        day
-
+selectedDate={
+year,
+month,
+day
 };
-
 
 const text =
 persianNumber(day)
@@ -2204,51 +1590,28 @@ months[month-1]
 +
 persianNumber(year);
 
-
 document
-.getElementById(
-    "selectedDateText"
-)
-.textContent =
-text;
-
+.getElementById("selectedDateText")
+.textContent=text;
 
 const button =
-document.getElementById(
-    "dateButton"
-);
+document.getElementById("dateButton");
 
+button.textContent=text;
 
-button.textContent =
-text;
-
-
-button.classList.add(
-    "selected"
-);
-
+button.classList.add("selected");
 
 document
 .getElementById("calendar")
-.classList
-.remove("show");
+.classList.remove("show");
 
-
-selectedTime =
-"";
-
-
-document
-.getElementById("time")
-.value =
-"";
-
+selectedTime="";
 
 if(selectedService){
 
 setTimeout(
-    refreshBookedTimes,
-    100
+refreshBookedTimes,
+100
 );
 
 }
@@ -2256,67 +1619,43 @@ setTimeout(
 };
 
 
-/* =========================================================
-   PREVIOUS MONTH
-========================================================= */
-
 window.previousMonth =
 function(){
 
 if(
-calendarDate.year===
-todayJalali[0]
-&&
-calendarDate.month===
-todayJalali[1]
+calendarDate.year===todayJalali[0] &&
+calendarDate.month===todayJalali[1]
 ){
 
 return;
 
 }
 
-
 calendarDate.month--;
 
+if(calendarDate.month===0){
 
-if(
-calendarDate.month===0
-){
-
-calendarDate.month =
-12;
-
+calendarDate.month=12;
 calendarDate.year--;
 
 }
-
 
 renderCalendar();
 
 };
 
 
-/* =========================================================
-   NEXT MONTH
-========================================================= */
-
 window.nextMonth =
 function(){
 
 calendarDate.month++;
 
+if(calendarDate.month===13){
 
-if(
-calendarDate.month===13
-){
-
-calendarDate.month =
-1;
-
+calendarDate.month=1;
 calendarDate.year++;
 
 }
-
 
 renderCalendar();
 
@@ -2329,101 +1668,55 @@ renderCalendar();
 
 async function saveAppointment(data){
 
-const appointmentMinutes =
-data.service === "اصلاح VIP"
-? 60
-: 30;
-
+const minutes =
+data.service==="اصلاح VIP"
+?60
+:30;
 
 const {
-    error
+error
 } =
 await supabase
 .from("appointments")
 .insert({
 
-    service:
-        data.service,
+service:
+data.service,
 
-    name:
-        data.name,
+name:
+data.name,
 
-    phone:
-        data.phone,
+phone:
+data.phone,
 
-    appointment_date:
-        data.date,
+appointment_date:
+data.date,
 
-    appointment_time:
-        data.time,
+appointment_time:
+data.time,
 
-    appointment_minute:
-        appointmentMinutes,
+appointment_minute:
+minutes,
 
-    duration_minutes:
-        appointmentMinutes,
+duration_minutes:
+minutes,
 
-    created_at:
-        data.createdAt
+created_at:
+new Date().toISOString()
 
 });
 
-
-if(error){
-
-console.error(
-    "SUPABASE INSERT ERROR:",
-    error
-);
-
+if(error)
 throw error;
 
 }
 
-}
 
-window.sendVerificationCode =
-function(){
-
-const phone =
-document
-.getElementById("phone")
-.value
-.trim();
-
-
-if(!phone){
-
-alert("لطفاً شماره تماس را وارد کنید.");
-
-return;
-
-}
-
-
-// نمایش بخش کد
-
-document
-.getElementById("verifyBox")
-.style.display =
-"block";
-
-
-// تغییر متن دکمه
-
-document
-.getElementById("submitButton")
-.style.display =
-"none";
-
-
-};
-    
 /* =========================================================
-   BOOK APPOINTMENT
+   SEND VERIFICATION CODE
 ========================================================= */
 
-window.bookAppointment =
+window.sendVerificationCode =
 async function(){
 
 const name =
@@ -2431,7 +1724,6 @@ document
 .getElementById("name")
 .value
 .trim();
-
 
 const phone =
 document
@@ -2442,9 +1734,7 @@ document
 
 if(!selectedService){
 
-alert(
-"لطفاً یک خدمت انتخاب کنید."
-);
+alert("لطفاً یک خدمت انتخاب کنید.");
 
 return;
 
@@ -2453,9 +1743,7 @@ return;
 
 if(!selectedDate){
 
-alert(
-"لطفاً تاریخ نوبت را انتخاب کنید."
-);
+alert("لطفاً تاریخ نوبت را انتخاب کنید.");
 
 return;
 
@@ -2464,9 +1752,7 @@ return;
 
 if(!selectedTime){
 
-alert(
-"لطفاً ساعت نوبت را انتخاب کنید."
-);
+alert("لطفاً ساعت نوبت را انتخاب کنید.");
 
 return;
 
@@ -2475,8 +1761,17 @@ return;
 
 if(!name){
 
+alert("لطفاً نام خود را وارد کنید.");
+
+return;
+
+}
+
+
+if(!/^09\d{9}$/.test(phone)){
+
 alert(
-"لطفاً نام خود را وارد کنید."
+"شماره موبایل را به صورت 09xxxxxxxxx وارد کنید."
 );
 
 return;
@@ -2484,10 +1779,145 @@ return;
 }
 
 
-if(!phone){
+const button =
+document.getElementById("submitButton");
+
+button.disabled=true;
+
+button.textContent=
+"در حال ارسال کد...";
+
+
+try{
+
+/*
+   ارسال درخواست به Edge Function
+   نام تابع: send_otp
+*/
+
+const {
+data,
+error
+} =
+await supabase.functions.invoke(
+"send_otp",
+{
+body:{
+phone:phone
+}
+}
+);
+
+
+if(error){
+
+throw error;
+
+}
+
+
+/*
+   اگر Edge Function پاسخ success=false بدهد
+*/
+
+if(
+data &&
+data.success===false
+){
+
+throw new Error(
+data.message ||
+"ارسال کد انجام نشد."
+);
+
+}
+
+
+verificationSent=true;
+
+
+/* نمایش بخش تایید */
+
+document
+.getElementById("verifyBox")
+.style.display="block";
+
+
+button.style.display="none";
+
+
+document
+.getElementById("verifyCode")
+.focus();
+
+
+document
+.getElementById("verifyBox")
+.scrollIntoView({
+behavior:"smooth"
+});
+
 
 alert(
-"لطفاً شماره تماس را وارد کنید."
+"کد تأیید برای شماره شما ارسال شد."
+);
+
+
+}catch(error){
+
+console.error(
+"OTP ERROR:",
+error
+);
+
+alert(
+"ارسال کد تأیید انجام نشد.\n\n"+
+(
+error.message ||
+"خطای نامشخص"
+)
+);
+
+}finally{
+
+button.disabled=false;
+
+button.textContent=
+"ارسال کد تأیید";
+
+}
+
+};
+
+
+/* =========================================================
+   VERIFY CODE
+========================================================= */
+
+window.verifyCode =
+async function(){
+
+if(!verificationSent){
+
+alert(
+"ابتدا کد تأیید را دریافت کنید."
+);
+
+return;
+
+}
+
+const code =
+document
+.getElementById("verifyCode")
+.value
+.trim();
+
+
+if(!/^\d{6}$/.test(code)){
+
+alert(
+"کد تأیید باید ۶ رقمی باشد."
 );
 
 return;
@@ -2495,13 +1925,126 @@ return;
 }
 
 
-/* GREGORIAN DATE */
+const phone =
+document
+.getElementById("phone")
+.value
+.trim();
+
+
+const verifyButton =
+document
+.getElementById("verifyButton");
+
+verifyButton.disabled=true;
+
+verifyButton.textContent=
+"در حال بررسی...";
+
+
+try{
+
+/*
+   بررسی کد توسط Edge Function
+*/
+
+const {
+data,
+error
+} =
+await supabase.functions.invoke(
+"send_otp",
+{
+body:{
+phone:phone,
+code:code,
+action:"verify"
+}
+}
+);
+
+
+if(error){
+
+throw error;
+
+}
+
+
+if(
+data &&
+data.success===false
+){
+
+throw new Error(
+data.message ||
+"کد تأیید صحیح نیست."
+);
+
+}
+
+
+/*
+   اگر تابع شما پاسخ متفاوتی دارد،
+   فقط این قسمت را با پاسخ واقعی
+   Edge Function هماهنگ می‌کنیم.
+*/
+
+
+await bookAppointment();
+
+
+}catch(error){
+
+console.error(
+"VERIFY ERROR:",
+error
+);
+
+alert(
+"تأیید کد انجام نشد.\n\n"+
+(
+error.message ||
+"کد وارد شده صحیح نیست."
+)
+);
+
+}finally{
+
+verifyButton.disabled=false;
+
+verifyButton.textContent=
+"تایید کد و ثبت نوبت";
+
+}
+
+};
+
+
+/* =========================================================
+   BOOK APPOINTMENT
+========================================================= */
+
+async function bookAppointment(){
+
+const name =
+document
+.getElementById("name")
+.value
+.trim();
+
+const phone =
+document
+.getElementById("phone")
+.value
+.trim();
+
 
 const gregorian =
 jalaliToGregorian(
-    selectedDate.year,
-    selectedDate.month,
-    selectedDate.day
+selectedDate.year,
+selectedDate.month,
+selectedDate.day
 );
 
 
@@ -2510,69 +2053,37 @@ gregorian[0]
 +
 "-"
 +
-String(
-    gregorian[1]
-).padStart(2,"0")
+String(gregorian[1]).padStart(2,"0")
 +
 "-"
 +
-String(
-    gregorian[2]
-).padStart(2,"0");
+String(gregorian[2]).padStart(2,"0");
 
-
-/* PERSIAN DATE */
 
 const dateText =
-persianNumber(
-    selectedDate.day
-)
+persianNumber(selectedDate.day)
 +
 " "
 +
-months[
-    selectedDate.month-1
-]
+months[selectedDate.month-1]
 +
 " "
 +
-persianNumber(
-    selectedDate.year
-);
+persianNumber(selectedDate.year);
 
-
-/* BUTTON */
-
-const button =
-document.getElementById(
-    "submitButton"
-);
-
-
-button.disabled =
-true;
-
-
-button.textContent =
-"در حال ثبت...";
-
-
-try{
-
-/* CHECK AGAIN */
 
 const alreadyBooked =
 await isTimeBooked(
-    appointmentDate,
-    selectedTime,
-    selectedService
+appointmentDate,
+selectedTime,
+selectedService
 );
 
 
 if(alreadyBooked){
 
 alert(
-"این ساعت قبلاً رزرو شده است."
+"این ساعت در همین لحظه توسط شخص دیگری رزرو شده است."
 );
 
 await refreshBookedTimes();
@@ -2582,73 +2093,56 @@ return;
 }
 
 
-/* SAVE */
-
 await saveAppointment({
 
-    service:
-        selectedService,
+service:
+selectedService,
 
-    name:
-        name,
+name:
+name,
 
-    phone:
-        phone,
+phone:
+phone,
 
-    date:
-        appointmentDate,
+date:
+appointmentDate,
 
-    time:
-        selectedTime,
-
-    createdAt:
-        new Date().toISOString()
+time:
+selectedTime
 
 });
 
-
-/* RESULT */
 
 document
 .getElementById("result")
 .innerHTML =
 
-"خدمت: <b>"
-+
-selectedService
-+
+"خدمت: <b>"+
+escapeHtml(selectedService)+
 "</b><br>"
 
 +
 
-"نام: <b>"
-+
-escapeHtml(name)
-+
+"نام: <b>"+
+escapeHtml(name)+
 "</b><br>"
 
 +
 
-"شماره تماس: <b>"
-+
-escapeHtml(phone)
-+
+"شماره تماس: <b>"+
+escapeHtml(phone)+
 "</b><br>"
 
 +
 
-"تاریخ: <b>"
-+
-dateText
-+
+"تاریخ: <b>"+
+dateText+
 "</b><br>"
 
 +
 
-"ساعت: <b>"
-+
-selectedTime
-+
+"ساعت: <b>"+
+escapeHtml(selectedTime)+
 "</b><br><br>"
 
 +
@@ -2658,53 +2152,24 @@ selectedTime
 
 document
 .getElementById("success")
-.style.display =
-"block";
+.style.display="block";
+
+
+document
+.getElementById("verifyBox")
+.style.display="none";
 
 
 document
 .getElementById("success")
 .scrollIntoView({
-
-    behavior:
-        "smooth"
-
+behavior:"smooth"
 });
 
 
 await refreshBookedTimes();
 
-
-}catch(error){
-
-console.error(
-    "SUPABASE ERROR:",
-    error
-);
-
-
-alert(
-"ثبت نوبت انجام نشد.\n\n"
-+
-(
-    error.message
-    ||
-    "خطای نامشخص"
-)
-);
-
-
-}finally{
-
-button.disabled =
-false;
-
-button.textContent =
-"ثبت نوبت";
-
 }
-
-};
 
 
 /* =========================================================
@@ -2714,28 +2179,40 @@ button.textContent =
 function escapeHtml(text){
 
 return String(text)
+
 .replace(
-    /&/g,
-    "&amp;"
+/&/g,
+"&amp;"
 )
+
 .replace(
-    /</g,
-    "&lt;"
+/</g,
+"&lt;"
 )
+
 .replace(
-    />/g,
-    "&gt;"
+/>/g,
+"&gt;"
 )
+
 .replace(
-    /"/g,
-    "&quot;"
+/"/g,
+"&quot;"
 )
+
 .replace(
-    /'/g,
-    "&#039;"
+/'/g,
+"&#039;"
 );
 
 }
+
+
+/* =========================================================
+   INITIAL TIMES
+========================================================= */
+
+renderNormalTimes();
 
 </script>
 
