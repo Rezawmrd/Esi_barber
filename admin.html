@@ -5,8 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>ESI BARBER | پنل مدیریت</title>
 
@@ -466,14 +465,11 @@ button{
 
         </button>
 
-        <div
-        id="loginError">
-        </div>
+        <div id="loginError"></div>
 
     </div>
 
 </div>
-
 
 
 <!-- =========================
@@ -498,7 +494,6 @@ src="esi_barber_1994_14050522_200959787.jpg">
 <p>پنل مدیریت نوبت‌ها</p>
 
 </div>
-
 
 
 <!-- DATE -->
@@ -536,43 +531,43 @@ onclick="changeDate(1)">
 id="adminCalendar"
 class="admin-calendar">
 
-    <div class="admin-calendar-header">
+<div class="admin-calendar-header">
 
-        <button
-        class="small-btn"
-        onclick="adminPreviousMonth()">
-        ‹
-        </button>
+<button
+class="small-btn"
+onclick="adminPreviousMonth()">
+‹
+</button>
 
-        <div
-        id="adminCalendarMonth"
-        class="calendar-title">
-        </div>
+<div
+id="adminCalendarMonth"
+class="calendar-title">
+</div>
 
-        <button
-        class="small-btn"
-        onclick="adminNextMonth()">
-        ›
-        </button>
+<button
+class="small-btn"
+onclick="adminNextMonth()">
+›
+</button>
 
-    </div>
+</div>
 
-    <div class="admin-weekdays">
+<div class="admin-weekdays">
 
-        <span>ش</span>
-        <span>ی</span>
-        <span>د</span>
-        <span>س</span>
-        <span>چ</span>
-        <span>پ</span>
-        <span>ج</span>
+<span>ش</span>
+<span>ی</span>
+<span>د</span>
+<span>س</span>
+<span>چ</span>
+<span>پ</span>
+<span>ج</span>
 
-    </div>
+</div>
 
-    <div
-    id="adminCalendarDays"
-    class="admin-days">
-    </div>
+<div
+id="adminCalendarDays"
+class="admin-days">
+</div>
 
 </div>
 
@@ -581,7 +576,6 @@ type="hidden"
 id="datePicker">
 
 </div>
-
 
 
 <!-- STATS -->
@@ -632,131 +626,6 @@ VIP
 
 </div>
 
-<!-- =========================
-     MANUAL APPOINTMENT
-========================= -->
-
-<div class="card">
-
-<div class="title">
-➕ ثبت نوبت دستی
-</div>
-
-<label>
-نام مشتری
-</label>
-
-<input
-type="text"
-id="manualName"
-placeholder="مثلاً علی رضایی">
-
-
-<label>
-شماره تماس
-</label>
-
-<input
-type="tel"
-id="manualPhone"
-placeholder="09xxxxxxxxx">
-
-
-<label>
-نوع خدمت
-</label>
-
-<select
-id="manualService"
-style="
-width:100%;
-padding:14px;
-margin-bottom:12px;
-background:#0e0e0e;
-border:1px solid #333;
-border-radius:10px;
-color:white;
-font-family:inherit;
-font-size:15px;
-outline:none;
-">
-
-<option value="اصلاح">
-✂️ اصلاح - ۳۰ دقیقه
-</option>
-
-<option value="اصلاح VIP">
-👑 اصلاح VIP - ۶۰ دقیقه
-</option>
-
-</select>
-
-
-<label>
-ساعت نوبت
-</label>
-
-<select
-id="manualTime"
-style="
-width:100%;
-padding:14px;
-margin-bottom:15px;
-background:#0e0e0e;
-border:1px solid #333;
-border-radius:10px;
-color:white;
-font-family:inherit;
-font-size:15px;
-outline:none;
-">
-
-<option value="">
-انتخاب ساعت
-</option>
-
-<option value="08:30">08:30</option>
-<option value="09:00">09:00</option>
-<option value="09:30">09:30</option>
-<option value="10:00">10:00</option>
-<option value="10:30">10:30</option>
-<option value="11:00">11:00</option>
-<option value="11:30">11:30</option>
-<option value="12:00">12:00</option>
-<option value="12:30">12:30</option>
-<option value="13:00">13:00</option>
-<option value="13:30">13:30</option>
-
-<option value="16:00">16:00</option>
-<option value="16:30">16:30</option>
-<option value="17:00">17:00</option>
-<option value="17:30">17:30</option>
-<option value="18:00">18:00</option>
-<option value="18:30">18:30</option>
-<option value="19:00">19:00</option>
-<option value="19:30">19:30</option>
-<option value="20:00">20:00</option>
-<option value="20:30">20:30</option>
-<option value="21:00">21:00</option>
-
-</select>
-
-
-<button
-id="manualAppointmentButton"
-class="gold-btn"
-onclick="createManualAppointment()">
-
-➕ ثبت نوبت
-
-</button>
-
-
-<div
-id="manualAppointmentMessage">
-</div>
-
-</div>
 
 <!-- APPOINTMENTS -->
 
@@ -766,8 +635,7 @@ id="manualAppointmentMessage">
 📋 نوبت‌های روز
 </div>
 
-<div
-id="appointments">
+<div id="appointments">
 
 <div class="loading">
 در حال دریافت نوبت‌ها...
@@ -776,7 +644,6 @@ id="appointments">
 </div>
 
 </div>
-
 
 
 <button
@@ -814,7 +681,6 @@ ESI BARBER
 </div>
 
 
-
 <script type="module">
 
 /* =========================
@@ -843,7 +709,6 @@ createClient(
 );
 
 
-
 /* =========================
    MONTHS
 ========================= */
@@ -864,7 +729,6 @@ const months=[
 "اسفند"
 
 ];
-
 
 
 /* =========================
@@ -1055,7 +919,6 @@ d=>"۰۱۲۳۴۵۶۷۸۹"[d]
 }
 
 
-
 /* =========================
    TODAY
 ========================= */
@@ -1072,20 +935,19 @@ now.getDate()
 
 let selectedAdminDate={
 
-    year:todayJalali[0],
-    month:todayJalali[1],
-    day:todayJalali[2]
+year:todayJalali[0],
+month:todayJalali[1],
+day:todayJalali[2]
 
 };
 
 
 let adminCalendarDate={
 
-    year:todayJalali[0],
-    month:todayJalali[1]
+year:todayJalali[0],
+month:todayJalali[1]
 
 };
-
 
 
 /* =========================
@@ -1128,7 +990,6 @@ document
 }
 
 
-
 /* =========================
    SUPABASE DATE
 ========================= */
@@ -1157,7 +1018,6 @@ String(g[2]).padStart(2,"0")
 }
 
 
-
 /* =========================
    LOAD APPOINTMENTS
 ========================= */
@@ -1165,13 +1025,13 @@ String(g[2]).padStart(2,"0")
 async function getAppointments(){
 
 const {
-    data,
-    error
+data,
+error
 } =
 await supabase
-    .from("appointments")
-    .select("*")
-    .order("appointment_time",{ascending:true});
+.from("appointments")
+.select("*")
+.order("appointment_time",{ascending:true});
 
 
 if(error){
@@ -1183,7 +1043,6 @@ throw error;
 return data || [];
 
 }
-
 
 
 /* =========================
@@ -1201,8 +1060,8 @@ if(calendar.classList.contains("show")){
 
 adminCalendarDate={
 
-    year:selectedAdminDate.year,
-    month:selectedAdminDate.month
+year:selectedAdminDate.year,
+month:selectedAdminDate.month
 
 };
 
@@ -1211,7 +1070,6 @@ renderAdminCalendar();
 }
 
 };
-
 
 
 function renderAdminCalendar(){
@@ -1349,14 +1207,13 @@ daysContainer.appendChild(div);
 }
 
 
-
 function selectAdminDate(year,month,day){
 
 selectedAdminDate={
 
-    year:year,
-    month:month,
-    day:day
+year:year,
+month:month,
+day:day
 
 };
 
@@ -1372,7 +1229,6 @@ document
 loadForSelectedDate();
 
 }
-
 
 
 window.adminPreviousMonth=function(){
@@ -1391,7 +1247,6 @@ renderAdminCalendar();
 };
 
 
-
 window.adminNextMonth=function(){
 
 adminCalendarDate.month++;
@@ -1406,7 +1261,6 @@ adminCalendarDate.year++;
 renderAdminCalendar();
 
 };
-
 
 
 window.changeDate=function(direction){
@@ -1442,9 +1296,9 @@ date.getDate()
 
 selectedAdminDate={
 
-    year:jalali[0],
-    month:jalali[1],
-    day:jalali[2]
+year:jalali[0],
+month:jalali[1],
+day:jalali[2]
 
 };
 
@@ -1455,7 +1309,6 @@ updateDateButton();
 loadForSelectedDate();
 
 };
-
 
 
 /* =========================
@@ -1469,10 +1322,13 @@ if(!time) return 0;
 const cleanTime=
 String(time).substring(0,5);
 
-const [h,m]=
-cleanTime.split(":").map(Number);
+const parts=
+cleanTime.split(":");
 
-return h*60+m;
+return (
+Number(parts[0])*60+
+Number(parts[1])
+);
 
 }
 
@@ -1486,14 +1342,15 @@ let m=
 minutes%60;
 
 
-return String(h).padStart(2,"0")
+return (
+String(h).padStart(2,"0")
 +
 ":"
 +
-String(m).padStart(2,"0");
+String(m).padStart(2,"0")
+);
 
 }
-
 
 
 /* =========================
@@ -1511,6 +1368,21 @@ return String(text ?? "")
 
 }
 
+
+/* =========================
+   SERVICE CHECK
+========================= */
+
+function isVipAppointment(item){
+
+return (
+String(item.service || "")
+.trim()
+===
+"اصلاح VIP"
+);
+
+}
 
 
 /* =========================
@@ -1546,18 +1418,8 @@ const selectedDateText=
 getSelectedDateText();
 
 
-/*
-اول بر اساس appointment_date
-فیلتر می‌کنیم.
-*/
-
 const list=
 all.filter(item=>{
-
-/*
-اگر appointment_date
-در دیتابیس به صورت YYYY-MM-DD باشد
-*/
 
 if(item.appointment_date){
 
@@ -1570,10 +1432,6 @@ selectedDateGregorian;
 }
 
 
-/*
-سازگاری با نسخه قبلی
-*/
-
 if(item.date){
 
 return item.date===selectedDateText;
@@ -1585,7 +1443,9 @@ return false;
 });
 
 
-/* SORT */
+/* =========================
+   SORT BY REAL TIME
+========================= */
 
 list.sort(
 (a,b)=>
@@ -1599,7 +1459,9 @@ b.appointment_time || b.time
 );
 
 
-/* STATS */
+/* =========================
+   STATS
+========================= */
 
 document
 .getElementById("totalCount")
@@ -1611,7 +1473,7 @@ document
 .getElementById("normalCount")
 .textContent=
 list.filter(
-x=>x.service==="اصلاح"
+x=>!isVipAppointment(x)
 ).length;
 
 
@@ -1619,11 +1481,13 @@ document
 .getElementById("vipCount")
 .textContent=
 list.filter(
-x=>x.service==="اصلاح VIP"
+x=>isVipAppointment(x)
 ).length;
 
 
-/* EMPTY */
+/* =========================
+   EMPTY
+========================= */
 
 if(list.length===0){
 
@@ -1645,7 +1509,9 @@ return;
 }
 
 
-/* RENDER */
+/* =========================
+   RENDER
+========================= */
 
 container.innerHTML="";
 
@@ -1653,7 +1519,7 @@ container.innerHTML="";
 list.forEach(item=>{
 
 const vip=
-item.service==="اصلاح VIP";
+isVipAppointment(item);
 
 
 const startTime=
@@ -1661,13 +1527,29 @@ item.appointment_time
 ?
 String(item.appointment_time).substring(0,5)
 :
-item.time;
+(
+item.time
+?
+String(item.time).substring(0,5)
+:
+"--:--"
+);
 
 
-const duration=
-Number(
-item.duration_minutes
-)
+/*
+مدت نوبت:
+
+اول appointment_minute
+بعد duration_minutes
+اگر هر دو خالی بودند:
+VIP = 60
+اصلاح = 30
+*/
+
+const duration =
+Number(item.appointment_minute)
+||
+Number(item.duration_minutes)
 ||
 (
 vip
@@ -1698,14 +1580,16 @@ div.innerHTML=`
 
 <div class="appointment-time">
 
-${escapeHtml(startTime || "--:--")}
+${escapeHtml(startTime)}
 
 </div>
 
 
 <div class="service-name">
 
-${vip ? "👑 اصلاح VIP" : "✂️ اصلاح"}
+${vip
+? "👑 اصلاح VIP"
+: "✂️ اصلاح"}
 
 </div>
 
@@ -1730,9 +1614,14 @@ item.phone || "-"
 
 <div class="duration">
 
-⏱ ${escapeHtml(startTime || "--:--")}
+⏱ ${escapeHtml(startTime)}
 تا
 ${escapeHtml(end)}
+
+&nbsp;&nbsp;•
+
+${persianNumber(duration)}
+دقیقه
 
 </div>
 
@@ -1768,7 +1657,10 @@ container.appendChild(div);
 
 }catch(error){
 
-console.error(error);
+console.error(
+"LOAD APPOINTMENTS ERROR:",
+error
+);
 
 
 container.innerHTML=
@@ -1789,9 +1681,8 @@ ${escapeHtml(error.message)}
 };
 
 
-
 /* =========================
-   DELETE APPOINTMENT
+   DELETE
 ========================= */
 
 window.deleteAppointment=
@@ -1799,7 +1690,9 @@ async function(id){
 
 if(!id){
 
-alert("شناسه نوبت پیدا نشد.");
+alert(
+"شناسه نوبت پیدا نشد."
+);
 
 return;
 
@@ -1822,12 +1715,12 @@ return;
 try{
 
 const {
-    error
+error
 } =
 await supabase
-    .from("appointments")
-    .delete()
-    .eq("id",id);
+.from("appointments")
+.delete()
+.eq("id",id);
 
 
 if(error){
@@ -1837,7 +1730,9 @@ throw error;
 }
 
 
-alert("رزرو با موفقیت حذف شد.");
+alert(
+"رزرو با موفقیت حذف شد."
+);
 
 
 await loadForSelectedDate();
@@ -1845,7 +1740,10 @@ await loadForSelectedDate();
 
 }catch(error){
 
-console.error(error);
+console.error(
+"DELETE ERROR:",
+error
+);
 
 
 alert(
@@ -1859,368 +1757,6 @@ error.message
 };
 
 
-/* =========================
-   MANUAL APPOINTMENT
-========================= */
-
-window.createManualAppointment =
-async function(){
-
-const name =
-document
-.getElementById("manualName")
-.value
-.trim();
-
-
-const phone =
-document
-.getElementById("manualPhone")
-.value
-.trim();
-
-
-const service =
-document
-.getElementById("manualService")
-.value;
-
-
-const time =
-document
-.getElementById("manualTime")
-.value;
-
-
-const button =
-document
-.getElementById("manualAppointmentButton");
-
-
-const messageBox =
-document
-.getElementById("manualAppointmentMessage");
-
-
-messageBox.innerHTML="";
-
-
-if(!name){
-
-messageBox.innerHTML=
-`
-<div class="error-box">
-لطفاً نام مشتری را وارد کنید.
-</div>
-`;
-
-return;
-
-}
-
-
-if(!phone){
-
-messageBox.innerHTML=
-`
-<div class="error-box">
-لطفاً شماره تماس مشتری را وارد کنید.
-</div>
-`;
-
-return;
-
-}
-
-
-if(!/^09\d{9}$/.test(phone)){
-
-messageBox.innerHTML=
-`
-<div class="error-box">
-شماره موبایل معتبر نیست.
-</div>
-`;
-
-return;
-
-}
-
-
-if(!time){
-
-messageBox.innerHTML=
-`
-<div class="error-box">
-لطفاً ساعت نوبت را انتخاب کنید.
-</div>
-`;
-
-return;
-
-}
-
-
-const appointmentDate =
-getGregorianDateString();
-
-
-const duration =
-service==="اصلاح VIP"
-?60
-:30;
-
-
-const newStart =
-timeToMinutes(time);
-
-
-const newEnd =
-newStart+
-duration;
-
-
-button.disabled=true;
-
-button.textContent=
-"در حال بررسی...";
-
-
-try{
-
-
-/* =========================
-   CHECK CONFLICT
-========================= */
-
-const {
-data:appointments,
-error:loadError
-}
-=
-await supabase
-.from("appointments")
-.select("*")
-.eq(
-"appointment_date",
-appointmentDate
-);
-
-
-if(loadError){
-
-throw loadError;
-
-}
-
-
-let conflict=false;
-
-
-(appointments || [])
-.forEach(item=>{
-
-
-const bookedTime =
-String(
-item.appointment_time || ""
-).substring(0,5);
-
-
-if(!bookedTime){
-
-return;
-
-}
-
-
-const bookedStart =
-timeToMinutes(
-bookedTime
-);
-
-
-const bookedDuration =
-Number(
-item.duration_minutes
-)
-||
-Number(
-item.appointment_minute
-)
-||
-(
-item.service==="اصلاح VIP"
-?60
-:30
-);
-
-
-const bookedEnd =
-bookedStart+
-bookedDuration;
-
-
-/*
-بررسی تداخل ساعت
-*/
-
-if(
-
-newStart < bookedEnd
-
-&&
-
-newEnd > bookedStart
-
-){
-
-conflict=true;
-
-}
-
-
-});
-
-
-if(conflict){
-
-throw new Error(
-"این ساعت با یک نوبت دیگر تداخل دارد."
-);
-
-}
-
-
-/* =========================
-   SAVE
-========================= */
-
-
-button.textContent=
-"در حال ثبت نوبت...";
-
-
-const {
-error
-}
-=
-await supabase
-.from("appointments")
-.insert({
-
-service:service,
-
-name:name,
-
-phone:phone,
-
-appointment_date:
-appointmentDate,
-
-appointment_time:
-time,
-
-appointment_minute:
-duration,
-
-duration_minutes:
-duration,
-
-created_at:
-new Date().toISOString()
-
-});
-
-
-if(error){
-
-throw error;
-
-}
-
-
-/* =========================
-   SUCCESS
-========================= */
-
-
-messageBox.innerHTML=
-`
-<div class="success-box">
-
-✅ نوبت با موفقیت ثبت شد.
-
-<br>
-
-${escapeHtml(name)}
-
--
-
-${escapeHtml(time)}
-
-</div>
-`;
-
-
-/* پاک کردن فرم */
-
-document
-.getElementById("manualName")
-.value="";
-
-
-document
-.getElementById("manualPhone")
-.value="";
-
-
-document
-.getElementById("manualTime")
-.value="";
-
-
-/* بروزرسانی لیست */
-
-await loadForSelectedDate();
-
-
-}catch(error){
-
-console.error(
-"MANUAL APPOINTMENT ERROR:",
-error
-);
-
-
-messageBox.innerHTML=
-`
-<div class="error-box">
-
-❌ خطا در ثبت نوبت
-
-<br>
-
-${escapeHtml(
-error.message
-)}
-
-</div>
-`;
-
-
-}finally{
-
-
-button.disabled=false;
-
-button.textContent=
-"➕ ثبت نوبت";
-
-
-}
-
-};
 /* =========================
    LOGIN
 ========================= */
@@ -2291,14 +1827,14 @@ button.textContent=
 try{
 
 const {
-    data,
-    error
+data,
+error
 } =
 await supabase.auth.signInWithPassword({
 
-    email:email,
+email:email,
 
-    password:password
+password:password
 
 });
 
@@ -2330,7 +1866,10 @@ showAdmin();
 
 }catch(error){
 
-console.error(error);
+console.error(
+"LOGIN ERROR:",
+error
+);
 
 
 errorBox.innerHTML=
@@ -2358,7 +1897,6 @@ button.textContent=
 };
 
 
-
 /* =========================
    SHOW ADMIN
 ========================= */
@@ -2383,7 +1921,6 @@ await loadForSelectedDate();
 }
 
 
-
 /* =========================
    LOGOUT
 ========================= */
@@ -2393,14 +1930,15 @@ async function(){
 
 await supabase.auth.signOut();
 
+
 sessionStorage.removeItem(
 "esiAdmin"
 );
 
+
 location.reload();
 
 };
-
 
 
 /* =========================
@@ -2423,7 +1961,6 @@ login();
 );
 
 
-
 /* =========================
    START
 ========================= */
@@ -2431,7 +1968,7 @@ login();
 async function start(){
 
 const {
-    data
+data
 } =
 await supabase.auth.getSession();
 
