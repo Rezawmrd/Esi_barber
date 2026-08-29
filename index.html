@@ -1793,197 +1793,118 @@ renderCalendar();
    SEND OTP
 ========================================================= */
 
-window.sendVerificationCode =
-async function(){
 
-const phone =
-document
-.getElementById("phone")
-.value
-.trim();
+window.sendVerificationCode = async function () {
+
+  const phone =
+    document.getElementById("phone").value.trim();
+
+  if (!selectedService) {
+    alert("لطفاً ابتدا خدمت را انتخاب کنید.");
+    return;
+  }
 
+  if (!selectedDate) {
+    alert("لطفاً تاریخ نوبت را انتخاب کنید.");
+    return;
+  }
 
-if(!selectedService){
+  if (!selectedTime) {
+    alert("لطفاً ساعت نوبت را انتخاب کنید.");
+    return;
+  }
 
-alert(
-"لطفاً ابتدا خدمت را انتخاب کنید."
-);
+  if (!phone) {
+    alert("لطفاً شماره تماس را وارد کنید.");
+    return;
+  }
 
-return;
+  if (!/^09\d{9}$/.test(phone)) {
+    alert("لطفاً شماره موبایل معتبر وارد کنید.");
+    return;
+  }
 
-}
+  const button =
+    document.getElementById("sendOtpButton");
 
+  button.disabled = true;
+  button.textContent = "در حال ارسال...";
 
-if(!selectedDate){
+  try {
 
-alert(
-"لطفاً تاریخ نوبت را انتخاب کنید."
-);
+    const response = await fetch(
+      SUPABASE_URL + "/functions/v1/send_otp",
+      {
+        method: "POST",
 
-return;
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_KEY,
+          "Authorization": "Bearer " + SUPABASE_KEY
+        },
 
-}
+        body: JSON.stringify({
+          phone: phone
+        })
+      }
+    );
 
+    const data = await response.json();
 
-if(!selectedTime){
+    console.log("SEND OTP RESPONSE:", data);
 
-alert(
-"لطفاً ساعت نوبت را انتخاب کنید."
-);
+    if (!response.ok) {
+      throw new Error(
+        data.message ||
+        "خطا در Edge Function"
+      );
+    }
 
-return;
+    if (!data.success) {
+      throw new Error(
+        data.message ||
+        "ارسال کد انجام نشد."
+      );
+    }
 
-}
+    phoneVerified = false;
 
+    document
+      .getElementById("verifyBox")
+      .style.display = "block";
 
-if(!phone){
+    document
+      .getElementById("verifyCode")
+      .value = "";
 
-alert(
-"لطفاً شماره تماس را وارد کنید."
-);
+    document
+      .getElementById("verifyCode")
+      .focus();
 
-return;
+    alert(
+      "کد تأیید برای شماره شما ارسال شد."
+    );
 
-}
+  } catch (error) {
 
+    console.error(
+      "SEND OTP ERROR:",
+      error
+    );
 
-if(!/^09\d{9}$/.test(phone)){
+    alert(
+      error.message ||
+      "ارسال کد تأیید انجام نشد."
+    );
 
-alert(
-"لطفاً شماره موبایل معتبر وارد کنید."
-);
+  } finally {
 
-return;
+    button.disabled = false;
+    button.textContent = "ارسال مجدد کد";
 
-}
-
-
-const button =
-document.getElementById(
-"sendOtpButton"
-);
-
-button.disabled=true;
-
-button.textContent=
-"در حال ارسال...";
-
-
-try{
-
-console.log(
-"SENDING OTP:",
-phone
-);
-
-
-const {
-data,
-error
-} =
-await supabase.functions.invoke(
-"send_otp",
-{
-
-body:{
-
-phone:phone
-
-}
-
-}
-);
-
-
-console.log(
-"SEND OTP DATA:",
-data
-);
-
-console.log(
-"SEND OTP ERROR:",
-error
-);
-
-
-if(error){
-
-throw new Error(
-error.message ||
-"خطا در ارسال درخواست به Edge Function."
-);
-
-}
-
-
-if(!data){
-
-throw new Error(
-"پاسخی از Edge Function دریافت نشد."
-);
-
-}
-
-
-if(!data.success){
-
-throw new Error(
-data.message ||
-"ارسال کد انجام نشد."
-);
-
-}
-
-
-phoneVerified=false;
-
-
-document
-.getElementById("verifyBox")
-.style.display=
-"block";
-
-
-document
-.getElementById("verifyCode")
-.value="";
-
-
-document
-.getElementById("verifyCode")
-.focus();
-
-
-alert(
-"کد تأیید برای شماره شما ارسال شد."
-);
-
-
-}catch(error){
-
-console.error(
-"SEND OTP ERROR:",
-error
-);
-
-
-alert(
-error.message ||
-"ارسال کد تأیید انجام نشد."
-);
-
-
-}finally{
-
-button.disabled=false;
-
-button.textContent=
-"ارسال مجدد کد";
-
-}
+  }
 
 };
-
 
 /* =========================================================
    VERIFY OTP
