@@ -1841,7 +1841,7 @@ window.sendVerificationCode = async function () {
         console.log("PHONE:", phone);
 
         const response = await fetch(
-            SUPABASE_URL + "/functions/v1/send_otp",
+            SUPABASE_URL + "/functions/v1/send-otp",
             {
                 method: "POST",
 
